@@ -1,8 +1,6 @@
 from django.db import models
 from Users.models import Employee
 
-# Create your models here.
-
 
 class Product(models.Model):
     prod_name = models.CharField(max_length=500)
@@ -21,12 +19,12 @@ class Sale(models.Model):
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    seeling_date = models.DateField((""), auto_now=False, auto_now_add=False)
+    selling_date = models.DateField("", auto_now=False, auto_now_add=False)
 
 
 class SalesDesc(models.Model):
     sales_id = models.ForeignKey(Sale, on_delete=models.CASCADE)
-    Employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE)
 
 
 class Lead(models.Model):
@@ -40,5 +38,5 @@ class Lead(models.Model):
 class Purchase(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     Quantity = models.IntegerField()
-    Purcahged_from = models.CharField(max_length=100)
+    purchased_from = models.CharField(max_length=100)
     date = models.DateField()

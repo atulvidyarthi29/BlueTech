@@ -1,9 +1,10 @@
 <h1 style="text-align: center;">Sign Up</h1>
 
-<div>
+<div style="padding:5% 10% 0% 10%">
     <form method='POST'>
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ user_form.as_p }}
+        {{ key_form.as_p}}
         <button type="submit">Submit</button>
     </form>
     <h5>Already have an account</h5>

@@ -1,0 +1,13 @@
+<h1 style="text-align:center"> Take a Moment to complete your profile.</h1>
+
+<div>
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        Username:{{ user_form.username }}
+        <br><br>
+        Email:{{ user_form.email }}
+        <br>
+        {{ profile_edit_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>

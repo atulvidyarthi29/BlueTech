@@ -1,12 +1,12 @@
 from django.db import models
-from Users.models import Employee
 from Sales.models import *
+
 
 # Create your models here.
 
 
 class PayableAccount(models.Model):
-    purchage_id = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+    purchase_id = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     deal_amount = models.IntegerField()
