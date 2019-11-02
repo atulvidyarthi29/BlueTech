@@ -1,12 +1,80 @@
-<h1 style="text-align: center;">Sign Up</h1>
+{% extends 'home/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
 
-<div>
-    <form method='POST'>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Log in</button>
-    </form>
+{% block head %}
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="{% static 'assets/dist/img/ico/favicon.png' %}" type="image/x-icon">
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- Bootstrap rtl -->
+    <!--<link href="assets/bootstrap-rtl/bootstrap-rtl.min.css" rel="stylesheet" type="text/css"/>-->
+    <!-- Pe-icon-7-stroke -->
+    <link href="{% static 'assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- style css -->
+    <link href="{% static 'assets/dist/css/stylecrm.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- Theme style rtl -->
+    <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
+{% endblock %}
 
-    <h5>Need to register</h5>
-    <a href="{% url 'users:register' %}">Register</a>
-</div>
+{% block body %}
+    <div class="login-wrapper">
+        <div class="back-link">
+            <a href="{% url 'users:project_home' %}" class="btn btn-add">Back to Home</a>
+        </div>
+        <div class="container-center">
+            <div class="login-area">
+                <div class="panel panel-bd panel-custom">
+                    <div class="panel-heading">
+                        <div class="view-header">
+                            <div class="header-icon">
+                                <i class="pe-7s-unlock"></i>
+                            </div>
+                            <div class="header-title">
+                                <h3>Login</h3>
+                                <small><strong>Please enter your credentials to login.</strong></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form method='POST' id="loginForm" novalidate>
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {% for error in form.non_field_errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <div class="form-group">
+                                <label class="control-label" for="username">Username</label>
+                                {% render_field form.username type="text" placeholder="example@gmail.com" id="username" class="form-control is-valid" %}
+                                <div style="color:red;" class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password">Password</label>
+                                {% render_field form.password id="password" class="form-control is-valid" placeholder="password" %}
+                                <div style="color:red;" class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                            </div>
+                            <div>
+                                <button class="btn btn-add" type="submit">Login</button>
+                                <br>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="{% static 'assets/plugins/jQuery/jquery-1.12.4.min.js' %}" type="text/javascript"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+{% endblock %}

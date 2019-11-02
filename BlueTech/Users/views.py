@@ -23,6 +23,7 @@ def dashboard(request):
     return render(request, 'home/dashboard.html')
 
 
+@login_required
 def post_login(request):
     try:
         is_profile_complete = request.user.employee
@@ -33,6 +34,7 @@ def post_login(request):
     return redirect('users:profile')
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         try:
