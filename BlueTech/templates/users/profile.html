@@ -1,13 +1,148 @@
-<h1 style="text-align:center"> Take a Moment to complete your profile.</h1>
+{% extends 'home/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
 
-<div>
-    <form method='POST' enctype="multipart/form-data">
-        {% csrf_token %}
-        Username:{{ user_form.username }}
-        <br><br>
-        Email:{{ user_form.email }}
-        <br>
-        {{ profile_edit_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-</div>
+{% block head %}
+    <title>Welcome</title>
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="{% static 'assets/dist/img/ico/favicon.png' %}" type="image/x-icon">
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- Bootstrap rtl -->
+    <!--<link href="assets/bootstrap-rtl/bootstrap-rtl.min.css" rel="stylesheet" type="text/css"/>-->
+    <!-- Pe-icon-7-stroke -->
+    <link href="{% static 'assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- style css -->
+    <link href="{% static 'assets/dist/css/stylecrm.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- Theme style rtl -->
+    <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
+{% endblock %}
+{% block body %}
+    <div class="login-wrapper" style="margin-top:-70px;">
+        <div class="container-center lg">
+            <div class="login-area">
+                <div class="panel panel-bd panel-custom">
+                    <div class="panel-heading">
+                        <div class="view-header">
+                            <div class="header-icon">
+                                <i class="pe-7s-unlock"></i>
+                            </div>
+                            <div class="header-title">
+                                <h3>Profile</h3>
+                                <small><strong>Take a Moment to complete your profile.</strong></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form method="POST" id="loginForm" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {% if user_form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {% for error in user_form.non_field_errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if profile_edit_form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {% for error in profile_edit_form.non_field_errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div>
+                                <div class="row text-center">
+                                    <label>Avatar</label>
+                                    <br>
+                                    <div class="col-md-7" style="float: right">
+                                        {% render_field profile_edit_form.profile_pic id="email" style="color:blue;border-radius: 120px;background:#ff0000;margin:4px;border: 1px solid #BFE5E1;height:120px;width:120px;" %}
+                                        <div style="color:red;">{% for error in profile_edit_form.profile_pic.errors %}
+                                            {{ error }}
+                                        {% endfor %}</div>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    {% render_field user_form.username id="username" class="form-control" readonly='readonly' %}
+                                    <div style="color:red;">{% for error in user_form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    {% render_field user_form.email id="email" class="form-control" %}
+                                    <div style="color:red;">{% for error in user_form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    {% render_field profile_edit_form.first_name id="firstname" class="form-control" %}
+                                    <div style="color:red;">{% for error in profile_edit_form.first_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                    <label>Last Name</label>
+                                    {% render_field profile_edit_form.last_name id="lastname" class="form-control" %}
+                                    <div style="color:red;">{% for error in profile_edit_form.last_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone No.</label>
+                                    {% render_field profile_edit_form.phone_no id="phone" class="form-control" pattern='^\+?1?\d{10}$' %}
+                                    <div style="color:red;">{% for error in profile_edit_form.phone_no.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    {% render_field profile_edit_form.date id="dob" style="border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
+                                    <div style="color:red;">{% for error in profile_edit_form.date.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    {% render_field profile_edit_form.dept id="dept" style="border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
+                                    <div style="color:red;">{% for error in profile_edit_form.dept.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date of Joining</label>
+                                    {% render_field profile_edit_form.date_of_joining id="date_of_joining" style="border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
+                                    <div style="color:red;">{% for error in profile_edit_form.date_of_joining.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    {% render_field profile_edit_form.gender id="gender" style="border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
+                                    <div style="color:red;">{% for error in profile_edit_form.gender.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload your CV here</label>
+                                    {% render_field profile_edit_form.cv id="cv" style="color:blue;border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
+                                    <div style="color:red;">{% for error in profile_edit_form.cv.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
+                                </div>
+
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-warning" type="submit">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="{% static 'assets/plugins/jQuery/jquery-1.12.4.min.js' %}" type="text/javascript"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+{% endblock %}

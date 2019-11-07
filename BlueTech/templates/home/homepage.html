@@ -1,8 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0">
+
+{% if not true %}
+    <div style="text-align:center; background: #c3f788;border-radius: 3px;border: 2px solid green;color: green;">
+        You have
+        successfully been logged out.</div>
+{% endif %}
+
 <h1 style="text-align: center;">HomePage</h1>
 <div style="padding:10%;">
+
     {% if validated %}
-    <a href="{% url 'users:login' %}">Login</a>
-    {%else%}
-    <a href="{% url 'users:register' %}">Get Started</a>
-    {%endif%}
+        <a href="{% url 'users:login' %}">Login</a>
+    {% else %}
+        <a href="{% url 'users:register' %}">Get Started</a>
+    {% endif %}
 </div>
+</body>
+</html>

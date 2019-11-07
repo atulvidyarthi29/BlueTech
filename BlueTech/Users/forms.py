@@ -22,7 +22,9 @@ YEARS = [x for x in range(1940, 2021)]
 class ProfileEditForm(forms.ModelForm):
     date = forms.DateField(widget=forms.SelectDateWidget(years=YEARS))
     date_of_joining = forms.DateField(widget=forms.SelectDateWidget(years=YEARS))
+    phone_no = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
 
     class Meta:
         model = Employee
-        fields = ['phone_no', 'date', 'date_of_joining', 'gender', 'dept', 'position', 'cv']
+        fields = ['first_name', 'last_name', 'phone_no', 'date', 'date_of_joining', 'gender', 'dept', 'cv',
+                  'profile_pic']

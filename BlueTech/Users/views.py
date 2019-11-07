@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponse
 
 from .forms import UserRegistrationForm, ProductKeyForm, ProfileEditForm
 from .models import License, Employee
@@ -15,7 +14,7 @@ def home(request):
         validated = license_obj.validated
     except:
         validated = False
-    return render(request, 'home/homepage.html', context={'validated': validated})
+    return render(request, 'home/homepage.html', context={'validated': validated, 'true': True})
 
 
 @login_required
@@ -36,6 +35,7 @@ def post_login(request):
 
 @login_required
 def profile(request):
+    print('Submitted')
     if request.method == 'POST':
         try:
             profile_edit_form = ProfileEditForm(request.POST, request.FILES,
@@ -44,6 +44,7 @@ def profile(request):
             profile_edit_form = ProfileEditForm(request.POST, request.FILES)
         user_form = UserRegistrationForm(request.POST, instance=request.user)
         if profile_edit_form.is_valid():
+            print('valid')
             form_object = profile_edit_form.save(commit=False)
             form_object.user = request.user
             if profile_edit_form.cleaned_data['dept'] == 'CEO':
@@ -56,7 +57,10 @@ def profile(request):
                 form_object.is_complete = False
             form_object.is_verified = True
             form_object.save()
-        return redirect('users:dashboard')
+            return redirect('users:dashboard')
+        print(profile_edit_form.errors)
+        return render(request, 'users/profile.html', {'profile_edit_form': profile_edit_form, 'user_form': user_form,
+                                                      'errors': profile_edit_form.errors})
 
     else:
         profile_edit_form = ProfileEditForm()
@@ -80,7 +84,8 @@ def register(request):
                                           password=user_form.cleaned_data['password1'], )
                 login(request, login_user)
                 return redirect('users:post_login')
-            return HttpResponse("Product Key not matching")
+            return render(request, 'users/register.html',
+                          {'user_form': user_form, 'key_form': key_form, 'errors': "Unauthorized"})
     else:
         user_form = UserRegistrationForm()
         key_form = ProductKeyForm()
