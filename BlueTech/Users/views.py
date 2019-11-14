@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-
+from django.conf import settings
+from django.core.mail import send_mail
 from .forms import UserRegistrationForm, ProductKeyForm, ProfileEditForm
 from .models import License, Employee
 from django.contrib.auth.decorators import login_required
@@ -19,7 +20,11 @@ def home(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'home/dashboard.html')
+    try:
+        department = request.user.employee.dept
+        return render(request, 'home/dashboard.html', context={'department': department, 'user': request.user.employee})
+    except:
+        return render(request, 'home/404.html')
 
 
 @login_required
@@ -77,9 +82,9 @@ def register(request):
             pd_key = key_form.cleaned_data['product_key']
             lic_obj = License.objects.first()
             if lic_obj.licence == pd_key:
-                user_form.save()
                 lic_obj.validated = True
                 lic_obj.save()
+                user_form.save()
                 login_user = authenticate(username=user_form.cleaned_data['username'],
                                           password=user_form.cleaned_data['password1'], )
                 login(request, login_user)

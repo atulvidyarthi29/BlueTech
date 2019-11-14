@@ -16,12 +16,12 @@ class Employee(models.Model):
     GENDER_CHOICES = (('M', 'Male'),
                       ('F', 'Female'),)
     gender = models.CharField(max_length=50, null=True, choices=GENDER_CHOICES)
-    DEPT_CHOICES = (('C', 'CEO'),
-                    ('H', 'HR'),
-                    ('S', 'SALES'),
-                    ('A', 'ACCOUNTS'))
+    DEPT_CHOICES = (('CEO', 'CEO'),
+                    ('HR', 'HR'),
+                    ('SALES', 'SALES'),
+                    ('ACCOUNTS', 'ACCOUNTS'))
     dept = models.CharField(max_length=100, choices=DEPT_CHOICES)
-    # position = models.CharField(max_length=50, null=True)
+    position = models.CharField(max_length=50, null=True)
     date_of_joining = models.DateField(null=True)
     reporting_to = models.ForeignKey(
         "Employee", null=True, on_delete=models.CASCADE)
@@ -29,3 +29,6 @@ class Employee(models.Model):
     is_complete = models.BooleanField()
     cv = models.FileField(upload_to='Media/cv')
     profile_pic = models.ImageField(upload_to='Media/profile_pics')
+
+    def __str__(self):
+        return self.user.username

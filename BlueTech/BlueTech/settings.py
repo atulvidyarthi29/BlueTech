@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'startupbluetech.pvt@gmail.com'
+EMAIL_HOST_PASSWORD = 'test@123test'
+EMAIL_PORT = 587
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -36,10 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'crispy_forms',
     'Accounts',
     'HR',
     'Sales',
-    'Users'
+    'Users',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +131,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'users:post_login'
+LOGOUT_REDIRECT_URL = 'users:project_home'
