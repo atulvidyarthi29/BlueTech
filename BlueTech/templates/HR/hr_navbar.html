@@ -30,7 +30,7 @@
 </li>
 
 <li>
-    <a href="train.html">
+    <a href="{% url 'users:hr:train' %}">
         <i class="fa fa-clock-o"></i><span>Training</span>
         <span class="pull-right-container">
                      </span>
@@ -38,16 +38,16 @@
 </li>
 
 <li class="treeview">
-    <a href="#">
+    <a href="{% url 'users:hr:meet' %}">
         <i class="fa fa-book"></i><span>Meetings</span>
         <span class="pull-right-container">
                      <i class="fa fa-angle-left pull-right"></i>
                      </span>
     </a>
-    <ul class="treeview-menu">
-        <li><a href="rtask.html">Running Task</a></li>
-        <li><a href="atask.html">Archive Task</a></li>
-    </ul>
+{#    <ul class="treeview-menu">#}
+{#        <li><a href="rtask.html">Running Task</a></li>#}
+{#        <li><a href="atask.html">Archive Task</a></li>#}
+{#    </ul>#}
 </li>
 
 <li class="treeview">

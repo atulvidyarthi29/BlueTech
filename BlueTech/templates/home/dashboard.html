@@ -18,6 +18,38 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <a href="{% url 'users:hr:hr_dashboard' %}">
+                        <div id="cardbox1">
+                            <div class="statistic-box">
+                                <i class="fa fa-user-plus fa-3x"></i>
+                                <h3> HR Department</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <a href="{% url 'users:hr:depart' 'SALES' %}">
+                        <div id="cardbox2">
+                            <div class="statistic-box">
+                                <i class="fa fa-user-secret fa-3x"></i>
+                                <h3>Sales Department</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <a href="{% url 'users:hr:depart' 'ACCOUNTS' %}">
+                        <div id="cardbox3">
+                            <div class="statistic-box">
+                                <i class="fa fa-money fa-3x"></i>
+                                <h3> Accounts Department</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <div class="panel panel-bd lobidisable">
                         <div class="panel-heading">
@@ -329,68 +361,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <!-- Barchart -->
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                    <div class="panel panel-bd lobidisable">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <h4>This Year Earnings & Expenses(Bar chart)</h4>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <canvas id="barChart" height="150"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <!-- bar chart -->
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="panel panel-bd lobidisable">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <h4>Weekly Earnings & Expenses</h4>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <canvas id="singelBarChart" height="323"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-xs-12 col-sm-8">
-                    <div class="panel panel-bd lobidrag">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <h4>Google Map</h4>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <div class="google-maps">
-                                <iframe src="https://maps.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=15+Springfield+Way,+Hythe,+CT21+5SH&amp;aq=t&amp;sll=52.8382,-2.327815&amp;sspn=8.047465,13.666992&amp;ie=UTF8&amp;hq=&amp;hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&amp;t=m&amp;z=14&amp;ll=51.077429,1.121722&amp;output=embed"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="panel panel-bd lobidrag">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <h4>Calender</h4>
-                            </div>
-                        </div>
-                        <!-- Monthly calender widget -->
-                        <div class="panel panel-bd">
-                            <div class="panel-body">
-                                <div class="monthly_calender">
-                                    <div class="monthly" id="m_calendar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </section>
         <!-- /.content -->
     </div>

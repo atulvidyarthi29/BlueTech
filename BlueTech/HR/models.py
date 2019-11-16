@@ -1,6 +1,7 @@
 from django.db import models
 from Users.models import Employee
 
+
 # Create your models here.
 
 
@@ -33,3 +34,7 @@ class Salary(models.Model):
     payroll = models.IntegerField()
     Incentives = models.IntegerField()
     tax = models.FloatField()
+
+
+class EmailFiles(models.Model):
+    file = models.FileField(upload_to='Media/email_departments/')

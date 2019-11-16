@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Employee
+from .models import Employee, EmailDepartment
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -28,3 +28,9 @@ class ProfileEditForm(forms.ModelForm):
         model = Employee
         fields = ['first_name', 'last_name', 'phone_no', 'date', 'date_of_joining', 'gender', 'dept', 'cv',
                   'profile_pic']
+
+
+class UsersTemp(forms.ModelForm):
+    class Meta:
+        model = EmailDepartment
+        fields = '__all__'

@@ -7,13 +7,16 @@ app_name = "users"
 
 urlpatterns = [
     path('', views.home, name='project_home'),
+    path('add_user/<uidb64>/<token>/', views.add_user, name='add_user'),
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html', redirect_authenticated_user=True),
          name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='home/homepage.html'), name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('post_login/', views.post_login, name='post_login'),
-    path('profile/', views.profile, name='profile'),
+    path('dashboard/ceo', views.ceo_dashboard, name='ceo_dashboard'),
+    path('post_login/<dept>/', views.post_login, name='post_login'),
+    path('to_post_login/', views.to_post_login, name='to_post_login'),
+    path('profile/<dept>/', views.profile, name='profile'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path('hr/', include('HR.urls')),
 ]

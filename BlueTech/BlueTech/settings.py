@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'djcelery',
     'crispy_forms',
     'Accounts',
     'HR',
@@ -130,5 +131,5 @@ USE_TZ = True
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
 STATIC_URL = '/static/'
-LOGIN_REDIRECT_URL = 'users:post_login'
+LOGIN_REDIRECT_URL = 'users:to_post_login'
 LOGOUT_REDIRECT_URL = 'users:project_home'

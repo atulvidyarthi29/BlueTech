@@ -32,3 +32,12 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class EmailDepartment(models.Model):
+    email = models.EmailField(max_length=70)
+    DEPT_CHOICES = (('CEO', 'CEO'),
+                    ('HR', 'HR'),
+                    ('SALES', 'SALES'),
+                    ('ACCOUNTS', 'ACCOUNTS'))
+    dept = models.CharField(max_length=10, choices=DEPT_CHOICES)
