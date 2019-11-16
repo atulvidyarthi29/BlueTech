@@ -1,0 +1,38 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "assets/css/team.css" %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="container m-container">
+            <div class="w-100 mt-5">
+                <h1 class="display-4 text-center my-5 font-weight-bold text-primary">Our Team</h1>
+            </div>
+            <div class="row justify-content-around">
+                {% for member in content %}
+                    <div class="team-card col-md-5 col-sm-10 text-center shadow-lg my-3">
+                        <div class="row">
+                            <div class="col-10 text-center">
+                                <img width="160px" height="260px" class="img-fluid my-4 m-img"
+                                     src="{% static member.photo %}"
+                                     alt="{{ member.name }}">
+
+                            </div>
+                        </div>
+                        <h4 class="font-weight-bold m-heading">{{ member.name }}</h4>
+                        <span class="small font-weight-bold my-0">{{ member.designation }}</span><br>
+                        <br><br>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

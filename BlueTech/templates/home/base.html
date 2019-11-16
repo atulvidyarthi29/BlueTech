@@ -1,15 +1,272 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BlueTech</title>
+    <link rel="stylesheet" href="{% static "assets/css/base.css" %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "assets/css/tingle.css" %}">
+ 	 
     {% block head %}
     {% endblock %}
-</head>
-<body>
-{% block body %}{% endblock %}
-</body>
 
+</head>
+
+
+<body class="scrollbar" onload="myFunction()">
+
+{% block body %}{% endblock %}
+<!-- NAVBAR START -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="row">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand col-lg-1" href="{% url 'users:project_home' %}">
+                <img src="{% static "assets/images/logo.png" %}" alt="logo" style="width: 137px; height: 42px;"  id="logo">
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'users:project_home' %}">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'users:team' %}">
+                        Team
+                    </a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'users:project_home' %}#products">
+                        Products
+                    </a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'users:project_home' %}#contact">
+                        Contact Us
+                    </a>
+                </li>
+                <li>
+                	 {% if validated %}
+      					  <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+  					  {% else %}
+     				   	  <a class="nav-link" href="{% url 'users:register' %}">Get Started</a>
+    				  {% endif %}
+                </li>
+{#                <li class="nav-item mr-3">#}
+{#                    <a class="nav-link" href="#">#}
+{#                        <button class="btn btn-primary border border-primary text-secondary js-tingle-modal-2"#}
+{#                                style="border-radius:5rem;padding-left: 1.35rem;padding-right: 1.35rem;background-color:transparent;">#}
+{#                            Log In#}
+{#                        </button>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="nav-item mr-3">#}
+{#                    <a class="nav-link" href="#">#}
+{#                        <button class="btn btn-primary js-tingle-modal-1"#}
+{#                                style="border-radius:5rem;padding-left: 1.35rem;padding-right: 1.35rem;">Sign Up#}
+{#                        </button>#}
+{#                    </a>#}
+{#                </li>#}
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- NAVBAR END -->
+
+
+{#<div id="loader" class="mt-5"></div>#}
+
+
+{% block content %}
+{% endblock %}
+
+<div class="tingle-demo tingle-demo-tiny">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-5 d-xl-block d-lg-block d-md-none d-sm-none bg-primary">
+                <div class="d-flex flex-column my-5 mr-5">
+                    <img src="{% static "assets/images/home/modal.svg" %}" alt="image" class="img-fluid">
+                    <h6 class="text-modal-heading font-weight-bold text-light text-center mt-3">Lorem Ipsum Dolor Amet Ex!</h6>
+
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-sm-12 py-3 p-login-signup-form">
+                <h4 class="modal-heading font-weight-bold text-primary pb-4">Sign Up</h4>
+                <div class="d-flex flex-column">
+                    <form>
+                        <div class="form-group row my-4">
+                            <label for="inputName" class="col-sm-1 col-form-label">
+                                <i class="fas fa-user fa-2x icons-login-signup"></i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control login-signup-field font-weight-bold"
+                                       id="inputEmail3"
+                                       placeholder="Name" style="border: none;border-bottom:2px solid #007bff;">
+                            </div>
+                        </div>
+                        <div class="form-group row my-4">
+                            <label for="inputEmail" class="col-sm-1 col-form-label">
+                                <i class="fas fa-envelope fa-2x icons-login-signup"></i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control login-signup-field font-weight-bold"
+                                       id="inputEmail3"
+                                       placeholder="Email" style="border: none;border-bottom:2px solid #007bff;">
+                            </div>
+                        </div>
+                        <div class="form-group row my-4">
+                            <label for="inputPassword" class="col-sm-1 col-form-label">
+                                <i class="fas fa-key fa-2x icons-login-signup"></i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control login-signup-field font-weight-bold"
+                                       id="inputPassword3"
+                                       placeholder="Password" style="border: none;border-bottom:2px solid #007bff;">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary px-5 font-weight-bold"
+                                        style="border-radius:5rem;">Sign Up
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="small text-center py-2 font-weight-bold">or continue with</p>
+                    <div class="d-flex flex-row justify-content-center">
+                        <div>
+                            <img src="{% static "base/images/icons/google.png" %}" alt="google-account" class="social-icon mx-4">
+                        </div>
+                        <div>
+                            <img src="{% static "base/images/icons/facebook.png" %}" alt="facebook-account" class="social-icon mx-4">
+                        </div>
+                    </div>
+                    <a href="#"><p class="small text-center pt-4 font-weight-bold">Already have an account? Log In</p></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid bg-footer w-100 mt-5" style="overflow-x: hidden;">
+    <div class="container" id="contact">
+        <div class="row description">
+            <div class="col-lg-3 col-md-3 col-sm-12 my-2">
+                <img class="mx-auto d-block img-fluid footer-logo" src="{% static "assets/images/logo.png" %}" alt="">
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 px-auto py-2 footer-about">
+                <p class="px-auto font-weight-normal about-description">BlueTech is a buisness tool that hep buisnessess scale up by making the operational effenciency smooth. This helps to do the necessary tasks. The Bluetech module compprises of the finance, sales and hr module. </p>
+            </div>
+        </div>
+        <div class="row pt-lg-4 pt-md-4 pt-sm-2 pb-3">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2 class="font-weight-xbold footer-heading text-primary pb-2">
+                    Contact Us
+                </h2>
+
+                <form action="" method="POST" name="" class="w-85">
+                    <div class="form-froup py-2">
+                        <input class="d-block form-control border border-light" type="text" name=""
+                               placeholder="Your Name">
+                    </div>
+                    <div class="form-froup py-2">
+                        <input class="d-block form-control border border-light" type="email" name=""
+                               placeholder="Your Email">
+                    </div>
+                    <div class="form-froup py-2">
+                        <textarea class="form-control border border-light" name="" id="" cols="55" rows="8"
+                                  placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-group d-flex flex-row justify-content-end py-2">
+                        <div>
+                            <button class="btn btn-primary px-2">Send Message</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-2 col-md-12 col-md-12">
+                <h2 class="font-weight-xbold footer-heading text-primary pb-2">
+                    BlueTech
+                </h2>
+                <nav>
+                    <ul class="list-group list-group-flush w-50">
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a
+                                href="{% url 'users:project_home' %}">About</a></li>
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="#">Brochure</a>
+                        </li>
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a
+                                href="{% url 'users:team' %}">Our Team</a></li>
+{#                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="#">Reviews</a>#}
+{#                        </li>#}
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <h2 class="font-weight-xbold footer-heading text-primary pb-2">
+                    Quick Links
+                </h2>
+                <nav>
+                    <ul class="list-group list-group-flush w-50">
+{#                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="#">Blog</a></li>#}
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="{% url 'users:terms_of_service' %}">Terms of
+                            Service</a></li>
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="{% url 'users:privacy_policy' %}">Privacy
+                            Policy</a></li>
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="{% url 'users:disclaimer' %}">Disclaimer</a></li>
+{#                        <li class="list-group-item px-0 bg-footer font-weight-bold text-dark"><a href="#"><img#}
+{#                                class="img-fluid" src="{% static "assets/images/icons/google-play.png" %}"#}
+{#                                alt="Download Our Play Store App"></a></li>#}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row d-flex flex-row justify-content-center mt-5">
+            <div><a href="https://www.facebook.com/WealthSuite-2262955020484348/"><img src="{% static "assets/images/icons/facebook.svg" %}" alt="Facebook" width="64"
+                                  height="64" class="mx-3"></a></div>
+            <div><a href="https://www.linkedin.com/company/14545823/"><img src="{% static "assets/images/icons/linkedin.svg" %}" alt="LinkedIn" width="64"
+                                  height="64" class="mx-3"></a></div>
+            <div><a href="#"><img src="{% static "assets/images/icons/twitter.svg" %}" alt="Twitter" width="64"
+                                  height="64" class="mx-3"></a></div>
+            <div><a href="#"><img src="{% static "assets/images/icons/youtube.svg" %}" alt="Youtube" width="64"
+                                  height="64" class="mx-3"></a></div>
+        </div>
+
+        <div class="row justify-content-center py-5 font-weight-bold text-dark">
+            <p> &copy; Copyright 2019 - BlueTech Technologies Pvt. Ltd.</p>
+        </div>
+
+    </div>
+</footer>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+<script src="{% static "assets/js/tingle.min.js" %}"></script>
+<script src="{% static "assets/js/base.js" %}"></script>
+
+
+
+
+</body>
 </html>

@@ -31,7 +31,7 @@ def depart(request, dept_name):
             mail_subject = 'Join using this link!'
             message = render_to_string('hr/recruitment_email.html', {
                 'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(tup)).decode(),
+                'uid': urlsafe_base64_encode(force_bytes(tup)),
                 'token': recruitment_token.make_token((to_email, department)),
             })
 
@@ -52,7 +52,7 @@ def depart(request, dept_name):
                     mail_subject = 'Join using this link!'
                     message = render_to_string('hr/recruitment_email.html', {
                         'domain': current_site.domain,
-                        'uid': urlsafe_base64_encode(force_bytes(tup)).decode(),
+                        'uid': urlsafe_base64_encode(force_bytes(tup)),
                         'token': recruitment_token.make_token(tup),
                     })
 
@@ -60,7 +60,7 @@ def depart(request, dept_name):
                         mail_subject, message, to=[lt[0]]
                     )
                     email.send()
-                    return redirect(request.META.get('HTTP_REFERER'))
+            return redirect(request.META.get('HTTP_REFERER'))
     else:
         users_temp = UsersTemp()
         email_form = EmailsForm()

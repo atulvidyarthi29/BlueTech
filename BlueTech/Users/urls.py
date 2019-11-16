@@ -19,4 +19,9 @@ urlpatterns = [
     path('profile/<dept>/', views.profile, name='profile'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path('hr/', include('HR.urls')),
+    path('team/', views.team, name='team'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
+    path('disclaimer/', views.disclaimer, name='disclaimer'),
+
 ]

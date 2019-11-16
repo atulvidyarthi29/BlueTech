@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'HR',
     'Sales',
     'Users',
+    'finance',
     'rest_framework',
     'rest_framework.authtoken',
 ]

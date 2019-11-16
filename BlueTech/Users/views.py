@@ -25,6 +25,47 @@ def home(request):
     return render(request, 'home/homepage.html', context={'validated': validated, 'true': True})
 
 
+def team(request):
+    if not request.user.is_anonymous:
+        return redirect('users:dashboard')
+    try:
+        license_obj = License.objects.first()
+        validated = license_obj.validated
+    except:
+        validated = False
+    return render(request, 'home/team.html', context={'content': team_content})
+
+def terms_of_service(request):
+    if not request.user.is_anonymous:
+        return redirect('users:dashboard')
+    try:
+        license_obj = License.objects.first()
+        validated = license_obj.validated
+    except:
+        validated = False
+    return render(request, 'home/terms_of_service.html')
+
+def privacy_policy(request):
+    if not request.user.is_anonymous:
+        return redirect('users:dashboard')
+    try:
+        license_obj = License.objects.first()
+        validated = license_obj.validated
+    except:
+        validated = False
+    return render(request, 'home/privacy_policy.html')
+
+def disclaimer(request):
+    if not request.user.is_anonymous:
+        return redirect('users:dashboard')
+    try:
+        license_obj = License.objects.first()
+        validated = license_obj.validated
+    except:
+        validated = False
+    return render(request, 'home/disclaimer.html')
+
+
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)

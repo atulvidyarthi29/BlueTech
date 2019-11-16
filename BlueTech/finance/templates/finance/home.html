@@ -1,0 +1,70 @@
+{% extends 'finance/navbar.html' %}
+
+
+
+{% block finance %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="header-icon">
+                <i class="fa fa-dashboard"></i>
+            </div>
+            <div class="header-title">
+                <h1>Finance Dashboard</h1>
+            </div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <a href="{% url 'finance:finance_tracking' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="cardbox1">
+                            <div class="statistic-box">
+                                <i class="fa fa-money fa-3x"></i>
+                                <h3> Financial Tracking</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'finance:finance_management' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="cardbox2">
+                            <div class="statistic-box">
+                                <i class="fa fa-money fa-3x"></i>
+                               
+                                <h3>Financial Management</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'finance:finance_reports' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="cardbox3">
+                            <div class="statistic-box">
+                                <i class="fa fa-money fa-3x"></i>
+                                
+                                <h3>Finacial Statements</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a> 
+                <a href="{% url 'finance:finance_projection' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div id="cardbox3">
+                            <div class="statistic-box">
+                                <i class="fa fa-money fa-3x"></i>
+                                
+                                <h3>Financial Growth Projections</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>              
+            </div>
+
+
+        </section>
+            
+            
+           
+    <!-- /.content-wrapper -->
+{% endblock %}
