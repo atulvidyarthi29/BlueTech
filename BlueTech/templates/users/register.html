@@ -77,16 +77,10 @@
                                         {{ error }}
                                     {% endfor %}</div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Enter your 16 length product key</label>
-                                    {% render_field key_form.product_key id="password2" class="form-control" %}
-                                    <div style="color:red;">{% for error in key_form.product_key.errors %}
-                                        {{ error }}
-                                    {% endfor %}</div>
-                                </div>
-                                <div>
-                                    <button class="btn btn-warning" type="submit">Register</button>
-                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-warning" type="submit">Register</button>
+                            </div>
                         </form>
                     </div>
                 </div>

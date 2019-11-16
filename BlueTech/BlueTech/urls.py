@@ -6,8 +6,7 @@ app_name = "bluetech"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Users.urls')),
-    path('finance/', include('finance.urls')),
+
     path('password-reset/',
          auth_views.PasswordResetView.as_view(template_name='users/password_reset.html'), name='password_reset'),
     path('password-reset-done/',
@@ -19,4 +18,7 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
          name='password_reset_complete'),
+    path('finance/', include('finance.urls')),
+    path('sales/', include('Sales.urls')),
+    path('', include('Users.urls')),
 ]

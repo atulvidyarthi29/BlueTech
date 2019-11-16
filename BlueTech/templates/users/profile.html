@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Department</label>
-                                    {% render_field profile_edit_form.dept id="dept" style="border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
+                                    {% render_field profile_edit_form.dept id="dept" readonly='readonly' style="border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
                                     <div style="color:red;">{% for error in profile_edit_form.dept.errors %}
                                         {{ error }}
                                     {% endfor %}</div>

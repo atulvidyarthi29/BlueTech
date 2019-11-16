@@ -8,12 +8,14 @@ from django.core.mail import EmailMessage
 from django.views import generic
 from django.views.generic import UpdateView, CreateView
 from django.urls import reverse
-
+from rest_framework.views import APIView
 from HR.forms import EmailsForm
 from HR.models import Meeting, Training
 from HR.tokens import recruitment_token
 from Users.forms import UsersTemp
 from Users.models import Employee
+from .serializers import *
+from rest_framework.response import Response
 
 
 @login_required
@@ -146,6 +148,9 @@ class MeetingUpdateView(UpdateView):
         context['department'] = self.request.user.employee.dept
         return context
 
+    def get_success_url(self):
+        return reverse('users:hr:meet')
+
 
 class TrainingView(generic.ListView):
     template = 'HR/training_list.html'
@@ -190,3 +195,21 @@ class TrainingUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['department'] = self.request.user.employee.dept
         return context
+
+    def get_success_url(self):
+        return reverse('users:hr:train')
+
+
+class MeetingList(APIView):
+
+    def get(self, request):
+        meeting = Meeting.objects.all()
+        serializer = MeetingSerializer(meeting, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = MeetingSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(True)
+        return Response(False)

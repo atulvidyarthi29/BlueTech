@@ -83,11 +83,7 @@
             <div class="row mt-5 px-1">
                  {% for bonus in content.speakers %}
                     <div class="col-lg-4 col-md-6 col-sm-12 mx-auto my-1 mt-5 text-center d-flex flex-column align-items-center">
-                        <div class="h-40 w-100 d-flex">
-                            <img class="img-fluid mx-auto rounded-circle"
-                                 src="{% static bonus.icon %}"
-                                 alt="{{ bonus.heading }}" style="height: 100px;">
-                        </div><br>
+                        
                         <div class="h-60 w-100 d-flex flex-column">
                             <h4 class="feature-caption" style="color: rgb(255, 239, 109)">{{ bonus.heading }}</h4>
                             <p class="feature-description p-2 pt-3 pb-3" style="color:#fff;">{{ bonus.description }}</p>
@@ -180,10 +176,10 @@
                 {% endfor %}
             </div>
              <div><br>
-                <h2 style="text-align: center; font-weight: bold; color: #fff;">The total value is</h2>
-                <h1  style="font-weight: bold; color: rgb(255, 239, 109); text-align: center;">Rs {{ content.real_price }}</h1>
-                <h3 style="text-align: center; font-weight: bold;color: #fff;">Right now, I want to make you a very special offer because you’re on this page and because we've just launched this for only...</h3><h2 style="text-align: center; font-weight: bold; color: rgb(255, 239, 109)">For today! Get it only for Rs <strike>Rs {{ content.real_price }}</strike> Rs {{ content.discounted_price }}</h2><br>
-                <p style="text-align: center;"><a href="{{ content.payment_link }}"><button type="button" class="btn" style="background-color: rgb(228, 59, 44); border:0px; color: #fff; padding: 20px; font-weight: bold">Yes, book my seat before the seats gets filled up</button></a></p>
+                <h2 style="text-align: center; font-weight: bold; color: #fff;">The total value is </h2>
+                <h1  style="font-weight: bold; color: rgb(255, 239, 109); text-align: center;">Rs 98996</h1>
+                <h3 style="text-align: center; font-weight: bold;color: #fff;">Right now, I want to make you a very special offer because you’re on this page and because we've just launched this for only...</h3><h2 style="text-align: center; font-weight: bold; color: rgb(255, 239, 109)">For today! Get it only for Rs <strike>Rs 98996</strike> Rs 5399</h2><br>
+                <p style="text-align: center;"><a href="https://www.instamojo.com/wealthsuite/bluetech-erp/"><button type="button" class="btn" style="background-color: rgb(228, 59, 44); border:0px; color: #fff; padding: 20px; font-weight: bold">Get the ERP</button></a></p>
                <br><br>
             </div>
         </div>
@@ -216,91 +212,31 @@
         </section> 
          
    <section id="benefits" style="background-color: #333;">
-           
-               <!-- <div class="info-inner mx-auto pt-3 text-center" style="color:#333;">
-                    <p class="pt-lg-6 pt-md-5 display-4 font-weight-bold" style="color:rgb(255, 239, 109);">Don't have our word for it. Have a quick look at our student's success</p>
-                </div>
-       
-
-            <div class="row mt-5 px-1">
-                
-                    <div class="col-lg-15 col-md-6 col-sm-12 mx-auto my-1 mt-5 text-center d-flex flex-column align-items-center">
-                        <div class="h-40 w-100 d-flex">
-                            <iframe width="100%" height="350px" src="https://www.youtube.com/embed/DBP5lx9yAbo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>-->
-                        
+        
                         
                     </div><br>
                     <div class="container align-items-center" style="color: #fff;" ><br><br>
-                            <h2 style="font-weight: bold;">Here is the Dog ate Gurantee...</h2>
-                            <h4 style="color:rgb(255, 239, 109) ">Try out the program. I know that you’ll love this training. If you do not believe that this training is the best training of its kind, forward your receipt to us within 14 days with the title "My Dog Ate It"... and we will give you a full refund, no questions asked.</h4>
+                            <h2 style="font-weight: bold; text-align: center;">Full Refund Policy</h2>
+                            <h4 style="color:rgb(255, 239, 109) ">Try out the software. I know that you’ll love this training. If you do not believe that this training is the best training of its kind, forward your receipt to us within 14 days... and we will give you a full refund, no questions asked.</h4>
                             <br>
-                            <h4>.....and we will still be friends, Isn't that cool?</h4>
-                            <h5>So you don’t even have to decide right now. Attend the training, work on the knowledge, implement the system, make your money, because you have a full 30 days to try it out, risk-free.</h5>
+                            
+                            <h5>So you don’t even have to decide right now. Use the software, work on the modules, because you have a full 14 days to try it out, risk-free.</h5>
                             
                     </div>
                
             </div>
              <div><br>
                 <h1 style="text-align: center; font-weight: bold; color: #fff;"></h1>
-                <h2 style="text-align: center; font-weight: bold;color: rgb(255, 239, 109)">...For Only INR <strike>{{ content.real_price }}</strike> {{ content.discounted_price }}<br></h2><h2 style="text-align: center; font-weight: bold; color: #fff;">Hurry ! Limited seats filling fast</h2><br>
-                <p style="text-align: center;"><a href="{{ content.payment_link }}"><button type="button" class="btn" style="background-color: rgb(228, 59, 44); border:0px; color: #fff; padding: 20px; font-weight: bold">Yes, book my seat before the seats gets filled up</button></a></p>
+                <h2 style="text-align: center; font-weight: bold;color: rgb(255, 239, 109)">...For Only INR <strike>98996</strike> 5399<br></h2><h2 style="text-align: center; font-weight: bold; color: #fff;">Hurry ! Discount only for first 100 customers</h2><br>
+                <p style="text-align: center;"><a href="https://www.instamojo.com/wealthsuite/bluetech-erp/"><button type="button" class="btn" style="background-color: rgb(228, 59, 44); border:0px; color: #fff; padding: 20px; font-weight: bold">Yes, get the ERP</button></a></p>
                <br><br>
             </div>
     
         </section>
 
-          <section id="benefits">
-           <div class="container-fluid" style="color: #333"> 
-           
-                <div class="info-inner mx-auto pt-3 text-center" style="color:#fff;">
-                    <p class="pt-lg-12 pt-md-5 display-4 font-weight-bold" style="color:#333;">{{ content.gain }}</p>
-                </div>
-           
-
-            <div class="row mt-5 px-1">
-                
-                    
-                        
-                            <img class="img-fluid mx-auto"
-                                 src="/static/base/images/ieduac_courses.png"
-                                 alt="wealthsuite" width="70%" height="100">
-                    <div class="col-lg-4 col-md-6 col-sm-12 mx-auto my-1 mt-5 text-center d-flex flex-column">
-                           {% for feature in content.features %}
-                        <div class="h-80 w-100 d-flex flex-column">
-                            <h3 class="feature-caption" style="color: #333;"><i class="fas fa-check pr-2" style="color: #6fe33d"></i>{{ feature.heading }}<br></h3>
-                            
-                        </div>{% endfor %}
-                    </div>
-                
-            </div>
-             <div><br>
-                <h2 style="text-align: center; font-weight: bold; color: #333;">All you get is just for</h2>
-                <h1  style="font-weight: bold; color: rgb(244, 102, 6); text-align: center;"><strike>Rs {{ content.real_price }}</strike> Rs {{ content.discounted_price }}</h1>
-                
-               <br><br>
-            </div>
-        </div>
-        </section>
+         
 
 
-        <section id="last" style="background-color: #333;">
-            <div class="container-fluid"> 
-                 <div class="h-25 my-5">
-                  <div class="info-inner mx-auto pt-3 text-center" style="color:#fff;">
-                     <p class="pt-lg-5 pt-md-5 display-4 font-weight-bold" style="color:#fff;">Once a lifetime opportunity.  Book your seat now or it will be too late</p>
-                 </div>
-                </div>
-
-               <div><br>
-               
-                <h3 style="text-align: center; font-weight: bold;color: rgb(255, 239, 109);">Special Offer! Order Today And     We'll Take {{ content.percentage_discount }} OFF The Regular Price!</h3><h2 style="text-align: center; font-weight: bold; color: #fff">For today! Get it only for Rs <strike>Rs {{ content.real_price }}</strike> Rs {{ content.discounted_price }}</h2><br>
-                <p style="text-align: center;"><a href="{{ content.payment_link }}"><button type="button" class="btn" style="background-color: rgb(228, 59, 44); border:0px; color: #fff; padding: 20px; font-weight: bold">Yes, book my seat before the seats gets filled up</button></a></p>
-                <p style="text-align: center;"><img src="/static/base/images/checkout.png" width="20%"></p>
-               <br><br>
-            </div>
-         </div>
-        </section>
         <!-- COURSES END -->
     </main>
 {% endblock %}

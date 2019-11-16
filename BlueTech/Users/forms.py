@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Employee, EmailDepartment
+from .models import Employee, EmailDepartment, License
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -34,3 +34,7 @@ class UsersTemp(forms.ModelForm):
     class Meta:
         model = EmailDepartment
         fields = '__all__'
+
+
+class EmailForm(forms.Form):
+    email = forms.EmailField(max_length=70)

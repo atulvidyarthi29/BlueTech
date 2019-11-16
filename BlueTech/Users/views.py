@@ -6,12 +6,53 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
-
+from .content import team_content, index_content
 from .models import User
 from .token import account_activation_token
-from .forms import UserRegistrationForm, ProductKeyForm, ProfileEditForm
+from .forms import UserRegistrationForm, ProductKeyForm, ProfileEditForm, EmailForm
 from .models import License, Employee
 from django.contrib.auth.decorators import login_required
+import uuid
+
+
+def boot_start(request):
+    if request.method == 'GET':
+        print('Oh No')
+        get_response = [request.GET.get('payment_id'), request.GET.get('status')]
+        print(get_response)
+        if len(get_response) == 2 and get_response[1] == 'success':
+            un = uuid.uuid4()
+            License.objects.create(licence=un, validated=False)
+            email_form = EmailForm()
+            return render(request, 'users/ceo_email_info.html', context={'email_form': email_form, 'un': str(un)})
+        else:
+            return render(request, 'home/404.html')
+    else:
+        return HttpResponse("Something went wrong!")
+
+
+def send_ceo_method(request, un):
+    if request.method == 'POST':
+        email_form = EmailForm(request.POST)
+        if email_form.is_valid():
+            to_email = email_form.cleaned_data['email']
+            tup = str(to_email) + ' ' + 'CEO' + ' ' + str(un)
+            current_site = get_current_site(request)
+            mail_subject = 'Join using this link!'
+            message = render_to_string('hr/recruitment_email.html', {
+                'unique_code': un,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(tup)),
+                'token': str(tup),
+            })
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return HttpResponse('Thank you for the payment. Please check your email for further instructions.')
+        redirect(request.META.get('HTTP_REFERER'))
+    else:
+        redirect(request.META.get('HTTP_REFERER'))
 
 
 def home(request):
@@ -22,7 +63,8 @@ def home(request):
         validated = license_obj.validated
     except:
         validated = False
-    return render(request, 'home/homepage.html', context={'validated': validated, 'true': True})
+    return render(request, 'home/homepage.html',
+                  context={'validated': validated, 'true': True, 'content': index_content})
 
 
 def team(request):
@@ -33,7 +75,8 @@ def team(request):
         validated = license_obj.validated
     except:
         validated = False
-    return render(request, 'home/team.html', context={'content': team_content})
+    return render(request, 'home/team.html', context={'content': team_content, 'validated': validated})
+
 
 def terms_of_service(request):
     if not request.user.is_anonymous:
@@ -43,7 +86,8 @@ def terms_of_service(request):
         validated = license_obj.validated
     except:
         validated = False
-    return render(request, 'home/terms_of_service.html')
+    return render(request, 'home/terms_of_service.html', context={'validated': validated, })
+
 
 def privacy_policy(request):
     if not request.user.is_anonymous:
@@ -53,7 +97,8 @@ def privacy_policy(request):
         validated = license_obj.validated
     except:
         validated = False
-    return render(request, 'home/privacy_policy.html')
+    return render(request, 'home/privacy_policy.html', context={'validated': validated, })
+
 
 def disclaimer(request):
     if not request.user.is_anonymous:
@@ -63,7 +108,7 @@ def disclaimer(request):
         validated = license_obj.validated
     except:
         validated = False
-    return render(request, 'home/disclaimer.html')
+    return render(request, 'home/disclaimer.html', context={'validated': validated, })
 
 
 def register(request):
@@ -122,15 +167,20 @@ def add_user(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64).decode())
         tup = uid.split()
+        print(tup)
+        if tup[1] == 'CEO':
+            element = License.objects.get(licence=tup[2])
+            element.validated = True
+            element.save()
     except(TypeError, ValueError, OverflowError):
         return HttpResponse('Could not verify you!')
+
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
             user_form2 = user_form.save(commit=False)
             user_form2.is_active = True
             user_form2.save()
-            # print(EmailDepartment.objects.filter(email=tup[0]))
             user = authenticate(username=user_form.cleaned_data['username'],
                                 password=user_form.cleaned_data['password1'])
             login(request, user)
@@ -207,6 +257,10 @@ def dashboard(request):
             return redirect('users:ceo_dashboard')
         elif department == 'HR':
             return redirect('users:hr:hr_dashboard')
+        elif department == 'ACCOUNTS':
+            return redirect('finance:finance_home')
+        elif department == 'SALES':
+            return redirect('sales:sales_dashboard')
     except:
         return render(request, 'home/404.html')
 
@@ -216,12 +270,3 @@ def ceo_dashboard(request):
     department = request.user.employee.dept
     return render(request, 'home/dashboard.html',
                   context={'department': department, 'user': request.user.employee})
-
-# @login_required
-# def meetings(request):
-#     if request.method == 'POST':
-#         pass
-#     else:
-#         pass
-#     return render(request, 'hr/meetings.html', context={})
-#

@@ -1,185 +1,129 @@
 index_content = {
         
-     'features_heading':'Why you should attend the conference',
+     'features_heading':'Best solution to expand your business',
       'features': [
             {
                 'icon': 'assets/images/salary.svg',
-                'heading': 'Discover how to be earn your salary from the stock market',
-                'description': 'Why count thousands when you can count in millions. Now you can make the entire salary in a single day with right trading.'},
+                'heading': 'Increase your revenue by using finance tracker',
+            },
 
             {
                 'icon': 'assets/images/millionare.png',
-                'heading': 'Get the secrets of millionares and how they earn',
-                'description': 'No rich person reveals their secrets. But we are here to reveal the underground strategies of self-made millionaire traders and successful investor’s techniques and behavior who built their wealth empire.'},
+                'heading': 'Handle all employee task and money and revenue',
+            },
 
             {
                 'icon': 'assets/images/grow-money.png',
-                'heading': 'Grab the psychology of investing and growing your money',
-                'description': 'It’s your chance to find out where to park your money and make it work for you. No one built their empire only by saving accounts. Discover the smart way of choosing the right investment.'},
+                'heading': 'Multipy your revenue with the right investment',
+            },
 
             {
                 'icon': 'assets/images/secret.png',
-                'heading': 'Discover the secret to creating immense long term wealth',
-                'description': 'With proper knowlwge and strategy, one can muliple their wealth. Discover the secrets to wealth creation with us.'},
+                'heading': 'Fully privacy and security protection',
+            },
             {
                 'icon': 'assets/images/city.svg',
-                'heading': 'Learn from the comfort of your city, no travel required',
-                'description': 'No need to buying expensive flight tickets to go for learning stock market and becoming a milionare. Stock Market traing now at your own city.'},
+                'heading': 'Manage your buisness sitting at your home',
+            },
             {
                 'icon': 'assets/images/opportunity.png',
-                'heading': 'Once in a lifetime opportunity',
-                'description': 'The confernece is held exculsively once and its the only one of its kind in Guwahati. If you miss this, you wont get a such a good opportunity again'},    
+                'heading': 'Share new ideas with the new notifications pannel',
+            },    
       
         ],
 
-         'speakers_heading':'Keynote Speakers and Hosts',
+         'speakers_heading':'Why choose us?',
         'speakers': [
             {
                 'icon': 'assets/images/kalpajyoti-handique.jpg',
-                'heading': 'Kalpajyoti Handique',
-                'description': 'Technical Analyst, Investor and an Entrepreneur. Kalpajyoti has five years of experience in the financial markets. He has taught thousands of students and is on mission to reach lakhs'},
+                'heading': 'Best in the industry, latest state of the art technology',
+                'description': 'BlueTech is designed by top professionals using latest state of the art technology. We are infact the best'},
 
             {
                 'icon': 'assets/images/kalpajyoti-handique.jpg',
-                'heading': 'Porag Jyoti Neog',
-                'description': 'Investor by passion and a Technical Analyst by heart, he has 4 years of experience in the markets. Porag is set to devise many new profitable market strategies and has also taught hundres of students'},
+                'heading': 'Active expense tracking management system',
+                'description': 'With integrated app on your mobile, now you can track whatever is happening in yiur company from your mobile'},
 
             {
                 'icon': 'assets/images/kalpajyoti-handique.jpg',
-                'heading': 'Gautam Kumar Nath',
-                'description': 'Gautam is the host of the program. Gautam is also a Technical trader and has hosted many conferences all over India. He is said to a man on a mission to educate people with financial markets'},
+                'heading': 'One stop solution for all business management needs.',
+                'description': 'Now you dont need multiple softwares and complex integration to manage your business. Now you will get all needs here'},
 
         ],
-  
-    'courses': [
-        {
-            'course_name': 'Earn-Regular-Income-With-Technical-Analysis',
-            'course_payment_page': "https://www.instamojo.com/wealthsuite/build-income-stream-with-technical-analysis/",
-            'course_desc': ["Basic to Advanced Technical Analysis", "Swing trading mastery", "Grow wealth 5x per year",
-                            "Dedicated mentor support", "No more worries of negative returns"]
-        },
 
-          {
-            'course_name': '25X-Wealth-Creation-in-5-years',
-            'course_payment_page': "https://www.instamojo.com/wealthsuite/100x -wealth-creation-in-five-years/",
-            'course_desc': ["Learn to Create long term wealth", "Price Pattern Trading and Value Investing",
-                            "Advance Strategies for both trading and investment",
-                            "Basic and Advanced Market Psychology", "Dedicated mentor support"]
-        },   
-        {
-            'course_name': 'Get-Rid-of-Pocket-Money',
-            'course_payment_page': "https://www.instamojo.com/wealthsuite/get-rid-of-pocket-money/",
-            'course_desc': ["Basic Technical Analysis and Fundamental Analysis",
-                            "Price Pattern Trading and Value Investing", "Intro to Intraday,Swing and long term",
-                            "Regular Income Generation Techniques"]
-        },
-        {
-            'course_name': 'WealthSuite-10X-Mastery',
-            'course_payment_page': "https://www.instamojo.com/wealthsuite/100x -wealth-creation-in-five-years/",
-            'course_desc': ["Learn to Create long term wealth", "Price Pattern Trading and Value Investing",
-                            "Advance Strategies for both trading and investment",
-                            "Basic and Advanced Market Psychology", "Dedicated mentor support"]
-        },
-        {
-            'course_name': '10X-Your-Salary-In-A-Year',
-            'course_payment_page': "https://www.instamojo.com/wealthsuite/100x -wealth-creation-in-five-years/",
-            'course_desc': ["Learn to Create long term wealth", "Price Pattern Trading and Value Investing",
-                            "Advance Strategies for both trading and investment",
-                            "Basic and Advanced Market Psychology", "Dedicated mentor support"]
-        }, 
-
-        {
-            'course_name': 'Online-Technical-Analysis-Masterclassess',
-            'course_payment_page': "https://imjo.in/nk9b76/",
-            'course_desc': ["Basic to Advanced Technical Analysis", "Day and Swing trading mastery", "Complete Derivatives Module",
-                            "More than 10+ strategies", "No more worries of negative returns","Dedicated mentor support"]
-        },   
-       
-    ],
-    'benefits_heading':'Secrets reavealed in the workshop', 
+    'benefits_heading':'Modules included in the ERP', 
 
     'benefits': [
             {
-                'image': 'assets/images/stocks.jpg',
-                'heading': 'Introduction to finance and stock markets and how to work in the markets',
+                'image': 'assets/images/hr.jpg',
+                'heading': 'Human Resource Module',
                 'description': [
-                    'Introduction to the financial markets and its importance',
-                    'How financial markets affects us and how can we leverage the markets to create consistent income',
-                    'How great traders uses market psychology and starategies to earn huge wealth'],
+                    'Recuritment Management',
+                    'Employee Resource Management',
+                    'Payroll Management'],
             },
             {
                 'image': 'assets/images/trader.png',
-                'heading': 'How to be a professional trader',
+                'heading': 'Sales Module',
                 'description': [
-                    'Introdution to trading and Technical Analysis',
-                    'How to use technical analysis to earn daily income and increase wealth',
-                    'Strategies of greatest technical anylist masterminds'],
+                    'Sales Tracking',
+                    'Invoices',
+                    'Sales Management'],
             },
             {
                 'image': 'assets/images/investor.jpg',
-                'heading': 'How to be a legendary investor',
+                'heading': 'Finance Module',
                 'description': [
-                    'Introcuction to investing and Fundamental Analysis',
-                    'Explaination of different investing strategies',
-                    'Case study of the differnt investing strategies of investing legends'
+                    'Finance Management',
+                    'Financial Growth Projections',
+                    'FinancialTracking'
 
                     ],
             },
            
         ],
 
-        'bonus_heading':'Along with all these, you get these extra bonuses',
+        'bonus_heading':'Products and Services offered',
 
         'bonus': [
             {
                 'icon': 'assets/images/wealthsuite.png',
-                'heading': 'Exclusive access to WealthSuite Trading and Investing Community',
-                'description': 'Wealthuite tradig community has thousands of investors and traders who sg=hare insights. Stay well informed and and take profitable trades'},
+                'heading': 'HR,Sales and Finance Management Software',
+                'description': 'Now automate your buisness using a single software and you practically dont ned other complex software integrations'},
 
             {
                 'icon': 'assets/images/case-study-wealthsuite.png',
-                'heading': 'Case studies of the strategies of legendary Traders and Investors',
-                'description': 'Legendary traders and investors shows us gateway how to create wealth. They are our real gurus. In the conference, we study the case studies of five traders and investors'},
+                'heading': 'Mobile Application for business management',
+                'description': 'Tracking and uisness management app help you manage your business right from your mobile'},
 
             {
                 'icon': 'assets/images/gifts-wealthsuite.png',
-                'heading': 'Excluisve gifts from and suprises from iEduAc family',
-                'description': 'On attending the conference, you will recieve exclusive gifts forom iEduAc family as gratitute. So, stay ready for the suprises and shocks.'},
+                'heading': 'Extensive support for one year',
+                'description': 'Get one year of full extensive support and services from BlueTech developers'},
             ],
 
         'faq': [
             {
-                'question': 'When and where is the event happening?',
-                'answer': 'The event is an offline workshop. It will be help in Guwahati in any of the three hotels Radisson Blu, Vivanta or Novotel.'
+                'question': 'Whom is the software meant for?',
+                'answer': 'The software is meant for every small or lage buisness wanting to automate the business.'
             },
             {
-                'question': 'Who is the event for?',
-                'answer': 'The event is for salaried, non-salaried, students, entrepreneurs, house-wife, people who wants to invest peopery, people who want to ibncrease their income and everyone who wants to incearse thier wealth exponetially through the financial markets '
+                'question': 'Does the software have any external applications linked/?',
+                'answer': 'Yes, the software is linked to a mobile application so that you can manage your buisness from a mobile itself'
             },
             {
-                'question': 'Is this event online or offline?',
-                'answer': 'The event is an offline workshop. But in case you don\'t want to come, you will be given private access to slides and notes of the discussion.'
+                'question': 'Why is the software price so low?',
+                'answer': 'W help every small and large grow. In orser to prove affordibity to every small and running buisness we do try to provide the softare at a minimal cost '
             },
             {
-                'question': 'Can I get notes even after I attend the workshop?',
-                'answer': 'Yes, everyone will get accsss to the private notes.'
+                'question': 'Till when I can get a free refund?',
+                'answer': 'You can get a reg=fund if you apply for the refund with 14 days of purchase.'
             },
             {
-                'question': 'What if I miss the session?',
-                'answer': 'The session will be offline one. In case you miss, you will be given private access to slides and notes immediately after the workshop.'
+                'question': 'What type of support will I get after buying the software?',
+                'answer': 'Our team works 24*7 to help you. You will get all maintenece and development support and all yiur needs will be customized'
             },
-            {
-                'question': 'Is the ticket fee refundable?',
-                'answer': 'The ticket fee can be refunded only if a strong and acceptable reason is stated.'
-            },
-            {
-                'question': 'Why is the event price so low?',
-                'answer': 'The event price is kept lower so that maximum people gets benefit out of the workshop. The whole purpose of hosting this summit is to spread awareness about financial literacy and different opportunities available for people to increse the wealth through the financial market. Our aim is to help as many people as possible to get familiar with how to grow their wealth fof their happiness and family.'
-            },
-            {
-                'question': 'Can I get a discount after the early bird offer is over?',
-                'answer': 'No, You can get the discount only till the Early Bird discounts lasts. Price will be increased after the offer ends and so you are requested to avail the offail as limited people will only get access to the Early Bird Offer.'
-            },
+         
 
         ]
 }
@@ -188,48 +132,43 @@ index_content = {
 
 team_content = [
     {
-        'photo':'assets/images/kalpajyoti-handique1.png',
-        'name': 'Subu Kandaswamy',
-        'designation': 'Founder | CEO | Chairman',
+        'photo':'assets/images/1.png',
+        'name': 'Deepesh Bagheria',
+        'designation': 'Devloper',
         
     },
     {
-        'photo':'assets/images/kalpajyoti-handique1.png',
+        'photo':'assets/images/2-1.png',
         'name': 'Atul Vidyarthi',
         'designation': 'Developer',
         
     },
     {
-        'photo':'assets/images/kalpajyoti-handique1.png',
-        'name': 'Deepesh Bagheria',
+        'photo':'assets/images/3-1.png',
+        'name': 'Kalpajyti Handique',
         'designation': 'Developer',
         
     },
    
     {
-        'photo':'assets/images/kalpajyoti-handique1.png',
+        'photo':'assets/images/4-1.png',
         'name': 'Saurabh S Petkar',
         'designation': 'Developer',
         
     },
     {
-        'photo':'assets/images/kalpajyoti-handique1.png',
+        'photo':'assets/images/5-1.png',
         'name': 'Akshay Kumar',
         'designation': 'Developer',
         
     },
     {
-        'photo':'assets/images/kalpajyoti-handique1.png',
+        'photo':'assets/images/6-1.png',
         'name': 'Siddarth Goswami',
         'designation': 'Developer',
         
     },
-    {
-        'photo':'assets/images/kalpajyoti-handique1.png',
-        'name': 'Kalpajyoti Handique',
-        'designation': 'Developer',
-        
-    },
+   
    
 
    

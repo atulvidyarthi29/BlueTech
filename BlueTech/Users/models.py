@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class License(models.Model):
-    licence = models.CharField(max_length=16)
+    licence = models.CharField(max_length=40)
     validated = models.BooleanField()
 
 

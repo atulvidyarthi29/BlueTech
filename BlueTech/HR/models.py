@@ -15,7 +15,8 @@ class Complaint(models.Model):
 class Meeting(models.Model):
     location = models.CharField(max_length=50)
     description = models.CharField(max_length=5000)
-    organiser = models.CharField(max_length=100)
+    organiser = models.ForeignKey(
+        Employee, null=True, related_name='organiser', on_delete=models.CASCADE)
     date = models.DateField()
 
 

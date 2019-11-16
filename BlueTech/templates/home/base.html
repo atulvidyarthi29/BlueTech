@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "assets/css/tingle.css" %}">
- 	 
+
     {% block head %}
     {% endblock %}
 
@@ -31,7 +31,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand col-lg-1" href="{% url 'users:project_home' %}">
-                <img src="{% static "assets/images/logo.png" %}" alt="logo" style="width: 137px; height: 42px;"  id="logo">
+                <img src="{% static "assets/images/logo.png" %}" alt="logo" style="width: 137px; height: 42px;"
+                     id="logo">
             </a>
         </div>
 
@@ -58,27 +59,25 @@
                     </a>
                 </li>
                 <li>
-                	 {% if validated %}
-      					  <a class="nav-link" href="{% url 'users:login' %}">Login</a>
-  					  {% else %}
-     				   	  <a class="nav-link" href="{% url 'users:register' %}">Get Started</a>
-    				  {% endif %}
+
+                    <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+
                 </li>
-{#                <li class="nav-item mr-3">#}
-{#                    <a class="nav-link" href="#">#}
-{#                        <button class="btn btn-primary border border-primary text-secondary js-tingle-modal-2"#}
-{#                                style="border-radius:5rem;padding-left: 1.35rem;padding-right: 1.35rem;background-color:transparent;">#}
-{#                            Log In#}
-{#                        </button>#}
-{#                    </a>#}
-{#                </li>#}
-{#                <li class="nav-item mr-3">#}
-{#                    <a class="nav-link" href="#">#}
-{#                        <button class="btn btn-primary js-tingle-modal-1"#}
-{#                                style="border-radius:5rem;padding-left: 1.35rem;padding-right: 1.35rem;">Sign Up#}
-{#                        </button>#}
-{#                    </a>#}
-{#                </li>#}
+                {#                <li class="nav-item mr-3">#}
+                {#                    <a class="nav-link" href="#">#}
+                {#                        <button class="btn btn-primary border border-primary text-secondary js-tingle-modal-2"#}
+                {#                                style="border-radius:5rem;padding-left: 1.35rem;padding-right: 1.35rem;background-color:transparent;">#}
+                {#                            Log In#}
+                {#                        </button>#}
+                {#                    </a>#}
+                {#                </li>#}
+                {#                <li class="nav-item mr-3">#}
+                {#                    <a class="nav-link" href="#">#}
+                {#                        <button class="btn btn-primary js-tingle-modal-1"#}
+                {#                                style="border-radius:5rem;padding-left: 1.35rem;padding-right: 1.35rem;">Sign Up#}
+                {#                        </button>#}
+                {#                    </a>#}
+                {#                </li>#}
             </ul>
         </div>
     </nav>
@@ -98,7 +97,8 @@
             <div class="col-lg-5 d-xl-block d-lg-block d-md-none d-sm-none bg-primary">
                 <div class="d-flex flex-column my-5 mr-5">
                     <img src="{% static "assets/images/home/modal.svg" %}" alt="image" class="img-fluid">
-                    <h6 class="text-modal-heading font-weight-bold text-light text-center mt-3">Lorem Ipsum Dolor Amet Ex!</h6>
+                    <h6 class="text-modal-heading font-weight-bold text-light text-center mt-3">Lorem Ipsum Dolor Amet
+                        Ex!</h6>
 
                 </div>
             </div>
@@ -147,13 +147,16 @@
                     <p class="small text-center py-2 font-weight-bold">or continue with</p>
                     <div class="d-flex flex-row justify-content-center">
                         <div>
-                            <img src="{% static "base/images/icons/google.png" %}" alt="google-account" class="social-icon mx-4">
+                            <img src="{% static "base/images/icons/google.png" %}" alt="google-account"
+                                 class="social-icon mx-4">
                         </div>
                         <div>
-                            <img src="{% static "base/images/icons/facebook.png" %}" alt="facebook-account" class="social-icon mx-4">
+                            <img src="{% static "base/images/icons/facebook.png" %}" alt="facebook-account"
+                                 class="social-icon mx-4">
                         </div>
                     </div>
-                    <a href="#"><p class="small text-center pt-4 font-weight-bold">Already have an account? Log In</p></a>
+                    <a href="#"><p class="small text-center pt-4 font-weight-bold">Already have an account? Log In</p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -167,7 +170,9 @@
                 <img class="mx-auto d-block img-fluid footer-logo" src="{% static "assets/images/logo.png" %}" alt="">
             </div>
             <div class="col-lg-9 col-md-9 col-sm-12 px-auto py-2 footer-about">
-                <p class="px-auto font-weight-normal about-description">BlueTech is a buisness tool that hep buisnessess scale up by making the operational effenciency smooth. This helps to do the necessary tasks. The Bluetech module compprises of the finance, sales and hr module. </p>
+                <p class="px-auto font-weight-normal about-description">BlueTech is a buisness tool that hep buisnessess
+                    scale up by making the operational effenciency smooth. This helps to do the necessary tasks. The
+                    Bluetech module compprises of the finance, sales and hr module. </p>
             </div>
         </div>
         <div class="row pt-lg-4 pt-md-4 pt-sm-2 pb-3">
@@ -208,8 +213,8 @@
                         </li>
                         <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a
                                 href="{% url 'users:team' %}">Our Team</a></li>
-{#                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="#">Reviews</a>#}
-{#                        </li>#}
+                        {#                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="#">Reviews</a>#}
+                        {#                        </li>#}
                     </ul>
                 </nav>
             </div>
@@ -220,25 +225,30 @@
                 </h2>
                 <nav>
                     <ul class="list-group list-group-flush w-50">
-{#                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="#">Blog</a></li>#}
-                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="{% url 'users:terms_of_service' %}">Terms of
+                        {#                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="#">Blog</a></li>#}
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a
+                                href="{% url 'users:terms_of_service' %}">Terms of
                             Service</a></li>
-                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="{% url 'users:privacy_policy' %}">Privacy
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a
+                                href="{% url 'users:privacy_policy' %}">Privacy
                             Policy</a></li>
-                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a href="{% url 'users:disclaimer' %}">Disclaimer</a></li>
-{#                        <li class="list-group-item px-0 bg-footer font-weight-bold text-dark"><a href="#"><img#}
-{#                                class="img-fluid" src="{% static "assets/images/icons/google-play.png" %}"#}
-{#                                alt="Download Our Play Store App"></a></li>#}
+                        <li class="list-group-item px-1 bg-footer font-weight-bold text-dark"><a
+                                href="{% url 'users:disclaimer' %}">Disclaimer</a></li>
+                        {#                        <li class="list-group-item px-0 bg-footer font-weight-bold text-dark"><a href="#"><img#}
+                        {#                                class="img-fluid" src="{% static "assets/images/icons/google-play.png" %}"#}
+                        {#                                alt="Download Our Play Store App"></a></li>#}
                     </ul>
                 </nav>
             </div>
         </div>
 
         <div class="row d-flex flex-row justify-content-center mt-5">
-            <div><a href="https://www.facebook.com/WealthSuite-2262955020484348/"><img src="{% static "assets/images/icons/facebook.svg" %}" alt="Facebook" width="64"
-                                  height="64" class="mx-3"></a></div>
-            <div><a href="https://www.linkedin.com/company/14545823/"><img src="{% static "assets/images/icons/linkedin.svg" %}" alt="LinkedIn" width="64"
-                                  height="64" class="mx-3"></a></div>
+            <div><a href="https://www.facebook.com/WealthSuite-2262955020484348/"><img
+                    src="{% static "assets/images/icons/facebook.svg" %}" alt="Facebook" width="64"
+                    height="64" class="mx-3"></a></div>
+            <div><a href="https://www.linkedin.com/company/14545823/"><img
+                    src="{% static "assets/images/icons/linkedin.svg" %}" alt="LinkedIn" width="64"
+                    height="64" class="mx-3"></a></div>
             <div><a href="#"><img src="{% static "assets/images/icons/twitter.svg" %}" alt="Twitter" width="64"
                                   height="64" class="mx-3"></a></div>
             <div><a href="#"><img src="{% static "assets/images/icons/youtube.svg" %}" alt="Youtube" width="64"
@@ -264,8 +274,6 @@
         crossorigin="anonymous"></script>
 <script src="{% static "assets/js/tingle.min.js" %}"></script>
 <script src="{% static "assets/js/base.js" %}"></script>
-
-
 
 
 </body>
