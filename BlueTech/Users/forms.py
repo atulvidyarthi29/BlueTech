@@ -22,6 +22,7 @@ YEARS = [x for x in range(1940, 2021)]
 class ProfileEditForm(forms.ModelForm):
     date = forms.DateField(widget=forms.SelectDateWidget(years=YEARS))
     date_of_joining = forms.DateField(widget=forms.SelectDateWidget(years=YEARS))
+    # dept = forms.ChoiceField(widget=forms.RadioSelect(attrs={'disabled': 'disabled'}))
     phone_no = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
 
     class Meta:

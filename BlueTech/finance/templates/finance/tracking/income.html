@@ -18,7 +18,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <a href="">
+                    <a href="{% url 'finance:income' %}">
                         <div id="cardbox1">
                             <div class="statistic-box">
                                 <i class="fa fa-user-plus fa-3x"></i>
@@ -28,21 +28,11 @@
                     </a>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <a href="">
+                    <a href="{% url 'finance:asset_income' %}">
                         <div id="cardbox2">
                             <div class="statistic-box">
                                 <i class="fa fa-user-secret fa-3x"></i>
                                 <h3>Income from Assets</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <a href="">
-                        <div id="cardbox3">
-                            <div class="statistic-box">
-                                <i class="fa fa-money fa-3x"></i>
-                                <h3>Other Income</h3>
                             </div>
                         </div>
                     </a>
@@ -62,8 +52,8 @@
                             <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
                             <div class="btn-group">
                                 <div class="buttonexport">
-                                    <a href="#" class="btn btn-add" data-toggle="modal" data-target="#adduser"><i
-                                            class="fa fa-plus"></i> Add Users</a>
+                                    <a href="#" class="btn btn-add" data-toggle="modal" data-target="#addentry"><i
+                                            class="fa fa-plus"></i> Add Entry</a>
 
                                 </div>
                                 <div>
@@ -71,101 +61,34 @@
                                             class="fa fa-bars"></i> Import Table Data
                                     </button>
                                 </div>
-                                <button class="btn btn-exp btn-sm dropdown-toggle" data-toggle="dropdown"><i
-                                        class="fa fa-bars"></i> Export Table Data
-                                </button>
-                                <ul class="dropdown-menu exp-drop" role="menu">
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'json',escape:'false'});">
-                                            <img src="assets/dist/img/json.png" width="24" alt="logo"> JSON</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'json',escape:'false',ignoreColumn:'[2,3]'});">
-                                            <img src="assets/dist/img/json.png" width="24" alt="logo"> JSON
-                                            (ignoreColumn)</a>
-                                    </li>
-                                    <li><a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'json',escape:'true'});">
-                                        <img src="assets/dist/img/json.png" width="24" alt="logo"> JSON (with
-                                        Escape)</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'xml',escape:'false'});">
-                                        <img src="assets/dist/img/xml.png" width="24" alt="logo"> XML</a>
-                                    </li>
-                                    <li><a href="#" onclick="$('#dataTableExample1').tableExport({type:'sql'});">
-                                        <img src="assets/dist/img/sql.png" width="24" alt="logo"> SQL</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'csv',escape:'false'});">
-                                            <img src="assets/dist/img/csv.png" width="24" alt="logo"> CSV</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'txt',escape:'false'});">
-                                            <img src="assets/dist/img/txt.png" width="24" alt="logo"> TXT</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'excel',escape:'false'});">
-                                            <img src="assets/dist/img/xls.png" width="24" alt="logo"> XLS</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'doc',escape:'false'});">
-                                            <img src="assets/dist/img/word.png" width="24" alt="logo"> Word</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'powerpoint',escape:'false'});">
-                                            <img src="assets/dist/img/ppt.png" width="24" alt="logo"> PowerPoint</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'png',escape:'false'});">
-                                            <img src="assets/dist/img/png.png" width="24" alt="logo"> PNG</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                           onclick="$('#dataTableExample1').tableExport({type:'pdf',pdfFontSize:'7',escape:'false'});">
-                                            <img src="assets/dist/img/pdf.png" width="24" alt="logo"> PDF</a>
-                                    </li>
-                                </ul>
+
                             </div>
                             <!-- ./Plugin content:powerpoint,txt,pdf,png,word,xl -->
                             <div class="table-responsive">
                                 <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
                                     <thead>
                                     <tr class="info">
-                                        <th>Photo</th>
-                                        <th>Name</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Position</th>
+                                        <th>Product Name</th>
+                                        <th>Sold to</th>
+                                        <th>Quantity</th>
+                                        <th>Date</th>
+                                        <th>Price</th>
+                                        <th>Net Amount</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for user in members %}
+                                    {% for dat in data %}
                                         <tr>
-                                            <td><img src="{{ user.profile_pic }}" class="img-circle" alt='User Image'
-                                                     width="50" height="50"></td>
-                                            <td>{{ user.first_name }} &nbsp; {{ user.last_name }}</td>
-                                            <td>{{ user.user.username }}</td>
-                                            <td>{{ user.user.email }}</td>
-                                            <td>{{ user.position }}</td>
+                                            <td>{{ dat.product_id.itemname }}</td>
+                                            <td>{{ dat.sales_id.customer }}</td>
+                                            <td>{{ dat.quantity }}</td>
+                                            <td>{{ dat.date }}</td>
+                                            <td>{{ dat.price }}</td>
+                                            <td>{{ dat.net_amount }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-add btn-sm" data-toggle="modal"
                                                         data-target="#update"><i class="fa fa-user-o"></i></button>
-                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                        data-target="#customer2"><i class="fa fa-trash-o"></i></button>
                                             </td>
                                         </tr>
                                     {% empty %}
@@ -184,32 +107,33 @@
                     <div class="modal-content">
                         <div class="modal-header modal-header-primary">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h3><i class="fa fa-plus m-r-5"></i> Add new User</h3>
+                            <h3><i class="fa fa-plus m-r-5"></i> Add a new Entry</h3>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" method="post">
                                         <fieldset>
+                                            {{ sales_form.as_p }}
                                             <!-- Text input-->
-                                            <div class="col-md-6 form-group">
-                                                <label class="control-label">Photo</label>
-                                                <input name="filebutton" class="input-file" type="file">
-                                            </div>
-                                            <!-- Text input-->
-                                            <div class="col-md-6 form-group">
-                                                <label class="control-label">User Name</label>
-                                                <input type="text" placeholder="User Name" class="form-control">
-                                            </div>
-                                            <!-- Text input-->
-                                            <div class="col-md-6 form-group">
-                                                <label class="control-label">status</label>
-                                                <input type="text" placeholder="status" class="form-control">
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label class="control-label">Type</label>
-                                                <input type="text" placeholder="Type" class="form-control">
-                                            </div>
+                                            {#                                            <div class="col-md-6 form-group">#}
+                                            {#                                                <label class="control-label">Photo</label>#}
+                                            {#                                                <input name="filebutton" class="input-file" type="file">#}
+                                            {#                                            </div>#}
+                                            {#                                            <!-- Text input-->#}
+                                            {#                                            <div class="col-md-6 form-group">#}
+                                            {#                                                <label class="control-label">User Name</label>#}
+                                            {#                                                <input type="text" placeholder="User Name" class="form-control">#}
+                                            {#                                            </div>#}
+                                            {#                                            <!-- Text input-->#}
+                                            {#                                            <div class="col-md-6 form-group">#}
+                                            {#                                                <label class="control-label">status</label>#}
+                                            {#                                                <input type="text" placeholder="status" class="form-control">#}
+                                            {#                                            </div>#}
+                                            {#                                            <div class="col-md-6 form-group">#}
+                                            {#                                                <label class="control-label">Type</label>#}
+                                            {#                                                <input type="text" placeholder="Type" class="form-control">#}
+                                            {#                                            </div>#}
                                             <div class="col-md-12 form-group user-form-group">
                                                 <div class="pull-right">
                                                     <button type="button" class="btn btn-danger btn-sm">Cancel</button>
@@ -232,7 +156,7 @@
             <!-- /.modal -->
             <!-- Modal -->
             <!-- User Modal1 -->
-            <div class="modal fade" id="adduser" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade" id="addentry" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header modal-header-primary">
@@ -242,27 +166,29 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" method="post">
+                                        {% csrf_token %}
                                         <fieldset>
-                                            <!-- Text input-->
-                                            <div class="col-md-6 form-group">
-                                                <label class="control-label">Photo</label>
-                                                <input name="filebutton" class="input-file" type="file">
-                                            </div>
-                                            <!-- Text input-->
-                                            <div class="col-md-6 form-group">
-                                                <label class="control-label">User Name</label>
-                                                <input type="text" placeholder="User Name" class="form-control">
-                                            </div>
-                                            <!-- Text input-->
-                                            <div class="col-md-6 form-group">
-                                                <label class="control-label">status</label>
-                                                <input type="text" placeholder="status" class="form-control">
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <label class="control-label">Type</label>
-                                                <input type="text" placeholder="Type" class="form-control">
-                                            </div>
+                                            {{ sales_form.as_p }}
+                                            {#                                            <!-- Text input-->#}
+                                            {#                                            <div class="col-md-6 form-group">#}
+                                            {#                                                <label class="control-label">Photo</label>#}
+                                            {#                                                <input name="filebutton" class="input-file" type="file">#}
+                                            {#                                            </div>#}
+                                            {#                                            <!-- Text input-->#}
+                                            {#                                            <div class="col-md-6 form-group">#}
+                                            {#                                                <label class="control-label">User Name</label>#}
+                                            {#                                                <input type="text" placeholder="User Name" class="form-control">#}
+                                            {#                                            </div>#}
+                                            {#                                            <!-- Text input-->#}
+                                            {#                                            <div class="col-md-6 form-group">#}
+                                            {#                                                <label class="control-label">status</label>#}
+                                            {#                                                <input type="text" placeholder="status" class="form-control">#}
+                                            {#                                            </div>#}
+                                            {#                                            <div class="col-md-6 form-group">#}
+                                            {#                                                <label class="control-label">Type</label>#}
+                                            {#                                                <input type="text" placeholder="Type" class="form-control">#}
+                                            {#                                            </div>#}
                                             <div class="col-md-12 form-group user-form-group">
                                                 <div class="pull-right">
                                                     <button type="button" class="btn btn-danger btn-sm">Cancel</button>

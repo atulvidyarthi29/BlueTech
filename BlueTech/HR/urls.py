@@ -16,6 +16,7 @@ urlpatterns = [
     path('meeting/add/', views.MeetingCreateView.as_view(), name='meet_add'),
     path('meeting/<pk>/', views.MeetingDetailView.as_view(), name='meet_detail'),
     path('meeting/<pk>/update/', views.MeetingUpdateView.as_view(), name='meet_update'),
+    # path('meeting/<pk>/delete/', views.MeetingDeleteView.as_view(), name='meet_delete'),
     path('job_vacancy/', views.job_vacancy, name='job_vacancy'),
     path('job_applications/', views.job_applications, name='job_applications'),
     path('meetinglist/', views.MeetingList.as_view(), name='meetinglist'),

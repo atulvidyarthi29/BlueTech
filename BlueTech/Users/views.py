@@ -110,57 +110,57 @@ def disclaimer(request):
         validated = False
     return render(request, 'home/disclaimer.html', context={'validated': validated, })
 
-
-def register(request):
-    if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
-        key_form = ProductKeyForm(request.POST)
-        if key_form.is_valid() and user_form.is_valid():
-            pd_key = key_form.cleaned_data['product_key']
-            lic_obj = License.objects.first()
-            if lic_obj.licence == pd_key:
-                lic_obj.validated = True
-                lic_obj.save()
-                user_form2 = user_form.save(commit=False)
-                user_form2.is_active = False
-                user_form2.save()
-                current_site = get_current_site(request)
-                mail_subject = 'Please, verify your Email!'
-                message = render_to_string('users/activate_email.html', {
-                    'user': user_form2,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user_form2.pk)).decode(),
-                    'token': account_activation_token.make_token(user_form2),
-                })
-                to_email = user_form.cleaned_data.get('email')
-                email = EmailMessage(
-                    mail_subject, message, to=[to_email]
-                )
-                email.send()
-                return HttpResponse('Please confirm your email address to complete the registration')
-            return render(request, 'users/register.html',
-                          {'user_form': user_form, 'key_form': key_form, 'errors': "Unauthorized"})
-    else:
-        user_form = UserRegistrationForm()
-        key_form = ProductKeyForm()
-    return render(request, 'users/register.html', {'user_form': user_form, 'key_form': key_form})
-
-
-def activate(request, uidb64, token):
-    try:
-        print(uidb64)
-        uid = force_text(urlsafe_base64_decode(uidb64).decode())
-        print(uid)
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
-        return redirect('users:post_login', 'CEO')
-    else:
-        return HttpResponse('Activation link is invalid!')
+#
+# def register(request):
+#     if request.method == 'POST':
+#         user_form = UserRegistrationForm(request.POST)
+#         key_form = ProductKeyForm(request.POST)
+#         if key_form.is_valid() and user_form.is_valid():
+#             pd_key = key_form.cleaned_data['product_key']
+#             lic_obj = License.objects.first()
+#             if lic_obj.licence == pd_key:
+#                 lic_obj.validated = True
+#                 lic_obj.save()
+#                 user_form2 = user_form.save(commit=False)
+#                 user_form2.is_active = False
+#                 user_form2.save()
+#                 current_site = get_current_site(request)
+#                 mail_subject = 'Please, verify your Email!'
+#                 message = render_to_string('users/activate_email.html', {
+#                     'user': user_form2,
+#                     'domain': current_site.domain,
+#                     'uid': urlsafe_base64_encode(force_bytes(user_form2.pk)).decode(),
+#                     'token': account_activation_token.make_token(user_form2),
+#                 })
+#                 to_email = user_form.cleaned_data.get('email')
+#                 email = EmailMessage(
+#                     mail_subject, message, to=[to_email]
+#                 )
+#                 email.send()
+#                 return HttpResponse('Please confirm your email address to complete the registration')
+#             return render(request, 'users/register.html',
+#                           {'user_form': user_form, 'key_form': key_form, 'errors': "Unauthorized"})
+#     else:
+#         user_form = UserRegistrationForm()
+#         key_form = ProductKeyForm()
+#     return render(request, 'users/register.html', {'user_form': user_form, 'key_form': key_form})
+#
+#
+# def activate(request, uidb64, token):
+#     try:
+#         print(uidb64)
+#         uid = force_text(urlsafe_base64_decode(uidb64).decode())
+#         print(uid)
+#         user = User.objects.get(pk=uid)
+#     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+#         user = None
+#     if user is not None and account_activation_token.check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         login(request, user)
+#         return redirect('users:post_login', 'CEO')
+#     else:
+#         return HttpResponse('Activation link is invalid!')
 
 
 def add_user(request, uidb64, token):

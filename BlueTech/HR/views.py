@@ -6,7 +6,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
 from django.views import generic
-from django.views.generic import UpdateView, CreateView
+from django.views.generic import UpdateView, CreateView,DeleteView
 from django.urls import reverse
 from rest_framework.views import APIView
 from HR.forms import EmailsForm
@@ -150,6 +150,14 @@ class MeetingUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('users:hr:meet')
+
+# class MeetingDeleteView(DeleteView):
+#     model=Meeting
+#     success_url = reverse('user:hr:meet')
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['department'] = self.request.user.employee.dept
+#         return context
 
 
 class TrainingView(generic.ListView):
