@@ -1,0 +1,127 @@
+{% extends 'home/navbar.html' %}
+{% load widget_tweaks %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="header-icon">
+                <i class="fa fa-dashboard"></i>
+            </div>
+            <div class="header-title">
+                <h1>Departments</h1>
+                <small>Very detailed & featured admin.</small>
+            </div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="">
+
+                <div class="col-md-12" style="font-size:medium;padding:10px;">
+                    <div style="margin: 10px;">
+                        <img src="" style="width:100px;height:100px" alt="profile"/>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">username</label>
+                        <span style="">{{ profile.user.username }}</span><br>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">Full name:</label>
+                        <span style="">{{ profile.first_name }}&nbsp;{{ profile.last_name }}</span><br>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">Email:</label>
+                        <span style="">{{ profile.user.email }}</span><br>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">Phone No.:</label>
+                        <span style="">{{ profile.phone_no }}</span><br>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">Gender:</label>
+                        <span style="">{{ profile.gender }}</span><br>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">Department:</label>
+                        <span style="">{{ profile.dept }}</span><br>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">Date of Birth:</label>
+                        <span style="">{{ profile.date }}</span><br>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">Date of Joining:</label>
+                        <span style="">{{ profile.date_of_joining }}</span><br>
+                    </div>
+                    <div style="margin: 10px;">
+                        <label class="control-label">Link to CV:</label>
+                        <span style="">{{ profile.cv }}</span><br>
+                    </div>
+                    {% if profile.user.id == user.id %}
+                        <div>
+                            <button type="button" class="btn btn-add btn-sm" data-toggle="modal"
+                                    data-target="#update"><i class="fa fa-pencil"></i>Edit Profile
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-primary">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3><i class="fa fa-plus m-r-5"></i> Add new User</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal" method="post">
+                                            {% csrf_token %}
+                                            <fieldset>
+                                                <!-- Text input-->
+                                                <div class="col-md-12 form-group">
+                                                    <label class="control-label">First name</label>
+                                                    {% render_field profile_update_form.first_name class="form-control" %}
+                                                </div>
+                                                <div class="col-md-12 form-group">
+                                                    <label class="control-label">Last name</label>
+                                                    {% render_field profile_update_form.last_name class="form-control" %}
+                                                </div>
+                                                <div class="col-md-12 form-group">
+                                                    <label class="control-label">Phone No.</label>
+                                                    {% render_field profile_update_form.phone_no class="form-control" %}
+                                                </div>
+                                                <div class="col-md-12 form-group">
+                                                    <label class="control-label">Phone No.</label>
+                                                    {% render_field profile_update_form.cv class="form-control" %}
+                                                </div>
+                                                <div class="col-md-12 form-group user-form-group">
+                                                    <div class="pull-right">
+                                                        <button type="button" class="btn btn-danger btn-sm">Cancel
+                                                        </button>
+                                                        <button type="submit" class="btn btn-add btn-sm">Update</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}

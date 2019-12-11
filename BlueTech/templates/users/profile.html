@@ -35,6 +35,8 @@
                         </div>
                     </div>
                     <div class="panel-body">
+                        <h4 style="padding-left: 180px; color:green;font-weight: bold;">You are filling the form for
+                            <span style="color: red;">{{ dept }}</span> department</h4><br><br>
                         <form method="POST" id="loginForm" enctype="multipart/form-data" novalidate>
                             {% csrf_token %}
                             {% if user_form.non_field_errors %}
@@ -52,16 +54,13 @@
                                 </div>
                             {% endif %}
                             <div>
-                                <div class="row text-center">
+
+                                <div class="form-group">
                                     <label>Avatar</label>
-                                    <br>
-                                    <div class="col-md-7" style="float: right">
-                                        {% render_field profile_edit_form.profile_pic id="email" style="color:blue;border-radius: 120px;background:#ff0000;margin:4px;border: 1px solid #BFE5E1;height:120px;width:120px;" %}
-                                        <div style="color:red;">{% for error in profile_edit_form.profile_pic.errors %}
-                                            {{ error }}
-                                        {% endfor %}</div>
-                                        <br>
-                                    </div>
+                                    {% render_field profile_edit_form.profile_pic id="email" style="color:blue;border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
+                                    <div style="color:red;">{% for error in profile_edit_form.profile_pic.errors %}
+                                        {{ error }}
+                                    {% endfor %}</div>
                                 </div>
                                 <div class="form-group">
                                     <label>Username</label>
@@ -105,8 +104,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Department</label>
-{#                                {{ profile_edit_form.dept }}#}
-                                    {% render_field profile_edit_form.dept id="dept" readonly='readonly' style="border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}
+                                    {#                                {{ profile_edit_form.dept }}#}
+                                    {#                                    {% render_field profile_edit_form.dept id="dept" readonly='True' style="border-radius: 5px;margin:4px;border: 1px solid #BFE5E1;padding:4px" %}#}
                                     <div style="color:red;">{% for error in profile_edit_form.dept.errors %}
                                         {{ error }}
                                     {% endfor %}</div>

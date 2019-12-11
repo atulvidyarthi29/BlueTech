@@ -69,11 +69,11 @@
                                     <thead>
                                     <tr class="info">
                                         <th>Product Name</th>
-                                        <th>Purchased From</th>
+                                        <th>Purchased from</th>
                                         <th>Quantity</th>
                                         <th>Date</th>
                                         <th>Price</th>
-                                        <th>Net Amount</th>
+                                        <th>Net Expense</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -114,7 +114,7 @@
                                 <div class="col-md-12">
                                     <form class="form-horizontal" method="post">
                                         <fieldset>
-                                            {{ sales_form.as_p }}
+                                            {{ payable_account_form.as_p }}
                                             <!-- Text input-->
                                             {#                                            <div class="col-md-6 form-group">#}
                                             {#                                                <label class="control-label">Photo</label>#}
@@ -169,7 +169,7 @@
                                     <form class="form-horizontal" method="post">
                                         {% csrf_token %}
                                         <fieldset>
-                                            {{ sales_form.as_p }}
+                                            {{ payable_account_form.as_p }}
                                             {#                                            <!-- Text input-->#}
                                             {#                                            <div class="col-md-6 form-group">#}
                                             {#                                                <label class="control-label">Photo</label>#}

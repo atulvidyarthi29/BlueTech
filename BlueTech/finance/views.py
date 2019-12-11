@@ -4,16 +4,19 @@ from django.db.models import Sum
 from .forms import SalesForm, AssetForm, PayableAccountForm, LiabilityForm
 from .models import SalesAccount, Asset, PayableAccount, Liability
 from datetime import date
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
+@login_required
 def finance_home(request):
     department = request.user.employee.dept
     return render(request, "finance/home.html",
                   context={'department': department, 'user': request.user.employee})
 
 
+@login_required
 def income(request):
     if request.method == 'POST':
         sales_form = SalesForm(request.POST)
@@ -24,19 +27,19 @@ def income(request):
     else:
         sales_form = SalesForm()
     data = SalesAccount.objects.all()
-    # today = date.today()
-    # net_week = PayableAccount.objects.filter(date_from__month__gte=today.day - 7,
-    #                                          date_to__month__lte=today.day).aggregate(Sum('price'))
-    # net_month = PayableAccount.objects.filter(date_from__month__gte=today.month - 1,
-    #                                           date_to__month__lte=today.month).aggregate(Sum('price'))
-    # net_year = PayableAccount.objects.filter(date_from__month__gte=today.year - 1,
-    #                                          date_to__month__lte=today.year).aggregate(Sum('price'))
-    # print(net_week,net_month,net_year)
-    # # overall_net =  PayableAccount.objects.filter()
+    data_chart_date = SalesAccount.objects.values('date').order_by('date').annotate(pricee=Sum('price'))[:20]
+    date = []
+    net_amount = []
+    for q in data_chart_date:
+        date.append(q['date'].strftime('%Y-%m-%d'))
+        net_amount.append(q['pricee'])
+
+    print(date, net_amount)
     return render(request, "finance/tracking/income.html",
-                  context={'data': data, 'sales_form': sales_form})
+                  context={'data': data, 'sales_form': sales_form, 'date': date, 'net_amount': net_amount, })
 
 
+@login_required
 def income_asset(request):
     if request.method == 'POST':
         asset_form = AssetForm(request.POST)
@@ -47,10 +50,12 @@ def income_asset(request):
     else:
         asset_form = AssetForm()
     data = Asset.objects.all()
+
     return render(request, "finance/tracking/asset_income.html",
                   context={'data': data, 'asset_form': asset_form})
 
 
+@login_required
 def expenditure(request):
     if request.method == 'POST':
         payable_account_form = PayableAccountForm(request.POST)
@@ -65,6 +70,7 @@ def expenditure(request):
                   context={'data': data, 'payable_account_form': payable_account_form})
 
 
+@login_required
 def liabilities(request):
     if request.method == 'POST':
         liability_form = LiabilityForm(request.POST)
@@ -79,25 +85,31 @@ def liabilities(request):
                   context={'data': data, 'liability_form': liability_form})
 
 
+@login_required
 def finance_tracking(request):
     return render(request, "finance/tracking.html")
 
 
+@login_required
 def finance_reports(request):
     return render(request, "finance/reports.html")
 
 
+@login_required
 def finance_management(request):
     return render(request, "finance/management.html")
 
 
+@login_required
 def finance_ratios(request):
     return render(request, "finance/ratio.html")
 
 
+@login_required
 def finance_projection(request):
     return render(request, "finance/projections.html")
 
 
+@login_required
 def transactions(request):
     return render(request, "finance/tracking/transactions.html")

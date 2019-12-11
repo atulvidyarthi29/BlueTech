@@ -68,22 +68,22 @@
                                 <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
                                     <thead>
                                     <tr class="info">
-                                        <th>Asset Type</th>
-                                        <th>Asset Value</th>
+                                        <th>Liability Type</th>
+                                        <th>Liability Value</th>
                                         <th>Annual Return Rate</th>
                                         <th>Tax Levied</th>
-                                        <th>Net Income</th>
+                                        <th>Net Expense</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for dat in data %}
                                         <tr>
-                                            <td>{{ dat.asset_type }}</td>
-                                            <td>{{ dat.asset_value }}</td>
+                                            <td>{{ dat.liability_type }}</td>
+                                            <td>{{ dat.liability_value }}</td>
                                             <td>{{ dat.annual_return_rate }}</td>
                                             <td>{{ dat.tax_levied }}</td>
-                                            <td>{{ dat.net_income }}</td>
+                                            <td>{{ dat.net_expense }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-add btn-sm" data-toggle="modal"
                                                         data-target="#update"><i class="fa fa-user-o"></i></button>

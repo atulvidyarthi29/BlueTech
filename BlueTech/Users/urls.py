@@ -17,6 +17,7 @@ urlpatterns = [
     path('post_login/<dept>/', views.post_login, name='post_login'),
     path('to_post_login/', views.to_post_login, name='to_post_login'),
     path('profile/<dept>/', views.profile, name='profile'),
+    path('profile/update/<pk>/', views.update_profile, name='update'),
     # path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path('hr/', include('HR.urls')),
     path('team/', views.team, name='team'),

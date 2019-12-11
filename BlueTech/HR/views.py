@@ -6,10 +6,10 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
 from django.views import generic
-from django.views.generic import UpdateView, CreateView,DeleteView
+from django.views.generic import UpdateView, CreateView, DeleteView
 from django.urls import reverse
 from rest_framework.views import APIView
-from HR.forms import EmailsForm
+from HR.forms import EmailsForm, PayrollForm
 from HR.models import Meeting, Training
 from HR.tokens import recruitment_token
 from Users.forms import UsersTemp
@@ -79,8 +79,11 @@ def depart(request, dept_name):
 @login_required
 def recruit(request):
     department = request.user.employee.dept
+    members_list = [len(Employee.objects.filter(dept='SALES')), len(Employee.objects.filter(dept='ACCOUNTS')),
+                    len(Employee.objects.filter(dept='HR'))]
+    print(members_list)
     return render(request, 'HR/recruitment.html',
-                  context={'department': department, 'user': request.user.employee, })
+                  context={'department': department, 'user': request.user.employee, 'members_list': members_list})
 
 
 @login_required
@@ -91,10 +94,19 @@ def hr_dashboard(request):
 
 
 @login_required
-def job_vacancy(request):
+def payroll(request):
     department = request.user.employee.dept
-    return render(request, 'HR/job_posted.html',
-                  context={'department': department, 'user': request.user.employee, })
+    if request.method == 'POST':
+        payroll_form = PayrollForm(request.POST)
+        if payroll_form.is_valid():
+            payroll_form.save()
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        payroll_form = PayrollForm()
+
+    salary = Salary.objects.all()
+    return render(request, 'HR/payroll.html',
+                  context={'department': department, 'payroll_form': payroll_form, 'payroll': salary})
 
 
 @login_required
@@ -150,6 +162,7 @@ class MeetingUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('users:hr:meet')
+
 
 # class MeetingDeleteView(DeleteView):
 #     model=Meeting

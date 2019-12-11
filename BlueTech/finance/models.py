@@ -48,5 +48,5 @@ class Liability(models.Model):
     liability_value = models.DecimalField(max_digits=12, decimal_places=2)
 
     @property
-    def net_income(self):
+    def net_expense(self):
         return (float(self.liability_value) * float(self.annual_return_rate) * 0.01) * (1 + float(self.tax_levied) * 0.01)

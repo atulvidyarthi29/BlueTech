@@ -1,6 +1,6 @@
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -109,6 +109,7 @@ def disclaimer(request):
     except:
         validated = False
     return render(request, 'home/disclaimer.html', context={'validated': validated, })
+
 
 #
 # def register(request):
@@ -222,10 +223,11 @@ def profile(request, dept):
         user_form = UserRegistrationForm(request.POST, instance=request.user)
         if profile_edit_form.is_valid():
             form_object = profile_edit_form.save(commit=False)
+            form_object.dept = dept
             form_object.user = request.user
-            if profile_edit_form.cleaned_data['dept'] == 'CEO':
+            if dept == 'CEO':
                 form_object.reporting_to = None
-            if profile_edit_form.cleaned_data['dept'] and profile_edit_form.cleaned_data['gender'] and \
+            if form_object.dept and profile_edit_form.cleaned_data['gender'] and \
                     profile_edit_form.cleaned_data['date'] and profile_edit_form.cleaned_data['date_of_joining'] and \
                     profile_edit_form.cleaned_data['phone_no']:
                 form_object.is_complete = True
@@ -236,13 +238,10 @@ def profile(request, dept):
             return redirect('users:dashboard')
         print(profile_edit_form.errors)
         return render(request, 'users/profile.html', {'profile_edit_form': profile_edit_form, 'user_form': user_form,
-                                                      'errors': profile_edit_form.errors})
+                                                      'errors': profile_edit_form.errors, 'deptat': dept, })
 
     else:
-        ob = Employee()
-        if dept != '-':
-            ob.dept = dept
-        profile_edit_form = ProfileEditForm(instance=ob)
+        profile_edit_form = ProfileEditForm()
         user_form = UserRegistrationForm(instance=request.user)
 
     return render(request, 'users/profile.html',
@@ -269,4 +268,20 @@ def dashboard(request):
 def ceo_dashboard(request):
     department = request.user.employee.dept
     return render(request, 'home/dashboard.html',
-                  context={'department': department, 'user': request.user.employee})
+                  context={'department': department, 'user': request.user})
+
+
+def update_profile(request, pk):
+    employee = get_object_or_404(Employee, id=pk)
+    profile_update_form = ProfileEditForm(request.POST, request.FILES, instance=employee)
+    if request.method == 'POST':
+        if profile_update_form.is_valid():
+            profile_update_form.save()
+            return redirect(request.META.get('HTTP_REFERER'))
+    context = {
+        'profile_update_form': profile_update_form,
+        'department': request.user.employee.dept,
+        'profile': employee,
+        'user': request.user,
+    }
+    return render(request, 'users/profile_update.html', context)

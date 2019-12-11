@@ -27,7 +27,7 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Employee
-        fields = ['first_name', 'last_name', 'phone_no', 'date', 'date_of_joining', 'gender', 'dept', 'cv',
+        fields = ['first_name', 'last_name', 'phone_no', 'date', 'date_of_joining', 'gender', 'cv',
                   'profile_pic']
 
 

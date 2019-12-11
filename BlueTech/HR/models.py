@@ -36,6 +36,9 @@ class Salary(models.Model):
     Incentives = models.IntegerField()
     tax = models.FloatField()
 
+    class Meta:
+        unique_together = ['employee_id']
+
 
 class EmailFiles(models.Model):
     file = models.FileField(upload_to='Media/email_departments/')
