@@ -1,12 +1,13 @@
-import datetime
-
+from collections import defaultdict
+from datetime import date, timedelta
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+from rest_framework.utils import json
 
-from Sales.forms import ProductForm, CustomerForm, PurchaseForm, LeadForm
+from Sales.forms import ProductForm, CustomerForm, PurchaseForm, LeadForm, InvoiceForm, ProductBoughtForm
 # from Sales.utils import render_to_pdf
-from .models import Product, Customer, Lead
+from .models import Product, Customer, Lead, Invoice
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
@@ -120,9 +121,12 @@ def sales_dashboard(request):
     customer_val = Customer.objects.count()
     product_val = Product.objects.count()
     lead_val = Lead.objects.count()
+    cv = week_chart()
+    cv1 = json.dumps(cv[1])
+    cv0 = json.dumps(cv[0])
     return render(request, 'Sales/sales_dashboard.html',
                   {'department': department, 'customer_val': customer_val, 'product_val': product_val,
-                   'lead_val': lead_val})
+                   'lead_val': lead_val, 'cv0': cv0, 'cv1': cv1})
 
 
 def lead_list(request):
@@ -207,3 +211,104 @@ class LeadList(APIView):
             serializer.save()
             return Response(True)
         return Response(False)
+
+
+def add_invoice_product(request):
+    invoice_no = request.session['invoice_no']
+    invoice = Invoice.objects.get(invoice_no=invoice_no)
+    products = invoice.productbought_set.all()
+    if request.method == "POST":
+        product_bought_form = ProductBoughtForm(request.POST)
+        product = request.POST.get("search")
+        product = Product.objects.get(itemname=product)
+        price = product.price
+        quantity = request.POST.get("quantity")
+        amount = int(price) * int(quantity)
+        product_bought_form.invoice = invoice
+        product_bought_form.amount = amount
+        pb = ProductBought()
+        pb.product = product
+        pb.amount = amount
+        pb.quantity = quantity
+        pb.invoice = invoice
+        invoice.total_amount = invoice.total_amount + amount
+        invoice.save()
+        pb.save()
+        return redirect("sales:add_invoice_product")
+        # if product_bought_form.is_valid():
+        #     product_bought_form.save()
+        #     redirect("sales:add_invoice_product", invoice_no=invoice_no)
+        # else:
+        #     return HttpResponse("Form is not valid." + str(request.session['invoice_no']))
+    else:
+        context = {
+            "product_bought_form": ProductBoughtForm(),
+            "products": products,
+            "name": invoice.customer.company_name,
+            "date": invoice.date,
+            "invoice": invoice
+        }
+        return render(request, "Sales/add_invoice_product.html", context)
+
+
+def add_invoice(request):
+    if request.method == "POST":
+        invoice_form = InvoiceForm(request.POST)
+        if invoice_form.is_valid():
+            inv = invoice_form.save()
+            # return HttpResponse("Invoice Added")
+            request.session["invoice_no"] = inv.invoice_no
+            return redirect("sales:add_invoice_product")
+        else:
+            return HttpResponse("Error")
+    else:
+        invoice_form = InvoiceForm()
+        return render(request, "Sales/add_invoice.html", {"invoice_form": invoice_form})
+
+
+def autocompleteModel(request):
+    search_qs = Product.objects.filter(itemname__startswith=request.GET['search'])
+    print(request.GET['search'])
+    results = []
+    for r in search_qs:
+        results.append(r.itemname)
+    print(results)
+    resp = request.GET['callback'] + '(' + json.dumps(results) + ');'
+    return HttpResponse(resp, content_type='application/json')
+
+
+def invoice_list(request):
+    invoices = Invoice.objects.all()
+    invoices.reverse()
+    return render(request, 'sales/invoice_list.html', {'invoices': invoices})
+
+
+def show_invoice(request, invoice_no):
+    invoice = Invoice.objects.get(invoice_no=invoice_no)
+    products = invoice.productbought_set.all()
+    context = {
+        "invoice": invoice,
+        "products": products,
+    }
+    print(context)
+    return render(request, 'sales/show_invoice.html', context)
+
+
+def week_chart():
+    N = 5
+    current_date = date.today().isoformat()
+
+    chart_values = defaultdict(float)
+    for i in range(N):
+        days_before = (date.today() - timedelta(days=i)).isoformat()
+        for j in Invoice.objects.filter(date=days_before):
+            chart_values[days_before] += j.total_amount
+    cv = []
+    cv.append(list(chart_values.keys()))
+    cv.append(list(chart_values.values()))
+    # print(cv[1])
+    return cv
+
+    # print(cv)
+
+# week_chart()

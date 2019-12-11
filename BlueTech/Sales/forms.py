@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django import forms
-from Sales.models import Product, Customer,Purchase,Lead
+from Sales.models import Product, Customer, Purchase, Lead, ProductBought, Invoice
+
 customer_type = (
     ('Vendor','Vendor'),
     ('Regular','Regular'),
@@ -43,3 +44,14 @@ class PurchaseForm(ModelForm):
     class Meta:
         model = Purchase
         fields = ('purchased_from','date')
+
+class InvoiceForm(ModelForm):
+    class Meta:
+        model = Invoice
+        fields = ('invoice_no', 'customer', 'date')
+
+
+class ProductBoughtForm(ModelForm):
+    class Meta:
+        model = ProductBought
+        fields = "__all__"

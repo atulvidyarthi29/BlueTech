@@ -1,5 +1,5 @@
 {% extends 'home/navbar.html' %}
-
+{% load static %}
 {% block head %}
 {% endblock %}
 
@@ -18,36 +18,37 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-              <a href="{% url 'sales:customer_list' %}">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <div id="cardbox1">
-                        <div class="statistic-box">
-                            <i class="fa fa-user-plus fa-3x"></i>
-                            <div class="counter-number pull-right">
-                                <span class="count-number">{{customer_val}}</span>
-                                <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                <a href="{% url 'sales:customer_list' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div id="cardbox1">
+                            <div class="statistic-box">
+                                <i class="fa fa-user-plus fa-3x"></i>
+                                <div class="counter-number pull-right">
+                                    <span class="count-number">{{ customer_val }}</span>
+                                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
                               </span>
+                                </div>
+                                <h3> Customers</h3>
                             </div>
-                            <h3> Customers</h3>
                         </div>
                     </div>
-                </div>
-              </a>
-              <a href="{% url 'sales:add_item' %}">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <div id="cardbox2">
-                        <div class="statistic-box">
-                            <i class="fa fa-user-secret fa-3x"></i>
-                            <div class="counter-number pull-right">
-                                <span class="count-number">{{product_val}}</span>
-                                <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                </a>
+                <a href="{% url 'sales:add_item' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div id="cardbox2">
+                            <div class="statistic-box">
+                                <i class="fa fa-user-secret fa-3x"></i>
+                                <div class="counter-number pull-right">
+                                    <span class="count-number">{{ product_val }}</span>
+                                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
                               </span>
+                                </div>
+                                <h3>Products</h3>
                             </div>
-                            <h3>Products</h3>
                         </div>
                     </div>
-                </div>
-              </a>
+                </a>
+                <a href="{% url "sales:invoice_list" %}">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <div id="cardbox3">
                         <div class="statistic-box">
@@ -61,24 +62,126 @@
                         </div>
                     </div>
                 </div>
+            </a>
                 <a href="{% url 'sales:lead_list' %}">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <div id="cardbox4">
-                        <div class="statistic-box">
-                            <i class="fa fa-user-plus fa-3x"></i>
-                            <div class="counter-number pull-right">
-                                <span class="count-number">{{lead_val}}</span>
-                                <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div id="cardbox4">
+                            <div class="statistic-box">
+                                <i class="fa fa-user-plus fa-3x"></i>
+                                <div class="counter-number pull-right">
+                                    <span class="count-number">{{ lead_val }}</span>
+                                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
                               </span>
+                                </div>
+                                <h3>Leads</h3>
                             </div>
-                            <h3>Leads</h3>
                         </div>
                     </div>
-                </div>
-              </a>
+                </a>
             </div>
-            </section>
+        </section>
         <!-- /.content -->
+{#    </div>#}
+
+{#    <div class="content-wrapper">#}
+{#        <div style="padding-top: -100px">#}
+            <!-- bar chart -->
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="panel panel-bd lobidisable">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>Weekly Earnings & Expenses</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="singelBarChart" height="323"></canvas>
+                    </div>
+                </div>
+            </div>
+{#        </div>#}
     </div>
+    </div>
+    <script src="{% static 'assets/plugins/chartJs/Chart.min.js' %}" type="text/javascript"></script>
     <!-- /.content-wrapper -->
+    <script>
+        function dash() {
+            // single bar chart
+            var ctx = document.getElementById("singelBarChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{cv0|safe}},
+                    datasets: [
+                        {
+                            label: "My First dataset",
+                            data: {{cv1|safe}},
+                            borderColor: "rgba(0, 150, 136, 0.8)",
+                            width: "1",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(0, 150, 136, 0.8)"
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+            //monthly calender
+            $('#m_calendar').monthly({
+                mode: 'event',
+                //jsonUrl: 'events.json',
+                //dataType: 'json'
+                xmlUrl: 'events.xml'
+            });
+
+            //bar chart
+            var ctx = document.getElementById("barChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July", "august", "september", "october", "Nobemver", "December"],
+                    datasets: [
+                        {
+                            label: "My First dataset",
+                            data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56],
+                            borderColor: "rgba(0, 150, 136, 0.8)",
+                            width: "1",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(0, 150, 136, 0.8)"
+                        },
+                        {
+                            label: "My Second dataset",
+                            data: [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 86],
+                            borderColor: "rgba(51, 51, 51, 0.55)",
+                            width: "1",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(51, 51, 51, 0.55)"
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+            //counter
+            $('.count-number').counterUp({
+                delay: 10,
+                time: 5000
+            });
+        }
+
+        dash();
+    </script>
 {% endblock %}

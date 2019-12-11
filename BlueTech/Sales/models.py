@@ -36,15 +36,27 @@ class Customer(models.Model):
         return self.company_name
 
 
-# class ProductBought(models.Model):
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     quantity = models.IntegerField(default=0)
-#
-#
-# class Invoice(models.Model):
-#     invoice_no = models.AutoField(int)
-#     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-#     date = models.DateField(blank=False)
+class Invoice(models.Model):
+    invoice_no = models.AutoField(int, primary_key=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    date = models.DateField(default=datetime.date.today, blank=False)
+    total_amount = models.FloatField(default=0, blank=True)
+    amount_crdited = models.FloatField(default=0, blank=True)
+    amount_left = models.FloatField(default=0, blank=True)
+    status = models.CharField(blank=True, max_length=20)
+
+    def __str__(self):
+        return "INV"+str(self.invoice_no)
+
+
+class ProductBought(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0, blank=False)
+    amount = models.FloatField(default=0, blank=True)
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return  str(self.product)
 
 
 class Sale(models.Model):
