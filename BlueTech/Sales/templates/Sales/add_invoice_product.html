@@ -1,0 +1,103 @@
+{% extends 'home/navbar.html' %}
+{% load widget_tweaks %}
+{% block body %}
+    <script>
+        function searchOpen() {
+            var search = $('#txtSearch').val()
+            var data = {
+                search: search
+            };
+            $.ajax({
+                url: "{% url 'sales:prodauto'%}",
+                data: data,
+                dataType: 'jsonp',
+                jsonp: 'callback',
+                jsonpCallback: 'searchResult'
+            });
+        }
+
+
+        function searchResult(data) {
+            $("#txtSearch").autocomplete({
+                source: data
+            });
+        }
+    </script>
+
+    <script>
+
+        function refresh_function() {
+            window.location.reload()
+
+        }
+
+    </script>
+
+    <div class="content-wrapper">
+        <div class="panel-body">
+            <form action="" method="post" style="height: 1000px" class="col-sm-6">
+                {% csrf_token %}
+                {#            {{ product_bought_form.product }}#}
+                <div class="form-group">
+                    <label>Product</label>
+                    {#                                 <input type="text" class="form-control" placeholder="Enter First Name" required>#}
+                    <input type="text" id="txtSearch" name="search" onkeyup="searchOpen()" placeholder="Product"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    {#                                 <input type="text" class="form-control" placeholder="Enter First Name" required>#}
+                    {% render_field product_bought_form.quantity placeholder="Quantity" class="form-control" autocomplete="off" %}
+                </div>
+
+                <div class="reset-button">
+
+                    <input type="submit" value="Add Product" class="btn btn-success">
+                    <a href="{% url 'sales:show_invoice' invoice.invoice_no %}" class="btn btn-success">Save</a>
+                </div>
+
+                {#                <input type="submit" value="Add Product">#}
+            </form>
+                
+            <div class="table-responsive" style="padding-top: -500px">
+                <b><span> {{ name }} {{ date }}</span></b>
+                <table class="table table-bordered table-striped table-hover">
+                    <tr class="info">
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.product }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>{{ product.amount }}</td>
+                            <td>
+                                <a href="#"
+                                   type="button" class="btn btn-danger btn-sm"
+                                   data-toggle="modal"><i
+                                        class="fa fa-trash-o"></i>
+                                </a>
+                                <a href="#"
+                                   type="button" class="btn btn-add btn-sm" data-toggle="modal"><i
+                                        class="fa fa-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr aria-rowspan="3">
+                        <td colspan="4"><b>Total Amount = </b> {{ invoice.total_amount }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+
+
+

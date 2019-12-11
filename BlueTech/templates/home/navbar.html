@@ -252,4 +252,260 @@
 
 <!-- Mirrored from thememinister.com/crm/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Oct 2019 12:23:57 GMT -->
 </html>
+{##}
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{##}
+{#<!-- Mirrored from thememinister.com/crm/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Oct 2019 12:21:42 GMT -->#}
+{#<head>#}
+{#    <meta charset="utf-8">#}
+{#    <meta http-equiv="X-UA-Compatible" content="IE=edge">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <title>CRM Admin Panel</title>#}
+{#    <!-- Favicon and touch icons -->#}
+{#    <link rel="shortcut icon" href="{% static 'assets/dist/img/ico/favicon.png' %}" type="image/x-icon">#}
+{#    <!-- Start Global Mandatory Style#}
+{#       =====================================================================-->#}
+{#    <!-- jquery-ui css -->#}
+{#    <link href="{% static 'assets/plugins/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- Bootstrap -->#}
+{#    <link href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- Bootstrap rtl -->#}
+{#    <!--<link href="assets/bootstrap-rtl/bootstrap-rtl.min.css" rel="stylesheet" type="text/css"/>-->#}
+{#    <!-- Lobipanel css -->#}
+{#    <link href="{% static 'assets/plugins/lobipanel/lobipanel.min.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- Pace css -->#}
+{#    <link href="{% static 'assets/plugins/pace/flash.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- Font Awesome -->#}
+{#    <link href="{% static 'assets/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- Pe-icon -->#}
+{#    <link href="{% static 'assets/pe-icon-7-stroke/css/pe-icon-7-stroke.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- Themify icons -->#}
+{#    <link href="{% static 'assets/themify-icons/themify-icons.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- End Global Mandatory Style#}
+{#       =====================================================================-->#}
+{#    <!-- Start page Label Plugins#}
+{#       =====================================================================-->#}
+{#    <!-- Emojionearea -->#}
+{#    <link href="{% static 'assets/plugins/emojionearea/emojionearea.min.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- Monthly css -->#}
+{#    <link href="{% static 'assets/plugins/monthly/monthly.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- End page Label Plugins#}
+{#       =====================================================================-->#}
+{#    <!-- Start Theme Layout Style#}
+{#       =====================================================================-->#}
+{#    <!-- Theme style -->#}
+{#    <link href="{% static 'assets/dist/css/stylecrm.css' %}" rel="stylesheet" type="text/css"/>#}
+{#    <!-- Theme style rtl -->#}
+{#    <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->#}
+{#    <!-- End Theme Layout Style#}
+{#       =====================================================================-->#}
+{#</head>#}
+{#<body class="hold-transition sidebar-mini">#}
+{#<!--preloader-->#}
+{#<div id="preloader">#}
+{#    <div id="status"></div>#}
+{#</div>#}
+{#<!-- Site wrapper -->#}
+{##}
+{#<div class="wrapper">#}
+{#    <header class="main-header">#}
+{#        <a href="{% url 'users:dashboard' %}" class="logo">#}
+{#            <!-- Logo -->#}
+{#            <span class="logo-mini">#}
+{#               <img src="{% static 'assets/dist/img/mini-logo.png' %}" alt="">#}
+{#               </span>#}
+{#            <span class="logo-lg">#}
+{#               <img src="{% static 'assets/images/logo.png' %}" style='width:80%;' alt="">#}
+{#               </span>#}
+{#        </a>#}
+{#        <!-- Header Navbar -->#}
+{#        <nav class="navbar navbar-static-top">#}
+{#            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">#}
+{#                <!-- Sidebar toggle button-->#}
+{#                <span class="sr-only">Toggle navigation</span>#}
+{#                <span class="pe-7s-angle-left-circle"></span>#}
+{#            </a>#}
+{#            <!-- searchbar-->#}
+{#            <a href="#search"><span class="pe-7s-search"></span></a>#}
+{#            <div id="search">#}
+{#                <button type="button" class="close">×</button>#}
+{#                <form>#}
+{#                    <input type="search" value="" placeholder="Search.."/>#}
+{#                    <button type="submit" class="btn btn-add">Search...</button>#}
+{#                </form>#}
+{#            </div>#}
+{#            <div class="navbar-custom-menu">#}
+{#                <ul class="nav navbar-nav">#}
+{#                    <li><br><span style="color: white">Welcome {{ user.username }}</span>&nbsp;&nbsp;</li>#}
+{#                    <!-- user -->#}
+{#                    <li class="dropdown dropdown-user">#}
+{#                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+{#                            <img src="{% static 'assets/dist/img/avatar5.png' %}" class="img-circle" width="45"#}
+{#                                 height="45" alt="user"></a>#}
+{#                        <ul class="dropdown-menu">#}
+{#                            <li>#}
+{#                                <a href="{% url 'users:update' user.id %}">#}
+{#                                    <i class="fa fa-user"></i> User Profile</a>#}
+{#                            </li>#}
+{#                            <li><a href="{% url 'users:logout' %}">#}
+{#                                <i class="fa fa-sign-out"></i> Signout</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </nav>#}
+{#    </header>#}
+{#    <!-- =============================================== -->#}
+{#    <!-- Left side column. contains the sidebar -->#}
+{#    <aside class="main-sidebar">#}
+{#        <!-- sidebar -->#}
+{#        <div class="sidebar">#}
+{#            <!-- sidebar menu -->#}
+{#            <ul class="sidebar-menu">#}
+{#                <li class="active">#}
+{#                    <a href="{% url 'users:dashboard' %}"><i class="fa fa-tachometer"></i><span>Dashboard</span>#}
+{#                        <span class="pull-right-container">#}
+{#                     </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                {% if department == 'CEO' %}#}
+                    {#                    <li>#}
+                    {#                        <a href="{% url 'users:departments' %}">#}
+                    {#                            <i class="fa fa-comment"></i> <span>Departments</span>#}
+                    {#                            <span class="pull-right-container">#}
+                    {#                     </span>#}
+                    {#                        </a>#}
+                    {#                    </li>#}
+{#                    {% include 'HR/hr_navbar.html' %}#}
+{#                    {% include 'Sales/sales_navbar.html' %}#}
+{#                    {% include 'Accounts/accounts_navbar.html' %}#}
+{#                {% endif %}#}
+{##}
+{#                {% if department == 'HR' %}#}
+{#                    {% include 'HR/hr_navbar.html' %}#}
+{#                {% endif %}#}
+{##}
+{#                {% if department == 'SALES' %}#}
+{#                    {% include 'Sales/sales_navbar.html' %}#}
+{#                {% endif %}#}
+{##}
+{#                {% if department == 'ACCOUNTS' %}#}
+{#                    {% include 'Accounts/accounts_navbar.html' %}#}
+{#                {% endif %}#}
+{##}
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-book"></i><span>Task</span>#}
+{#                        <span class="pull-right-container">#}
+{#                     <i class="fa fa-angle-left pull-right"></i>#}
+{#                     </span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li><a href="rtask.html">Running Task</a></li>#}
+{#                        <li><a href="atask.html">Archive Task</a></li>#}
+{#                    </ul>#}
+{#                </li>#}
+{##}
+{##}
+{#                <li class="treeview">#}
+{#                    <a href="#">#}
+{#                        <i class="fa fa-bitbucket-square"></i><span>Stock</span>#}
+{#                        <span class="pull-right-container">#}
+{#                     <i class="fa fa-angle-left pull-right"></i>#}
+{#                     </span>#}
+{#                    </a>#}
+{#                    <ul class="treeview-menu">#}
+{#                        <li><a href="stockcat.html">Stock category</a></li>#}
+{#                        <li><a href="manstock.html">Manage Stock</a></li>#}
+{#                        <li><a href="astock.html">Assign stock</a></li>#}
+{#                    </ul>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="company.html">#}
+{#                        <i class="fa fa-home"></i> <span>Companies</span>#}
+{#                        <span class="pull-right-container">#}
+{#                     </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="calender.html">#}
+{#                        <i class="fa fa-calendar"></i> <span>Calender</span>#}
+{#                        <span class="pull-right-container">#}
+{#                     </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="notice.html">#}
+{#                        <i class="fa fa-file-text"></i> <span>Notice Board</span>#}
+{#                        <span class="pull-right-container">#}
+{#                     </span>#}
+{#                    </a>#}
+{#                </li>#}
+{##}
+{#                <li>#}
+{#                    <a href="note.html">#}
+{#                        <i class="fa fa-comment"></i> <span>Notes</span>#}
+{#                        <span class="pull-right-container">#}
+{#                     </span>#}
+{#                    </a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#        <!-- /.sidebar -->#}
+{#    </aside>#}
+{#    <!-- =============================================== -->#}
+{#    <!-- Content Wrapper. Contains page content -->#}
+{#    {% block body %}#}
+{#    {% endblock %}#}
+{##}
+{#    <footer class="main-footer">#}
+{#        <strong>Copyright &copy; 2016-2017 <a href="#">BlueTech</a>.</strong> All rights reserved.#}
+{#    </footer>#}
+{#</div>#}
+{#<!-- /.wrapper -->#}
+{#<!-- Start Core Plugins#}
+{#   =====================================================================-->#}
+{#<!-- jQuery -->#}
+{#<script src="{% static 'assets/plugins/jQuery/jquery-1.12.4.min.js' %}" type="text/javascript"></script>#}
+{#<!-- jquery-ui -->#}
+{#<script src="{% static 'assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js' %}" type="text/javascript"></script>#}
+{#<!-- Bootstrap -->#}
+{#<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>#}
+{#<!-- lobipanel -->#}
+{#<script src="{% static 'assets/plugins/lobipanel/lobipanel.min.js' %}" type="text/javascript"></script>#}
+{#<!-- Pace js -->#}
+{#<script src="{% static 'assets/plugins/pace/pace.min.js' %}" type="text/javascript"></script>#}
+{#<!-- SlimScroll -->#}
+{#<script src="{% static 'assets/plugins/slimScroll/jquery.slimscroll.min.js' %}" type="text/javascript"></script>#}
+{#<!-- FastClick -->#}
+{#<script src="{% static 'assets/plugins/fastclick/fastclick.min.js' %}" type="text/javascript"></script>#}
+{#<!-- CRMadmin frame -->#}
+{#<script src="{% static 'assets/dist/js/custom.js' %}" type="text/javascript"></script>#}
+{#<!-- End Core Plugins#}
+{#   =====================================================================-->#}
+{#<!-- Start Page Lavel Plugins#}
+{#   =====================================================================-->#}
+{#<!-- ChartJs JavaScript -->#}
+{#<script src="{% static 'assets/plugins/chartJs/Chart.min.js' %}" type="text/javascript"></script>#}
+{#<!-- Counter js -->#}
+{#<script src="{% static 'assets/plugins/counterup/waypoints.js' %}" type="text/javascript"></script>#}
+{#<script src="{% static 'assets/plugins/counterup/jquery.counterup.min.js' %}" type="text/javascript"></script>#}
+{#<!-- Monthly js -->#}
+{#<script src="{% static 'assets/plugins/monthly/monthly.js' %}" type="text/javascript"></script>#}
+{#<!-- End Page Lavel Plugins#}
+{#   =====================================================================-->#}
+{#<!-- Start Theme label Script#}
+{#   =====================================================================-->#}
+{#<!-- Dashboard js -->#}
+{#<script src="{% static 'assets/dist/js/dashboard.js' %}" type="text/javascript"></script>#}
+{#<!-- End Theme label Script#}
+{#   =====================================================================-->#}
+{##}
+{#</body>#}
+{##}
+{#<!-- Mirrored from thememinister.com/crm/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Oct 2019 12:23:57 GMT -->#}
+{#</html>#}
 
