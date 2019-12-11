@@ -1,6 +1,8 @@
+from collections import defaultdict
+import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
@@ -8,12 +10,14 @@ from django.core.mail import EmailMessage
 from django.views import generic
 from django.views.generic import UpdateView, CreateView, DeleteView
 from django.urls import reverse
+from django.db.models import Count
 from rest_framework.views import APIView
 from HR.forms import EmailsForm, PayrollForm
-from HR.models import Meeting, Training
+from HR.models import Meeting, Training, Complaint, Salary
 from HR.tokens import recruitment_token
 from Users.forms import UsersTemp
 from Users.models import Employee
+import datetime
 from .serializers import *
 from rest_framework.response import Response
 
@@ -68,29 +72,49 @@ def depart(request, dept_name):
         email_form = EmailsForm()
     department = request.user.employee.dept
     members = Employee.objects.filter(dept=dept_name)
+    members_list = [len(Employee.objects.filter(dept='SALES')), len(Employee.objects.filter(dept='ACCOUNTS')),
+                    len(Employee.objects.filter(dept='HR'))]
+    print(members_list)
+    today = datetime.datetime.now()
+    # queryset = Training.objects.values('start_date').filter(start_date__year=today.year).order_by(
+    #     'start_date__year').annotate(
+    #     cout=Count('id'))
+    date_recruit = Employee.objects.values('date').filter(date__year=today.year).order_by(
+        'date__year').annotate(
+        dcount=Count('id'))[:20]
+    cv = defaultdict(int)
+    for i in range(12):
+        x = Employee.objects.filter(date_of_joining__month=i+1)
+        cv[i+1] = len(x)
+    cv0 = list(cv.keys())
+    cv1 = list(cv.values())
+    cv0 = json.dumps(cv0)
+    cv1 = json.dumps(cv1)
+    date = []
+    net_amount = []
+    for q in date_recruit:
+        date.append(q['date'].month)
+        net_amount.append(q['dcount'])
+
     return render(request, 'HR/past_recruitment.html',
                   context={'department': department,
                            'user': request.user.employee, 'members': members,
                            'users_temp': users_temp,
                            'email_form': email_form,
-                           'lines': lines})
-
-
-@login_required
-def recruit(request):
-    department = request.user.employee.dept
-    members_list = [len(Employee.objects.filter(dept='SALES')), len(Employee.objects.filter(dept='ACCOUNTS')),
-                    len(Employee.objects.filter(dept='HR'))]
-    print(members_list)
-    return render(request, 'HR/recruitment.html',
-                  context={'department': department, 'user': request.user.employee, 'members_list': members_list})
+                           'lines': lines,
+                           'members_list': members_list,
+                           'date': date,
+                           'net_amount': net_amount,
+                           'cv0':cv0,
+                           'cv1':cv1,
+                           })
 
 
 @login_required
 def hr_dashboard(request):
     department = request.user.employee.dept
     return render(request, 'HR/dashboard.html',
-                  context={'department': department, 'user': request.user.employee, })
+                  context={'department': department, 'user': request.user, })
 
 
 @login_required
@@ -105,15 +129,9 @@ def payroll(request):
         payroll_form = PayrollForm()
 
     salary = Salary.objects.all()
+
     return render(request, 'HR/payroll.html',
-                  context={'department': department, 'payroll_form': payroll_form, 'payroll': salary})
-
-
-@login_required
-def job_applications(request):
-    department = request.user.employee.dept
-    return render(request, 'HR/job_applications.html',
-                  context={'department': department, 'user': request.user.employee, })
+                  context={'department': department, 'payroll_form': payroll_form, 'payroll': salary, })
 
 
 class MeetingView(generic.ListView):
@@ -181,6 +199,30 @@ class TrainingView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        today = datetime.datetime.now()
+        queryset = Training.objects.values('start_date').filter(start_date__year=today.year).order_by(
+            'start_date__year').annotate(
+            cout=Count('id'))
+        print(queryset)
+        date = []
+        count = []
+        for q in queryset:
+            date.append(q['start_date'].month)
+            count.append(q['cout'])
+        print(date)
+        print(count)
+        cv = defaultdict(int)
+        for i in range(12):
+            x = Training.objects.filter(start_date__month=i + 1)
+            cv[i + 1] = len(x)
+        cv0 = list(cv.keys())
+        cv1 = list(cv.values())
+        cv0 = json.dumps(cv0)
+        cv1 = json.dumps(cv1)
+        context['date'] = date
+        context['count'] = count
+        context['cv0'] = cv0
+        context['cv1'] = cv1
         context['department'] = self.request.user.employee.dept
         return context
 
@@ -221,16 +263,83 @@ class TrainingUpdateView(UpdateView):
         return reverse('users:hr:train')
 
 
-class MeetingList(APIView):
+# class MeetingList(APIView):
+#
+#     def get(self, request):
+#         meeting = Meeting.objects.all()
+#         serializer = UserMeetingSerializer(meeting, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         serializer = UserMeetingSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(True)
+#         return Response(False)
 
-    def get(self, request):
-        meeting = Meeting.objects.all()
-        serializer = MeetingSerializer(meeting, many=True)
-        return Response(serializer.data)
 
-    def post(self, request):
-        serializer = MeetingSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(True)
-        return Response(False)
+class ComplaintCreateView(CreateView):
+    model = Complaint
+    fields = '__all__'
+
+    # def form_valid(self, form):
+    #     form.instance.employee = self.request.employee
+    #     return super(ComplaintCreateView, self).form_valid(form)
+
+
+class ComplaintListView(generic.ListView):
+    template = 'HR/complaints_list.html'
+
+    def get_queryset(self):
+        return Complaint.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['department'] = self.request.user.employee.dept
+        return context
+
+
+class ComplaintDetailView(generic.DetailView):
+    model = Complaint
+    template = 'HR/complaints_detail.html'
+
+
+class ComplaintUpdateView(UpdateView):
+    model = Complaint
+    fields = '__all__'
+
+
+# class TrainingList(APIView):
+#
+#     def get(self, request):
+#         training = Training.objects.all()
+#         serializer = UserMeetingSerializer(training, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         serializer = UserTrainingSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(True)
+#         return Response(False)
+#
+#
+# class ComplaintList(APIView):
+#
+#     def get(self, request):
+#         complaint = Complaint.objects.all()
+#         serializer = UserComplaintSerializer(complaint, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         serializer = UserComplaintSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(True)
+#         return Response(False)
+def status(request, pk):
+    a = get_object_or_404(Complaint, id=pk)
+    if a.status == 'Pending':
+        a.status = 'Resolved'
+    a.save()
+    return redirect(request.META.get('HTTP_REFERER'))

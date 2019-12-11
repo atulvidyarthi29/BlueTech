@@ -16,7 +16,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <a href="{% url 'users:hr:recruit' %}">
+                    <a href="{% url 'users:hr:depart' 'HR' %}">
                         <div id="cardbox1">
                             <div class="statistic-box">
                                 <i class="fa fa-user-plus fa-3x"></i>
@@ -51,6 +51,16 @@
                             <div class="statistic-box">
                                 <i class="fa fa-money fa-3x"></i>
                                 <h3>Trainings</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <a href="{% url 'users:hr:complaints' %}">
+                        <div id="cardbox3">
+                            <div class="statistic-box">
+                                <i class="fa fa-money fa-3x"></i>
+                                <h3>Complaints</h3>
                             </div>
                         </div>
                     </a>

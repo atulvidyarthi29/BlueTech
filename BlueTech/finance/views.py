@@ -23,7 +23,7 @@ def income(request):
         if sales_form.is_valid():
             sales_form.save()
             return redirect(request.META.get('HTTP_REFERER'))
-        return HttpResponse("Some Error Occured")
+        return HttpResponse("Some Error Occurred")
     else:
         sales_form = SalesForm()
     data = SalesAccount.objects.all()
