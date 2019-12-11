@@ -122,11 +122,14 @@ def sales_dashboard(request):
     product_val = Product.objects.count()
     lead_val = Lead.objects.count()
     cv = week_chart()
+    yc = yearly_chart()
+    yc0 = yc[0]
+    yc1 = yc[1]
     cv1 = json.dumps(cv[1])
     cv0 = json.dumps(cv[0])
     return render(request, 'Sales/sales_dashboard.html',
                   {'department': department, 'customer_val': customer_val, 'product_val': product_val,
-                   'lead_val': lead_val, 'cv0': cv0, 'cv1': cv1})
+                   'lead_val': lead_val, 'cv0': cv0, 'cv1': cv1,'yc0':yc0, 'yc1':yc1})
 
 
 def lead_list(request):
@@ -295,7 +298,7 @@ def show_invoice(request, invoice_no):
 
 
 def week_chart():
-    N = 5
+    N = 7
     current_date = date.today().isoformat()
 
     chart_values = defaultdict(float)
@@ -309,6 +312,21 @@ def week_chart():
     # print(cv[1])
     return cv
 
-    # print(cv)
+def yearly_chart():
+
+    chart_values = defaultdict(float)
+    for i in range(12):
+        for j in Invoice.objects.filter(date__month=i+1):
+            chart_values[j.date.month] += j.total_amount
+
+    ycvx = list(chart_values.keys())
+    ycvy = list(chart_values.values())
+    ycvx = json.dumps(ycvx)
+    ycvy = json.dumps(ycvy)
+    ycvxy = [ycvx, ycvy]
+    print(chart_values)
+    return ycvxy
+
+yearly_chart()
 
 # week_chart()
