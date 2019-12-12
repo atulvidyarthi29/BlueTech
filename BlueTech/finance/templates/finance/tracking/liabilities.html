@@ -1,5 +1,5 @@
 {% extends 'finance/navbar.html' %}
-
+{% load static %}
 
 
 {% block income %}
@@ -71,6 +71,7 @@
                                         <th>Liability Type</th>
                                         <th>Liability Value</th>
                                         <th>Annual Return Rate</th>
+                                        <th>Date</th>
                                         <th>Tax Levied</th>
                                         <th>Net Expense</th>
                                         <th>Action</th>
@@ -82,6 +83,7 @@
                                             <td>{{ dat.liability_type }}</td>
                                             <td>{{ dat.liability_value }}</td>
                                             <td>{{ dat.annual_return_rate }}</td>
+                                            <td>{{ dat.date }}</td>
                                             <td>{{ dat.tax_levied }}</td>
                                             <td>{{ dat.net_expense }}</td>
                                             <td>
@@ -243,7 +245,55 @@
             </div>
             <!-- /.modal -->
         </section>
+
+        <div class="row" style="padding:40px;">
+            <div class="col-sm-12 col-md-8">
+                <div class="panel panel-bd lobidrag">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>Line chart</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="lineChart" height="140"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /.content -->
     </div>
+
+    <script src="{% static 'assets/plugins/chartJs/Chart.min.js' %}" type="text/javascript"></script>
+    <script>
+        var ctx = document.getElementById("lineChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ date|safe }},
+                datasets: [
+                    {
+                        label: "Liabiiies",
+                        borderColor: "rgba(0, 150, 136, 0.76)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(0, 150, 136, 0.76)",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: {{ net_amount|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+
+            }
+        });
+    </script>
     <!-- /.content-wrapper -->
 {% endblock %}

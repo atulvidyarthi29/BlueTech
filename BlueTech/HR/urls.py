@@ -20,6 +20,8 @@ urlpatterns = [
     path('complaint/<pk>/', views.ComplaintDetailView.as_view(), name='complaints_detail'),
     path('complaint/<pk>/update/', views.ComplaintUpdateView.as_view(), name='complaints_update'),
     path('payroll/', views.payroll, name='payroll'),
-    path('status/<pk>', views.status, name='status')
-    # path('meetinglist/', views.MeetingList.as_view(), name='meetinglist'),
+    path('status/<pk>', views.status, name='status'),
+    path('meetinglist/', views.meeting_list_post.as_view(), name='meetinglist'),
+    path('traininglist/', views.training_list_post.as_view(), name='traininglist'),
+    path('complaintlist/', views.complaint_list_post.as_view(), name='complaintlist'),
 ]

@@ -12,6 +12,7 @@ from django.views import generic
 from django.views.generic import UpdateView, CreateView, DeleteView
 from django.urls import reverse
 from django.db.models import Count
+from rest_framework import generics
 from rest_framework.views import APIView
 from HR.forms import EmailsForm, PayrollForm
 from HR.models import Meeting, Training, Complaint, Salary
@@ -132,7 +133,8 @@ def payroll(request):
     salary = Salary.objects.all()
 
     return render(request, 'HR/payroll.html',
-                  context={'department': department, 'payroll_form': payroll_form, 'payroll': salary, })
+                  context={'department': department, 'payroll_form': payroll_form, 'payroll': salary,
+                           'user': request.user, })
 
 
 class MeetingView(generic.ListView):
@@ -281,7 +283,10 @@ class TrainingUpdateView(UpdateView):
 
 class ComplaintCreateView(CreateView):
     model = Complaint
-    fields = '__all__'
+    fields = ['by', 'against', 'complain']
+
+    def get_success_url(self):
+        return reverse('users:dashboard')
 
     # def form_valid(self, form):
     #     form.instance.employee = self.request.employee
@@ -292,7 +297,7 @@ class ComplaintListView(generic.ListView):
     template = 'HR/complaints_list.html'
 
     def get_queryset(self):
-        return Complaint.objects.all()
+        return Complaint.objects.all().order_by('status', '-date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -344,6 +349,8 @@ def status(request, pk):
         a.status = 'Resolved'
     a.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
 # =======
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.sites.shortcuts import get_current_site
@@ -582,3 +589,21 @@ def status(request, pk):
 #             return Response(True)
 #         return Response(False)
 # >>>>>>> 22986b0c624a63ecf011ca56a803c1a366725f6c
+
+class meeting_list(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Meeting.objects.all()
+    serializer_class = MeetingSerializer
+    lookup_field = 'location'
+
+
+class meeting_list_post(generics.ListCreateAPIView):
+    queryset = Meeting.objects.all()
+    serializer_class = MeetingSerializer
+
+class training_list_post(generics.ListCreateAPIView):
+    queryset = Training.objects.all()
+    serializer_class = TrainingSerializer
+
+class complaint_list_post(generics.ListCreateAPIView):
+    queryset = Complaint.objects.all()
+    serializer_class = ComplaintSerializer

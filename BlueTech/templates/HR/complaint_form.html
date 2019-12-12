@@ -1,24 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <h3>Add Complaint Records</h3>#}
+{#    {% if error_message %}#}
+{#        <p><strong>{{ error_message }}</strong></p>#}
+{#    {% endif %}#}
+{#    <form role="form" action="" method="post" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{#        {% include 'hr/form-template.html' %}#}
+{#        <div>#}
+{#            <div>#}
+{#                <button type="submit">Submit</button>#}
+{#            </div>#}
+{#        </div>#}
+{#    </form>#}
+{##}
+{#</body>#}
+{#</html>#}
+{% extends "home/navbar.html" %}
+{% load widget_tweaks %}
 
-    <h3>Add Complaint Records</h3>
-    {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
-    {% endif %}
-    <form role="form" action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% include 'hr_dept/form-template.html' %}
-        <div>
-            <div>
-                <button type="submit">Submit</button>
+{% block body %}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="header-icon">
+                <i class="fa fa-users"></i>
             </div>
-        </div>
-    </form>
+            <div class="header-title">
+                <h1>File a complain</h1>
+                <small>training list</small>
+            </div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- Form controls -->
+                <div class="col-sm-12">
+                    <div class="panel panel-bd lobidrag">
 
-</body>
-</html>
+                        <div class="panel-body">
+                            <form class="col-sm-6 form-group" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% include 'HR/form-template.html' %}
+                                <br>
+                                <div class="reset-button">
+                                    <button type='submit' class="btn btn-success">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+{% endblock %}

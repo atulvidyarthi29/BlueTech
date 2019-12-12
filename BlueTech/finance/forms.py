@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import SalesAccount, Asset, PayableAccount, Liability
+from .models import *
 
 
 class SalesForm(ModelForm):
