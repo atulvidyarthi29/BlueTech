@@ -5,7 +5,6 @@ app_name = "hr"
 
 urlpatterns = [
     # path('add_user/<uidb64>/<token>/', views.add_user, name='add_user'),
-    path('recruit/', views.recruit, name='recruit'),
     path('dashboard/hr', views.hr_dashboard, name='hr_dashboard'),
     path('departments/<str:dept_name>/', views.depart, name='depart'),
     path('training/', views.TrainingView.as_view(), name='train'),
@@ -16,11 +15,14 @@ urlpatterns = [
     path('meeting/add/', views.MeetingCreateView.as_view(), name='meet_add'),
     path('meeting/<pk>/', views.MeetingDetailView.as_view(), name='meet_detail'),
     path('meeting/<pk>/update/', views.MeetingUpdateView.as_view(), name='meet_update'),
-    # path('meeting/<pk>/delete/', views.MeetingDeleteView.as_view(), name='meet_delete'),
-    # path('job_vacancy/', views.job_vacancy, name='job_vacancy'),
+    path('complaint/', views.ComplaintListView.as_view(), name='complaints'),
+    path('complaint/add/', views.ComplaintCreateView.as_view(), name='complaints_add'),
+    path('complaint/<pk>/', views.ComplaintDetailView.as_view(), name='complaints_detail'),
+    path('complaint/<pk>/update/', views.ComplaintUpdateView.as_view(), name='complaints_update'),
     path('payroll/', views.payroll, name='payroll'),
-    path('job_applications/', views.job_applications, name='job_applications'),
+    path('status/<pk>', views.status, name='status'),
     path('meetinglist/', views.MeetingList.as_view(), name='meetinglist'),
     path('traininglist/', views.training_list_post.as_view(), name='traininglist'),
     path('complaintlist/', views.complaint_list_post.as_view(), name='complaintlist'),
+    # path('meetinglist/', views.MeetingList.as_view(), name='meetinglist'),
 ]

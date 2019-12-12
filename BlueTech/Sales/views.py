@@ -336,7 +336,6 @@ def yearly_chart():
 
 
 
-
 # week_chart()
 
 class WeekGraph(APIView):
