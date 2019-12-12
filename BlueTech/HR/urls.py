@@ -21,4 +21,6 @@ urlpatterns = [
     path('payroll/', views.payroll, name='payroll'),
     path('job_applications/', views.job_applications, name='job_applications'),
     path('meetinglist/', views.MeetingList.as_view(), name='meetinglist'),
+    path('traininglist/', views.training_list_post.as_view(), name='traininglist'),
+    path('complaintlist/', views.complaint_list_post.as_view(), name='complaintlist'),
 ]

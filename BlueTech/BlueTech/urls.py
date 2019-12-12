@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-
+from rest_framework_jwt.views import  obtain_jwt_token
 app_name = "bluetech"
 
 urlpatterns = [
+
+    path('token-auth/', obtain_jwt_token),
     path('admin/', admin.site.urls),
 
     path('password-reset/',

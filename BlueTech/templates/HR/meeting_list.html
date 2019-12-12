@@ -57,7 +57,7 @@
                                     <tbody>
                                     {% for meeting in object_list %}
                                         <tr>
-                                            <td>{{ meeting.location }} </td>
+                                            <td><a href="{% url 'users:hr:meet_detail' meeting.id %}">{{ meeting.location }}</a> </td>
                                             <td>{{ meeting.description }}</td>
                                             <td>{{ meeting.organiser }}</td>
                                             <td>{{ meeting.date }}</td>

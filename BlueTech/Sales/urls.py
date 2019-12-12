@@ -28,5 +28,7 @@ urlpatterns = [
     path('addinvoice', views.add_invoice, name="add_invoice"),
     path('invoicelist/', views.invoice_list, name='invoice_list'),
     path('show_invoice/<int:invoice_no>/', views.show_invoice, name='show_invoice'),
-
+    path('weekgraph/',views.WeekGraph.as_view(),name='weekgraph'),
+    path('yeargraph/',views.YearGraph.as_view(),name='yeargraph'),
+    path('profileuser/',views.ProfileUser.as_view(),name='profileuser'),
 ]

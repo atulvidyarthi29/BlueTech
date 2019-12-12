@@ -84,3 +84,7 @@ class Purchase(models.Model):
     Quantity = models.IntegerField()
     purchased_from = models.CharField(max_length=100)
     date = models.DateField()
+
+class userlogin(models.Model):
+    username=models.CharField(max_length=100)
+    password=models.CharField(max_length=100)

@@ -1,6 +1,6 @@
 from collections import defaultdict
 from datetime import date, timedelta
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from rest_framework.utils import json
@@ -11,8 +11,10 @@ from .models import Product, Customer, Lead, Invoice
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
-from rest_framework import status
-
+from rest_framework import status, generics
+from .models import *
+import  json
+import requests
 
 # Create your views here.
 def add_item(request):
@@ -43,7 +45,8 @@ def update_product(request, pk):
             product_form.save()
             return redirect("sales:add_item")
         else:
-            print(product_form.errors)
+            pass
+            # print(product_form.errors)
     return render(request, 'Sales/update_product.html', {"product": product_form})
 
 
@@ -61,7 +64,8 @@ def add_customer(request):
             customer_form.save()
             return redirect("sales:customer_list")
         else:
-            print(customer_form.errors)
+            pass
+            # print(customer_form.errors)
             # return HttpResponse("Error")
     else:
         customer_form = CustomerForm()
@@ -78,7 +82,9 @@ def update_customer(request, pk):
             customer_form.save()
             return redirect("sales:customer_list")
         else:
-            print(customer_form.errors)
+            pass
+            # print(customer_form.errors)
+
     return render(request, 'Sales/update_customer.html', {"customer": customer_form})
 
 
@@ -123,13 +129,13 @@ def sales_dashboard(request):
     lead_val = Lead.objects.count()
     cv = week_chart()
     yc = yearly_chart()
-    yc0 = yc[0]
-    yc1 = yc[1]
+    yc0 = json.dumps(yc[0])
+    yc1 = json.dumps(yc[1])
     cv1 = json.dumps(cv[1])
     cv0 = json.dumps(cv[0])
     return render(request, 'Sales/sales_dashboard.html',
                   {'department': department, 'customer_val': customer_val, 'product_val': product_val,
-                   'lead_val': lead_val, 'cv0': cv0, 'cv1': cv1,'yc0':yc0, 'yc1':yc1})
+                   'lead_val': lead_val, 'cv0': cv0, 'cv1': cv1, 'yc0': yc0, 'yc1': yc1})
 
 
 def lead_list(request):
@@ -144,7 +150,8 @@ def add_lead(request):
             lead_form.save()
             return redirect("sales:lead_list")
         else:
-            print(lead_form.errors)
+            pass
+            # print(lead_form.errors)
             # return HttpResponse("Error")
     else:
         lead_form = LeadForm()
@@ -161,7 +168,8 @@ def update_lead(request, pk):
             lead_form.save()
             return redirect("sales:lead_list")
         else:
-            print(lead_form.errors)
+            pass
+            # print(lead_form.errors)
     return render(request, 'Sales/update_lead.html', {"lead_form": lead_form})
 
 
@@ -271,11 +279,11 @@ def add_invoice(request):
 
 def autocompleteModel(request):
     search_qs = Product.objects.filter(itemname__startswith=request.GET['search'])
-    print(request.GET['search'])
+    # print(request.GET['search'])
     results = []
     for r in search_qs:
         results.append(r.itemname)
-    print(results)
+    # print(results)
     resp = request.GET['callback'] + '(' + json.dumps(results) + ');'
     return HttpResponse(resp, content_type='application/json')
 
@@ -293,7 +301,7 @@ def show_invoice(request, invoice_no):
         "invoice": invoice,
         "products": products,
     }
-    print(context)
+    # print(context)
     return render(request, 'sales/show_invoice.html', context)
 
 
@@ -309,24 +317,130 @@ def week_chart():
     cv = []
     cv.append(list(chart_values.keys()))
     cv.append(list(chart_values.values()))
-    # print(cv[1])
     return cv
 
-def yearly_chart():
 
+def yearly_chart():
     chart_values = defaultdict(float)
     for i in range(12):
-        for j in Invoice.objects.filter(date__month=i+1):
+        for j in Invoice.objects.filter(date__month=i + 1):
             chart_values[j.date.month] += j.total_amount
 
     ycvx = list(chart_values.keys())
     ycvy = list(chart_values.values())
-    ycvx = json.dumps(ycvx)
-    ycvy = json.dumps(ycvy)
     ycvxy = [ycvx, ycvy]
-    print(chart_values)
+    # ycvx = json.dumps(ycvx)
+    # ycvy = json.dumps(ycvy)
+    # ycvxy = [ycvx, ycvy]
     return ycvxy
 
-yearly_chart()
+
+
 
 # week_chart()
+
+class WeekGraph(APIView):
+
+    def get(self, request):
+        leads = week_chart()
+        return JsonResponse(leads, safe=False)
+
+class YearGraph(APIView):
+    def get(self, request):
+        leads = yearly_chart()
+        return JsonResponse(leads, safe=False)
+
+# class get_email_pass(generics.ListCreateAPIView):
+#     queryset = userlogin.objects.all()
+#     serializer_class = user_login
+
+
+# class User_api(APIView):
+# def user_login(request):
+#
+#     username="sana"
+#     password="san"
+#     data = {
+#         'username': username,
+#         'password': password,
+#
+#     }
+#     # print(data)
+#     data = json.dumps(data)
+#     headers = {
+#         "Content-Type": "application/json",
+#         "accept": "application/json",
+#         # 'Authorization': 'JWT ',
+#         #   Authorization: `JWT ${localStorage.getItem('token')}`,
+#     }
+#
+#     API_ENDPOINT = 'http://127.0.0.1:8000/token-auth/'
+#     r = requests.post(url=API_ENDPOINT, data=data, headers=headers)
+#     pastebin_url = r.content
+#     print("The pastebin url is :%s" % pastebin_url)
+#     k = r.json()
+#     # print(k)
+#     token_data = k["token"]
+#     # print(token_data)
+#
+#     file = open('token.txt', 'w')
+#     file.write(token_data)
+#     file.close()
+#
+#     return HttpResponse('djsabhuhh')
+#
+#     file = open('token.txt', 'r')
+#     tokendata= file.read()
+#     file.close()
+
+# def abcd(request):
+#     print(tokendata)
+#     headers = {
+#         "Content-Type": "application/json",
+#         "accept": "application/json",
+#         'Authorization': 'JWT ' + tokendata,
+#         #   Authorization: `JWT ${localStorage.getItem('token')}`,
+#     }
+#     username='deepesh'
+#     email='deepesh.b17@iiits.in'
+#     first_name='deepesh'
+#     data={
+#         'username':username,
+#         'email':email,
+#         'first_name':first_name,
+#     }
+#     data=json.dumps(data)
+#     api_url=('')
+# class saana(generics.ListCreateAPIView):
+#     queryset = User.Objects.all()
+#     serializer_class = userserializer
+
+# class ProfileUser(generics.ListCreateAPIView):
+#     queryset = Employee.objects.all()
+#     serializer_class = userdataSerializer
+#
+#     def get_queryset(self):
+#         username=self.request.user
+#         print(username)
+#         user_instance=User.objects.get(username=username)
+#         #print(user_instance.email)
+#         return Employee.objects.filter(user=user_instance)
+
+class ProfileUser(APIView):
+    queryset = Employee.objects.all()
+    serializer_class = userdataSerializer
+    def get(self,request):
+        username=self.request.user
+        user_instance=User.objects.get(username=username)
+        #print(user_instance.email)
+        list1=[]
+        list1.append(user_instance.email)
+        a=Employee.objects.filter(user=user_instance)
+        for i in a:
+            list1.append(i.first_name)
+            list1.append(i.last_name)
+            list1.append(i.position)
+        #print(list1)
+
+        return JsonResponse(list1,safe=False)
+

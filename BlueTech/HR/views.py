@@ -16,7 +16,7 @@ from Users.forms import UsersTemp
 from Users.models import Employee
 from .serializers import *
 from rest_framework.response import Response
-
+from rest_framework import generics
 
 @login_required
 def depart(request, dept_name):
@@ -234,3 +234,18 @@ class MeetingList(APIView):
             serializer.save()
             return Response(True)
         return Response(False)
+
+class meeting_list_post(generics.ListCreateAPIView):
+    queryset = Meeting.objects.all()
+    serializer_class = MeetingSerializer
+
+
+class training_list_post(generics.ListCreateAPIView):
+    queryset = Training.objects.all()
+    serializer_class = TrainingSerializer
+
+
+class complaint_list_post(generics.ListCreateAPIView):
+    queryset = Complaint.objects.all()
+    serializer_class = ComplaintSerializer
+
