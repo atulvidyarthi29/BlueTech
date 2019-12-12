@@ -1,9 +1,6 @@
-# <<<<<<< HEAD
 from django.db import models
 from Users.models import Employee, User
 import datetime
-
-
 # Create your models here.
 
 class Meeting(models.Model):
@@ -46,7 +43,7 @@ class Complaint(models.Model):
 
 class EmailFiles(models.Model):
     file = models.FileField(upload_to='Media/email_departments/')
-# =======
+
 # from django.db import models
 # from Users.models import Employee
 #
@@ -91,4 +88,3 @@ class EmailFiles(models.Model):
 #
 # class EmailFiles(models.Model):
 #     file = models.FileField(upload_to='Media/email_departments/')
-# >>>>>>> 22986b0c624a63ecf011ca56a803c1a366725f6c
