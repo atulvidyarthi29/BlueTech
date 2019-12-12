@@ -9,6 +9,11 @@ from django.core.mail import EmailMessage
 from django.views import generic
 from django.views.generic import UpdateView, CreateView, DeleteView
 from django.urls import reverse
+<<<<<<< HEAD
+=======
+from django.db.models import Count
+from rest_framework import generics
+>>>>>>> 25411c13b0768a3d8fe3ecc406bc12604a505db7
 from rest_framework.views import APIView
 from HR.forms import EmailsForm, PayrollForm
 from HR.models import Meeting, Training
@@ -107,6 +112,7 @@ def payroll(request):
 
     salary = Salary.objects.all()
     return render(request, 'HR/payroll.html',
+<<<<<<< HEAD
                   context={'department': department, 'payroll_form': payroll_form, 'payroll': salary})
 
 
@@ -115,6 +121,10 @@ def job_applications(request):
     department = request.user.employee.dept
     return render(request, 'HR/job_applications.html',
                   context={'department': department, 'user': request.user.employee, })
+=======
+                  context={'department': department, 'payroll_form': payroll_form, 'payroll': salary,
+                           'user': request.user, })
+>>>>>>> 25411c13b0768a3d8fe3ecc406bc12604a505db7
 
 
 class MeetingView(generic.ListView):
@@ -223,7 +233,10 @@ class TrainingUpdateView(UpdateView):
 
 class ComplaintCreateView(CreateView):
     model = Complaint
-    fields = '__all__'
+    fields = ['by', 'against', 'complain']
+
+    def get_success_url(self):
+        return reverse('users:dashboard')
 
     # def form_valid(self, form):
     #     form.instance.employee = self.request.employee
@@ -234,7 +247,7 @@ class ComplaintListView(generic.ListView):
     template = 'HR/complaints_list.html'
 
     def get_queryset(self):
-        return Complaint.objects.all()
+        return Complaint.objects.all().order_by('status', '-date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -288,9 +301,13 @@ def status(request, pk):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+<<<<<<< HEAD
 # # <<<<<<< HEAD
 # from collections import defaultdict
 # import json
+=======
+# =======
+>>>>>>> 25411c13b0768a3d8fe3ecc406bc12604a505db7
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.sites.shortcuts import get_current_site
 # from django.shortcuts import render, redirect, get_object_or_404
@@ -554,6 +571,7 @@ def status(request, pk):
 #         return reverse('users:hr:train')
 #
 #
+<<<<<<< HEAD
 # # class MeetingList(APIView):
 # #
 # #     def get(self, request):
@@ -838,3 +856,37 @@ def status(request, pk):
 # #             return Response(True)
 # #         return Response(False)
 # # >>>>>>> 22986b0c624a63ecf011ca56a803c1a366725f6c
+=======
+# class MeetingList(APIView):
+#
+#     def get(self, request):
+#         meeting = Meeting.objects.all()
+#         serializer = MeetingSerializer(meeting, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         serializer = MeetingSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(True)
+#         return Response(False)
+# >>>>>>> 22986b0c624a63ecf011ca56a803c1a366725f6c
+
+class meeting_list(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Meeting.objects.all()
+    serializer_class = MeetingSerializer
+    lookup_field = 'location'
+
+
+class meeting_list_post(generics.ListCreateAPIView):
+    queryset = Meeting.objects.all()
+    serializer_class = MeetingSerializer
+
+class training_list_post(generics.ListCreateAPIView):
+    queryset = Training.objects.all()
+    serializer_class = TrainingSerializer
+
+class complaint_list_post(generics.ListCreateAPIView):
+    queryset = Complaint.objects.all()
+    serializer_class = ComplaintSerializer
+>>>>>>> 25411c13b0768a3d8fe3ecc406bc12604a505db7

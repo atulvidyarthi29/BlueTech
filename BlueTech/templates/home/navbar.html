@@ -85,6 +85,11 @@
                 <ul class="nav navbar-nav">
                     <li><br><span style="color: white">Welcome {{ user.username }}</span>&nbsp;&nbsp;</li>
                     <!-- user -->
+                    <li>
+                        <a href="{% url 'users:hr:complaints_add' %}">
+                            <i class="fa fa-bitbucket-square"></i><span></span>
+                        </a>
+                    </li>
                     <li class="dropdown dropdown-user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{% static 'assets/dist/img/avatar5.png' %}" class="img-circle" width="45"
@@ -372,13 +377,13 @@
 {#                    </a>#}
 {#                </li>#}
 {#                {% if department == 'CEO' %}#}
-                    {#                    <li>#}
-                    {#                        <a href="{% url 'users:departments' %}">#}
-                    {#                            <i class="fa fa-comment"></i> <span>Departments</span>#}
-                    {#                            <span class="pull-right-container">#}
-                    {#                     </span>#}
-                    {#                        </a>#}
-                    {#                    </li>#}
+{#                    <li>#}
+{#                        <a href="{% url 'users:departments' %}">#}
+{#                            <i class="fa fa-comment"></i> <span>Departments</span>#}
+{#                            <span class="pull-right-container">#}
+{#                     </span>#}
+{#                        </a>#}
+{#                    </li>#}
 {#                    {% include 'HR/hr_navbar.html' %}#}
 {#                    {% include 'Sales/sales_navbar.html' %}#}
 {#                    {% include 'Accounts/accounts_navbar.html' %}#}

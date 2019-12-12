@@ -38,7 +38,7 @@ class Complaint(models.Model):
     date = models.DateField("Date", default=datetime.date.today)
     CHOICES = (('Pending', 'Pending'),
                ('Resolved', 'Resolved'),)
-    status = models.CharField(max_length=200, choices=CHOICES)
+    status = models.CharField(max_length=200, choices=CHOICES, default='Pending')
 
 
 class EmailFiles(models.Model):

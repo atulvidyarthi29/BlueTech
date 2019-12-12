@@ -1,5 +1,5 @@
 {% extends 'finance/navbar.html' %}
-
+{% load static %}
 
 
 {% block finance %}
@@ -10,62 +10,591 @@
                 <i class="fa fa-dashboard"></i>
             </div>
             <div class="header-title">
-                <h1>Finance Dashboard > Ratios</h1>
-               
+                <h1>Projections</h1>
+                <p>One year projection</p>
             </div>
         </section>
-        <!-- Main content -->
+        <h2 style="text-align: center;">Shareholders Funds and Assets</h2>
         <section class="content">
+
             <div class="row">
-                <a href="">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                        <div id="cardbox1">
-                            <div class="statistic-box">
-                                <i class="fa fa-money fa-3x"></i>
-                                <h3>Balance Sheet</h3>
+
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                     <br><br>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col"></th>
+                                  <th scope="col">Mar 19</th>
+                                  <th scope="col">Mar 18</th>
+                                  <th scope="col">Mar 17</th>
+                                  <th scope="col">Mar 16</th>
+                                  <th scope="col">Mar 15</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                      <td>Equity Share</td>
+                                      <td>{{ share_funds.first.equity_share }}</td>
+                                      <td>{{ share_funds.2.equity_share }}</td>
+                                      <td>{{ share_funds.3.equity_share }}</td>
+                                      <td>{{ share_funds.4.equity_share }}</td>
+                                      <td>{{ share_funds.5.equity_share }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Reserves and Surplus</td>
+                                      <td>{{ share_funds.first.reserves_surplus }}</td>
+                                      <td>{{ share_funds.2.reserves_surplus }}</td>
+                                      <td>{{ share_funds.3.reserves_surplus }}</td>
+                                      <td>{{ share_funds.4.reserves_surplus }}</td>
+                                      <td>{{ share_funds.5.reserves_surplus }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Revaluation and eserves</td>
+                                      <td>{{ share_funds.first.revaluation_reserves }}</td>
+                                      <td>{{ share_funds.2.revaluation_reserves }}</td>
+                                      <td>{{ share_funds.3.revaluation_reserves }}</td>
+                                      <td>{{ share_funds.4.revaluation_reserves }}</td>
+                                      <td>{{ share_funds.5.revaluation_reserves }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Share Application Money</td>
+                                      <td>{{ share_funds.first.share_application_money }}</td>
+                                      <td>{{ share_funds.2.share_application_money }}</td>
+                                      <td>{{ share_funds.3.share_application_money }}</td>
+                                      <td>{{ share_funds.4.share_application_money }}</td>
+                                      <td>{{ share_funds.5.share_application_money }}</td>
+                                </tr>
+                                <tr>
+                                      <td>Net Shareholders Funds</td>
+                                      <td>{{ share_funds.first.net_share_holding }}</td>
+                                      <td>{{ share_funds.2.net_share_holding }}</td>
+                                      <td>{{ share_funds.3.net_share_holding }}</td>
+                                      <td>{{ share_funds.4.net_share_holding }}</td>
+                                      <td>{{ share_funds.5.net_share_holding }}</td>
+                                </tr>
+                    
+                            </tbody>
+                        </table>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+               
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4></h4>
                             </div>
                         </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                        <div id="cardbox2">
-                            <div class="statistic-box">
-                                <i class="fa fa-money fa-3x"></i>
-                               
-                                <h3>Profit and Loss Statement</h3>
+                        <div class="panel-body">
+                            <canvas id="lineChart" height="140"></canvas>
+                        </div>
+                    </div>                        
+                </div>
+                    
+            </div>                            
+         </section>
+          <h2 style="text-align: center;">Liabilities</h2>
+        <section class="content">
+
+            <div class="row">
+
+                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+               
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4></h4>
                             </div>
                         </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                        <div id="cardbox3">
-                            <div class="statistic-box">
-                                <i class="fa fa-money fa-3x"></i>
+                        <div class="panel-body">
+                            <canvas id="lineChart2" height="140"></canvas>
+                        </div>
+                    </div>                        
+                </div>
+
+                
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <br><br>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col"></th>
+                                  <th scope="col">Mar 19</th>
+                                  <th scope="col">Mar 18</th>
+                                  <th scope="col">Mar 17</th>
+                                  <th scope="col">Mar 16</th>
+                                  <th scope="col">Mar 15</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                      <td>Secured Loans</td>
+                                      <td>{{ liability_source.first.secured_loans }}</td>
+                                      <td>{{ liability_source.2.secured_loans }}</td>
+                                      <td>{{ liability_source.3.secured_loans }}</td>
+                                      <td>{{ liability_source.4.secured_loans }}</td>
+                                      <td>{{ liability_source.5.secured_loans }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Unsecured Loans</td>
+                                      <td>{{ liability_source.first.unsecured_loans }}</td>
+                                      <td>{{ liability_source.2.unsecured_loans }}</td>
+                                      <td>{{ liability_source.3.unsecured_loans }}</td>
+                                      <td>{{ liability_source.4.unsecured_loans }}</td>
+                                      <td>{{ liability_source.5.unsecured_loans }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Reserves and Surplus</td>
+                                      <td>{{ liability_source.first.reserves_surplus }}</td>
+                                      <td>{{ liability_source.2.reserves_surplus }}</td>
+                                      <td>{{ liability_source.3.reserves_surplus }}</td>
+                                      <td>{{ liability_source.4.reserves_surplus }}</td>
+                                      <td>{{ liability_source.5.reserves_surplus }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>revaluation Reserves</td>
+                                      <td>{{ liability_source.first.revaluation_reserves }}</td>
+                                      <td>{{ liability_source.2.revaluation_reserves }}</td>
+                                      <td>{{ liability_source.3.revaluation_reserves }}</td>
+                                      <td>{{ liability_source.4.revaluation_reserves }}</td>
+                                      <td>{{ liability_source.5.revaluation_reserves }}</td>
+                                </tr>
+                    
+                            </tbody>
+                        </table>
+                </div>
+               
+                    
+            </div>                            
+         </section>
+          <h2 style="text-align: center;">Funds Application</h2>
+        <section class="content">
+
+            <div class="row">
+
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                     
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col"></th>
+                                  <th scope="col">Mar 19</th>
+                                  <th scope="col">Mar 18</th>
+                                  <th scope="col">Mar 17</th>
+                                  <th scope="col">Mar 16</th>
+                                  <th scope="col">Mar 15</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+  
+   
                                 
-                                <h3>Ratio Analysis</h3>
+                                <tr>
+                                      <td>First Gross Block</td>
+                                      <td>{{ fund_application.first.gross_block }}</td>
+                                      <td>{{ fund_application.2.gross_block }}</td>
+                                      <td>{{ fund_application.3.gross_block }}</td>
+                                      <td>{{ fund_application.4.gross_block }}</td>
+                                      <td>{{ fund_application.5.gross_block }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Capital Work</td>
+                                      <td>{{ fund_application.first.capital_work_in_progress }}</td>
+                                      <td>{{ fund_application.2.capital_work_in_progress }}</td>
+                                      <td>{{ fund_application.3.capital_work_in_progress }}</td>
+                                      <td>{{ fund_application.4.capital_work_in_progress }}</td>
+                                      <td>{{ fund_application.5.capital_work_in_progress }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Inventories</td>
+                                      <td>{{ fund_application.first.inventories }}</td>
+                                      <td>{{ fund_application.2.inventories }}</td>
+                                      <td>{{ fund_application.3.inventories }}</td>
+                                      <td>{{ fund_application.4.inventories }}</td>
+                                      <td>{{ fund_application.5.inventories }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Debtors</td>
+                                      <td>{{ fund_application.first.debtors }}</td>
+                                      <td>{{ fund_application.2.debtors }}</td>
+                                      <td>{{ fund_application.3.debtors }}</td>
+                                      <td>{{ fund_application.4.debtors }}</td>
+                                      <td>{{ fund_application.5.debtors }}</td>
+                                </tr>
+                                <tr>
+                                      <td>Cash and Bank Balance</td>
+                                      <td>{{ fund_application.first.cash_and_bank_balance }}</td>
+                                      <td>{{ fund_application.2.cash_and_bank_balance }}</td>
+                                      <td>{{ fund_application.3.cash_and_bank_balance }}</td>
+                                      <td>{{ fund_application.4.cash_and_bank_balance }}</td>
+                                      <td>{{ fund_application.5.cash_and_bank_balance }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Loans Forwarded</td>
+                                      <td>{{ fund_application.first.loans_forwarded }}</td>
+                                      <td>{{ fund_application.2.loans_forwarded }}</td>
+                                      <td>{{ fund_application.3.loans_forwarded }}</td>
+                                      <td>{{ fund_application.4.loans_forwarded }}</td>
+                                      <td>{{ fund_application.5.loans_forwarded }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Equity Share</td>
+                                      <td>{{ fund_application.first.operational_activities }}</td>
+                                      <td>{{ fund_application.2.operational_activities }}</td>
+                                      <td>{{ fund_application.3.operational_activities }}</td>
+                                      <td>{{ fund_application.4.operational_activities }}</td>
+                                      <td>{{ fund_application.5.operational_activities }}</td>
+                                </tr>
+                                 <tr>
+                                      <td>Equity Share</td>
+                                      <td>{{ fund_application.first.cost_of_materials}}</td>
+                                      <td>{{ fund_application.2.cost_of_materials }}</td>
+                                      <td>{{ fund_application.3.cost_of_materials }}</td>
+                                      <td>{{ fund_application.4.cost_of_materials }}</td>
+                                      <td>{{ fund_application.5.cost_of_materials }}</td>
+                                </tr>
+                                  <tr>
+                                      <td>Equity Share</td>
+                                      <td>{{ fund_application.first.finance_cost}}</td>
+                                      <td>{{ fund_application.2.finance_cost }}</td>
+                                      <td>{{ fund_application.3.finance_cost }}</td>
+                                      <td>{{ fund_application.4.finance_cost }}</td>
+                                      <td>{{ fund_application.5.finance_cost }}</td>
+                                </tr>
+                                  <tr>
+                                      <td>Equity Share</td>
+                                      <td>{{ fund_application.first.employee_benefit_cost}}</td>
+                                      <td>{{ fund_application.2.employee_benefit_cost }}</td>
+                                      <td>{{ fund_application.3.employee_benefit_cost }}</td>
+                                      <td>{{ fund_application.4.employee_benefit_cost }}</td>
+                                      <td>{{ fund_application.5.employee_benefit_cost }}</td>
+                                </tr>
+                                  <tr>
+                                      <td>Change in inventories</td>
+                                      <td>{{ fund_application.first.change_in_inventories}}</td>
+                                      <td>{{ fund_application.2.change_in_inventories }}</td>
+                                      <td>{{ fund_application.3.change_in_inventories }}</td>
+                                      <td>{{ fund_application.4.change_in_inventories }}</td>
+                                      <td>{{ fund_application.5.change_in_inventories }}</td>
+                                </tr>
+                    
+                            </tbody>
+                        </table>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                     <br><br><br>
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4></h4>
                             </div>
                         </div>
-                    </div>
-                </a>
-                 <a href="">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                        <div id="cardbox1">
-                            <div class="statistic-box">
-                                <i class="fa fa-money fa-3x"></i>
-                                <h3>Account Payables</h3>
+                        <div class="panel-body">
+                            <canvas id="lineChart3" height="140"></canvas>
+                        </div>
+                    </div>                        
+                </div>
+                    
+            </div>                            
+         </section>
+
+         <h2 style="text-align: center;">Projections</h2>
+         <section>
+             <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                     <br><br><br>
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4></h4>
                             </div>
                         </div>
-                    </div>
-                </a>
-                             
-            </div>
+                        <div class="panel-body">
+                            <canvas id="lineChart4" height="140"></canvas>
+                        </div>
+                    </div>                        
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                     <br><br><br>
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4></h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="lineChart5" height="140"></canvas>
+                        </div>
+                    </div>                        
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                     <br><br><br>
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4></h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="lineChart6" height="140"></canvas>
+                        </div>
+                    </div>                        
+                </div>
+
+             </div>
+         </section>
+         <section>
+             <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                     <br><br><br>
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4></h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="lineChart7" height="140"></canvas>
+                        </div>
+                    </div>                        
+                </div>
+                 
+             </div>
+         </section>
 
 
-        </section>
+
+
+      </div>
+
+     </div>
+        
+        <script src="{% static 'assets/plugins/chartJs/Chart.min.js' %}" type="text/javascript"></script>
+        <script>
+        var ctx = document.getElementById("lineChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ date|safe }},
+                datasets: [
+                    {
+                        label: "My Second dataset",
+                        borderColor: "rgba(0, 150, 136, 0.76)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(0, 150, 136, 0.76)",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: {{ net_amount|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+
+            }
+        });
+    </script>
+
+    <script>
+        var ctx = document.getElementById("lineChart2");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ date2|safe }},
+                datasets: [
+                    {
+                        label: "Liabilities",
+                        borderColor: "rgba(0, 150, 136, 0.76)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(0, 150, 136, 0.76)",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: {{ net_amount2|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+
+            }
+        });
+    </script>
+
+    <script>
+        var ctx = document.getElementById("lineChart3");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ date1|safe }},
+                datasets: [
+                    {
+                        label: "My Second dataset",
+                        borderColor: "rgba(0, 150, 136, 0.76)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(0, 150, 136, 0.76)",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: {{ net_amount1|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+
+            }
+        });
+    </script>
+     <script>
+        var ctx = document.getElementById("lineChart4");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ percent_growth|safe }},
+                datasets: [
+                    {
+                        label: "Share Funds Projected",
+                        borderColor: "rgba(0, 150, 136, 0.76)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(0, 150, 136, 0.76)",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: {{ share_funds_projected|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+
+            }
+        });
+    </script>
+     <script>
+        var ctx = document.getElementById("lineChart5");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ percent_growth|safe }},
+                datasets: [
+                    {
+                        label: "Liabilities Projected",
+                        borderColor: "rgba(0, 150, 136, 0.76)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(0, 150, 136, 0.76)",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: {{ liabilities_projected|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+
+            }
+        });
+    </script>
+     <script>
+        var ctx = document.getElementById("lineChart6");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ percent_growth|safe }},
+                datasets: [
+                    {
+                        label: "Fund Application Projected",
+                        borderColor: "rgba(0, 150, 136, 0.76)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(0, 150, 136, 0.76)",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: {{ fund_application_projected|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+
+            }
+        });
+    </script>
+     <script>
+        var ctx = document.getElementById("lineChart7");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ percent_growth|safe }},
+                datasets: [
+                    {
+                        label: "Net Profit Projected",
+                        borderColor: "rgba(0, 150, 136, 0.76)",
+                        borderWidth: "1",
+                        backgroundColor: "rgba(0, 150, 136, 0.76)",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: {{ estimated_profit|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                }
+
+            }
+        });
+    </script>
             
-            
+   
            
     <!-- /.content-wrapper -->
 {% endblock %}

@@ -52,10 +52,16 @@
                                             <td>{{ comp.complain }}</td>
                                             <td>{{ comp.date }}</td>
                                             <td>
-                                                <button class="btn btn-danger btn-sm">{{ comp.status }}</button>
+                                                {% ifequal comp.status "Resolved" %}
+
+                                                    <button class="btn btn-success btn-sm">{{ comp.status }}</button>
+                                                {% else %}
+                                                    <button class="btn btn-danger btn-sm">{{ comp.status }}</button>
+                                                {% endifequal %}
                                             </td>
                                             <td>
-                                                <a href="{% url 'users:hr:status' comp.id %}" class="btn btn-success btn-sm">
+                                                <a href="{% url 'users:hr:status' comp.id %}"
+                                                   class="btn btn-success btn-sm">
                                                     <i class="fa fa-pencil-square-o"></i></a>
                                             </td>
                                         </tr>
