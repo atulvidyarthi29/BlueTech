@@ -164,15 +164,13 @@ def finance_projection(request):
 
     percent_growth = [ -100, -90, -80, -70,- 60, -50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, ]
 
-    previous_share_funds=0
-    previous_liabilities=0
-    previous_fund_application=0
 
 
-    if len(share_funds) != 0:
-        previous_share_funds = share_funds[len(share_funds)].net_share_holding
-        previous_liabilities = liability_source[len(liability_source)].net_liabilities
-        previous_fund_application = fund_application[len(fund_application)].net_fund_application
+
+
+    previous_share_funds = share_funds[3].net_share_holding
+    previous_liabilities = liability_source[3].net_liabilities
+    previous_fund_application = fund_application[3].net_fund_application
 
 
 
@@ -195,8 +193,8 @@ def finance_projection(request):
     print(fund_application_projected)
 
 
-    context={"date": date, "net_amount":net_amount, "date1": date1, "net_amount1":net_amount1, "date2": date2, 
-            "net_amount2":net_amount2, "share_funds":share_funds, "liability_source":liability_source, 
+    context={"date": date, "net_amount":net_amount, "date1": date1, "net_amount1":net_amount1, "date2": date2,
+            "net_amount2":net_amount2, "share_funds":share_funds, "liability_source":liability_source,
             "fund_application":fund_application, "estimated_profit":estimated_profit, "share_funds_projected":share_funds_projected,
               "liabilities_projected": liabilities_projected, "fund_application_projected":fund_application_projected,"percent_growth":percent_growth,}
     return render(request, "finance/projections.html", context=context)
