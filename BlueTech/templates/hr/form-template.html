@@ -1,0 +1,13 @@
+{% load widget_tweaks %}
+
+{% for field in form %}
+        <div>
+            <span>{{ field.errors }}</span>
+        </div>
+        <div class="col-md-12 col-lg-12 form-group">
+            <label class="control-label">{{ field.label_tag }}</label>
+            {#            <input type="number" placeholder="Mobile" class="form-control">#}
+            {% render_field field class='form-control' %}
+        </div>
+
+{% endfor %}

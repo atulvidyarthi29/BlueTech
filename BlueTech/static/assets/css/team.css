@@ -1,0 +1,70 @@
+/****  Custom Bootstrap  ****/
+.display-4:after{
+    content: ' ';
+    margin: 1rem auto;
+    display: block;
+    width: 4rem;
+    border: 3px solid #007bff;
+}
+.shadow-lg{
+    transition: box-shadow 0.5s;
+}
+@media (min-width: 1030px) , (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
+  .team-card {
+    -ms-flex: 0 0 31%;
+    flex: 0 0 31%;
+    max-width: 31%;
+  }
+}
+
+
+
+/***** Custom fontawesome ******/
+.fa-facebook-f, .fa-twitter, .fa-linkedin-in{
+    color: #aeaeae;
+    cursor:pointer;
+    transition: color 0.5s, transform 0.2s;
+}
+.team-card:hover .fa-facebook-f{
+    color:#47639e;
+}
+.team-card:hover .fa-twitter{
+    color:#1da1f2;
+}
+.team-card:hover .fa-linkedin-in{
+    color:#0077b5;
+}
+
+.fa-facebook-f:hover, .fa-twitter:hover, .fa-linkedin-in:hover{
+    transform: scale(1.1);
+}
+
+
+/**** Custom CSS *****/
+
+.team-card:hover{
+    box-shadow: 0 0.3rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.fa-icon{
+    font-size: 1.4rem;
+}
+.my-custom{
+    margin:0.7rem auto;
+}
+.m-img{
+    margin-left:27%;
+}
+.m-heading{
+    margin-top: -0.8rem;
+    color:#0072BB;
+}
+.m-container{
+    margin-top: 98px!important;
+}
+.member-description{
+    color: #373F51;
+    line-height: 1.8rem;
+    word-spacing: 0.1rem;
+    letter-spacing: 0.02rem;
+ }

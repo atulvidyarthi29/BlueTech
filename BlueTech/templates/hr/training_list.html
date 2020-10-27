@@ -1,0 +1,281 @@
+{#<<<<<<< HEAD#}
+{% extends 'home/navbar.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <a href="">Add a training</a>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="header-icon">
+                <i class="fa fa-dashboard"></i>
+            </div>
+            <div class="header-title">
+                <h1>Trainings</h1>
+                <small>Very detailed & featured admin.</small>
+            </div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="btn-group" id="buttonexport">
+                                <a href="#">
+                                    <h4>User Details</h4>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
+                            <div class="btn-group">
+                                <div class="buttonexport">
+                                    <a href="{% url 'users:hr:train_add' %}" class="btn btn-add"><i
+                                            class="fa fa-plus"></i> Add Training</a>
+
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-exp" data-toggle="modal" data-target="#addusercsv"><i
+                                            class="fa fa-bars"></i>Import Table Data</a>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                    <tr class="info">
+                                        <th>Trainee</th>
+                                        <th>Trainer</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for training in object_list %}
+                                        <tr>
+                                            <td>{{ training.trainee }} </td>
+                                            <td>{{ training.trainer }}</td>
+                                            <td>{{ training.start_date }}</td>
+                                            <td>{{ training.end_date }}</td>
+                                            <td>{{ training.description }}</td>
+                                            <td>
+                                                <a type="button" class="btn btn-add btn-sm" data-toggle="modal"
+                                                   data-target="#update"><i class="fa fa-user-o"></i></a>
+                                                <a href="{% url 'users:hr:train_update' training.id %}"
+                                                   class="btn btn-add btn-sm"><i class="fa fa-pencil"></i></a>
+                                                <a type="button" class="btn btn-danger btn-sm"><i
+                                                        class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <td>Nothing to show</td>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </section>
+        <!-- /.content -->
+        <div class="row" style="margin:20px;">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-bd lobidisable">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>Trainings in this year</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="singelBarChart" height="310"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="{% static 'assets/plugins/chartJs/Chart.min.js' %}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            function chartlist() {
+                "use strict"; // Start of use strict
+                //doughut chart
+                var ctx = document.getElementById("singelBarChart");
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: {{cv0|safe}},
+                        datasets: [
+                            {
+                                label: "My First dataset",
+                                data: {{cv1|safe}},
+                                borderColor: "#009688",
+                                borderWidth: "0",
+                                backgroundColor: "rgba(0, 150, 136, 0.76)"
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+
+            chartlist();
+        })
+        ;
+
+
+    </script>
+{% endblock %}
+
+
+
+
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#{% if object_list %}#}
+{#    {% for training in object_list %}#}
+{#        <a href="{% url 'users:hr:train_detail' training.id %}">{{ training }}</a>#}
+{#    {% endfor %}#}
+{#{% else %}#}
+{#    <div>#}
+{#        <span> Add an Album</span>&nbsp;#}
+{#    </div>#}
+{#{% endif %}#}
+{#</body>#}
+{#=======#}
+{#{% extends 'home/navbar.html' %}#}
+{#{% load widget_tweaks %}#}
+{##}
+{#{% block head %}#}
+{#{% endblock %}#}
+{##}
+{#{% block body %}#}
+{#    <a href="">Add a training</a>#}
+{#    <div class="content-wrapper">#}
+{#        <!-- Content Header (Page header) -->#}
+{#        <section class="content-header">#}
+{#            <div class="header-icon">#}
+{#                <i class="fa fa-dashboard"></i>#}
+{#            </div>#}
+{#            <div class="header-title">#}
+{#                <h1>Trainings</h1>#}
+{#                <small>Very detailed & featured admin.</small>#}
+{#            </div>#}
+{#        </section>#}
+{#        <!-- Main content -->#}
+{#        <section class="content">#}
+{#            <div class="row">#}
+{#                <div class="col-sm-12">#}
+{#                    <div class="panel panel-bd lobidrag">#}
+{#                        <div class="panel-heading">#}
+{#                            <div class="btn-group" id="buttonexport">#}
+{#                                <a href="#">#}
+{#                                    <h4>User Details</h4>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="panel-body">#}
+{#                            <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->#}
+{#                            <div class="btn-group">#}
+{#                                <div class="buttonexport">#}
+{#                                    <a href="{% url 'users:hr:train_add' %}" class="btn btn-add"><i#}
+{#                                            class="fa fa-plus"></i> Add Training</a>#}
+{##}
+{#                                </div>#}
+{#                                <div>#}
+{#                                    <a href="#" class="btn btn-exp" data-toggle="modal" data-target="#addusercsv"><i#}
+{#                                            class="fa fa-bars"></i>Import Table Data</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="table-responsive">#}
+{#                                <table id="dataTableExample1" class="table table-bordered table-striped table-hover">#}
+{#                                    <thead>#}
+{#                                    <tr class="info">#}
+{#                                        <th>Trainee</th>#}
+{#                                        <th>Trainer</th>#}
+{#                                        <th>Start Date</th>#}
+{#                                        <th>End Date</th>#}
+{#                                        <th>Description</th>#}
+{#                                        <th>Action</th>#}
+{#                                    </tr>#}
+{#                                    </thead>#}
+{#                                    <tbody>#}
+{#                                    {% for training in object_list %}#}
+{#                                        <tr>#}
+{#                                            <td>{{ training.trainee }} </td>#}
+{#                                            <td>{{ training.trainer }}</td>#}
+{#                                            <td>{{ training.start_date }}</td>#}
+{#                                            <td>{{ training.end_date }}</td>#}
+{#                                            <td>{{ training.description }}</td>#}
+{#                                            <td>#}
+{#                                                <a type="button" class="btn btn-add btn-sm" data-toggle="modal"#}
+{#                                                   data-target="#update"><i class="fa fa-user-o"></i></a>#}
+{#                                                <a href="{% url 'users:hr:train_update' training.id %}" class="btn btn-add btn-sm"><i class="fa fa-pencil"></i></a>#}
+{#                                                <a type="button" class="btn btn-danger btn-sm"><i#}
+{#                                                        class="fa fa-trash-o"></i></a>#}
+{#                                            </td>#}
+{#                                        </tr>#}
+{#                                    {% empty %}#}
+{#                                        <td>Nothing to show</td>#}
+{#                                    {% endfor %}#}
+{#                                    </tbody>#}
+{#                                </table>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <!-- /.modal -->#}
+{#        </section>#}
+{#        <!-- /.content -->#}
+{#    </div>#}
+{#    <!-- /.content-wrapper -->#}
+{#{% endblock %}#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#{% if object_list %}#}
+{#    {% for training in object_list %}#}
+{#        <a href="{% url 'users:hr:train_detail' training.id %}">{{ training }}</a>#}
+{#    {% endfor %}#}
+{#{% else %}#}
+{#    <div>#}
+{#        <span> Add an Album</span>&nbsp;#}
+{#    </div>#}
+{#{% endif %}#}
+{#</body>#}
+{#>>>>>>> 22986b0c624a63ecf011ca56a803c1a366725f6c#}
+{#</html>#}

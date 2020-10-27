@@ -1,0 +1,81 @@
+{% extends "home/navbar.html" %}
+{% load widget_tweaks %}
+{% block body %}
+
+         <!-- =============================================== -->
+         <!-- Content Wrapper. Contains page content -->
+         <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+               <div class="header-icon">
+                  <i class="fa fa-users"></i>
+               </div>
+               <div class="header-title">
+                  <h1>Product Description</h1>
+                  <small>Product Description</small>
+               </div>
+            </section>
+            <!-- Main content -->
+            <section class="content">
+               <div class="row">
+                  <!-- Form controls -->
+                  <div class="col-sm-12">
+                     <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                           <div class="btn-group" id="buttonlist">
+                              <a class="btn btn-add " href="{% url "sales:add_item" %}">
+                              <i class="fa fa-list"></i>  Product List </a>
+                           </div>
+                        </div>
+                        <div class="panel-body">
+                           <form class="col-sm-6" method="post">
+                               {% csrf_token %}
+                              <div class="form-group">
+                                 <label>Item Code</label>
+{#                                 <input type="text" class="form-control" placeholder="Enter First Name" required>#}
+                                  {% render_field purchase_form.itemcode class="form-control" %}
+                              </div>
+                              <div class="form-group">
+                                 <label>Item Name</label>
+{#                                 <input type="email" class="form-control" placeholder="Enter Email" required>#}
+                                  {% render_field purchase_form.itemname class="form-control"  %}
+                              </div>
+                              <div class="form-group">
+                                 <label>Quantity</label>
+{#                                 <input type="number" class="form-control" placeholder="Enter Mobile" required>#}
+                                  {% render_field purchase_form.quantity class="form-control"  %}
+                              </div>
+                              <div class="form-group">
+                                 <label>Price</label>
+{#                                 <input type="text" class="form-control" placeholder="Enter Bank details" required>#}
+                                  {% render_field purchase_form.price class="form-control"  %}
+                              </div>
+                               <div class="form-group">
+                                 <label>Discount</label>
+{#                                 <input type="text" class="form-control" placeholder="Enter Bank details" required>#}
+                                  {% render_field purchase_form.discount class="form-control"  %}
+                              </div>
+                               <div class="form-group">
+                                 <label>Description</label>
+{#                                 <input type="text" class="form-control" placeholder="Enter Bank details" required>#}
+                                  {% render_field purchase_form.description class="form-control" %}
+                                    <div class="reset-button">
+                                        <div class="form-group">
+                                 <label>Description</label>
+{#                                 <input type="text" class="form-control" placeholder="Enter Bank details" required>#}
+                                  {% render_field purchase_form.purchased_form class="form-control" %}
+{#                                    <div class="reset-button">#}
+{#                                <a href="{% url 'sales:update_product' products.itemcode %}" class="btn btn-success">Edit</a>#}
+{#                                <a href="{% url 'sales:remove_product' products.itemcode %}"#}
+{#                                   class="btn btn-warning">Delete</a>#}
+{#                            </div>#}
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <!-- /.content -->
+         </div>
+{% endblock %}

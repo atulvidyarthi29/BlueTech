@@ -1,0 +1,37 @@
+{% extends 'home/navbar.html' %}
+{% load widget_tweaks %}
+
+{% block body %}
+    <div class="content-wrapper">
+    <div class="table-responsive">
+                                <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                    <tr class="info">
+                                        <th>Location</th>
+                                        <th>Description</th>
+                                        <th>Organiser</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ meeting.location }}</td>
+                                            <td>{{ meeting.description }}</td>
+                                            <td>{{ meeting.organiser }}</td>
+                                            <td>{{ meeting.date }}</td>
+                                                <a href="#" class="btn btn-add btn-sm">
+                                                    <i class="fa fa-user-o"></i></a>
+                                                <a href="{% url 'users:hr:meet_update' meeting.id %}" class="btn btn-add btn-sm">
+                                                    <i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+    </div>
+{% endblock %}

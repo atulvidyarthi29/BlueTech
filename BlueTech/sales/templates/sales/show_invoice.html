@@ -1,0 +1,44 @@
+{% extends 'home/navbar.html' %}
+
+{% block body %}
+    <div class="panel-body">
+    <div class="content-wrapper" >
+        <table class="table table-bordered table-striped table-hover" style="width: 80%; margin: auto">
+            <tr>
+                <td><b>Invoice Number</b></td>
+                <td>{{ invoice.invoice_no }}</td>
+                <td><b>Name</b></td>
+                <td>{{ invoice.customer.company_name }}</td>
+                <td><b>Date</b></td>
+                <td>{{ invoice.date }}</td>
+            </tr>
+        </table>
+
+    <table class="table table-bordered table-striped table-hover" style="width: 80%; margin: auto">
+        <tr class="info">
+            <th>Product</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+        </tr>
+                {% for foo in products %}
+                    <tr>
+                        <td>{{ foo.product.itemname }}</td>
+                        <td>{{ foo.product.price }}</td>
+                    <td>{{ foo.quantity }}</td>
+                    <td>{{ foo.amount }}</td>
+                    </tr>
+                {% endfor %}
+        <tr>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+{#            <td colspan="2"></td>#}
+
+            <td colspan="3"> <b>Total Amount: </b>{{ invoice.total_amount }}</td>
+        </tr>
+
+    </table>
+    </div>
+    </div>
+{% endblock %}

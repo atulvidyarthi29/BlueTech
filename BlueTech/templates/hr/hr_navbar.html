@@ -1,0 +1,44 @@
+
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-edit"></i><span>Recruitment</span>
+        <span class="pull-right-container">
+                     <i class="fa fa-angle-left pull-right"></i>
+                     </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="{% url 'users:hr:depart' 'HR' %}">HR</a></li>
+        <li><a href="{% url 'users:hr:depart' 'SALES' %}">Sales</a></li>
+        <li><a href="{% url 'users:hr:depart' 'ACCOUNTS' %}">Accounts</a></li>
+    </ul>
+</li>
+
+<li class="treeview">
+    <a href="{% url 'users:hr:payroll' %}">
+        <i class="fa fa-shopping-basket"></i><span>payroll</span>
+        <span class="pull-right-container">
+                     <i class="fa fa-angle-left pull-right"></i>
+                     </span>
+    </a>
+</li>
+
+<li>
+    <a href="{% url 'users:hr:train' %}">
+        <i class="fa fa-clock-o"></i><span>Training</span>
+        <span class="pull-right-container">
+                     </span>
+    </a>
+</li>
+
+<li class="treeview">
+    <a href="{% url 'users:hr:meet' %}">
+        <i class="fa fa-book"></i><span>Meetings</span>
+        <span class="pull-right-container">
+                     <i class="fa fa-angle-left pull-right"></i>
+                     </span>
+    </a>
+{#    <ul class="treeview-menu">#}
+{#        <li><a href="rtask.html">Running Task</a></li>#}
+{#        <li><a href="atask.html">Archive Task</a></li>#}
+{#    </ul>#}
+</li>

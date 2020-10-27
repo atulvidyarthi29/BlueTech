@@ -1,0 +1,89 @@
+{% extends 'home/navbar.html' %}
+{% load widget_tweaks %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    {{ lines }}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="header-icon">
+                <i class="fa fa-dashboard"></i>
+            </div>
+            <div class="header-title">
+                <h1>Meetings</h1>
+                <small>Very detailed & featured admin.</small>
+            </div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="btn-group" id="buttonexport">
+                                <a href="#">
+                                    <h4>User Details</h4>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
+                            <div class="btn-group">
+                                <div class="buttonexport">
+                                    <a href="{% url 'users:hr:meet_add' %}" class="btn btn-add"><i
+                                            class="fa fa-plus"></i> Add Meeting</a>
+
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-exp" data-toggle="modal" data-target="#addusercsv"><i
+                                            class="fa fa-bars"></i>Import Table Data</a>
+                                </div>
+                            </div>
+                            <!-- ./Plugin content:powerpoint,txt,pdf,png,word,xl -->
+                            <div class="table-responsive">
+                                <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                    <tr class="info">
+                                        <th>Location</th>
+                                        <th>Description</th>
+                                        <th>Organiser</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for meeting in object_list %}
+                                        <tr>
+                                            <td><a href="{% url 'users:hr:meet_detail' meeting.id %}">{{ meeting.location }}</a> </td>
+                                            <td>{{ meeting.description }}</td>
+                                            <td>{{ meeting.organiser }}</td>
+                                            <td>{{ meeting.date }}</td>
+                                            <td>
+                                                <a href="#" class="btn btn-add btn-sm">
+                                                    <i class="fa fa-user-o"></i></a>
+                                                <a href="{% url 'users:hr:meet_update' meeting.id %}" class="btn btn-add btn-sm">
+                                                    <i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <td>Nothing to show</td>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.modal -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}

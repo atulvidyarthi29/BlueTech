@@ -1,0 +1,39 @@
+{% extends 'home/navbar.html' %}
+{% load widget_tweaks %}
+
+{% block body %}
+    <div class="content-wrapper">
+    <div class="table-responsive">
+                                <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                    <tr class="info">
+                                        <th>Trainee</th>
+                                        <th>Trainer</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ training.trainee }}</td>
+                                            <td>{{ training.trainer }}</td>
+                                            <td>{{ training.start_date }}</td>
+                                            <td>{{ training.end_date }}</td>
+                                            <td>{{ training.description }}</td>
+                                                <a href="#" class="btn btn-add btn-sm">
+                                                    <i class="fa fa-user-o"></i></a>
+                                                <a href="{% url 'users:hr:train_update' training.id %}" class="btn btn-add btn-sm">
+                                                    <i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+    </div>
+{% endblock %}

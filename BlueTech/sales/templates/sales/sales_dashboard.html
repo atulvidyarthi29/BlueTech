@@ -1,0 +1,206 @@
+{% extends 'home/navbar.html' %}
+{% load static %}
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="header-icon">
+                <i class="fa fa-dashboard"></i>
+            </div>
+            <div class="header-title">
+                <h1>Sales Dashboard</h1>
+                <small>Very detailed & featured admin.</small>
+            </div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <a href="{% url 'sales:customer_list' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div id="cardbox1">
+                            <div class="statistic-box">
+                                <i class="fa fa-user-plus fa-3x"></i>
+                                <div class="counter-number pull-right">
+                                    <span class="count-number">{{ customer_val }}</span>
+                                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                              </span>
+                                </div>
+                                <h3> Customers</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'sales:add_item' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div id="cardbox2">
+                            <div class="statistic-box">
+                                <i class="fa fa-user-secret fa-3x"></i>
+                                <div class="counter-number pull-right">
+                                    <span class="count-number">{{ product_val }}</span>
+                                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                              </span>
+                                </div>
+                                <h3>Products</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url "sales:invoice_list" %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div id="cardbox3">
+                            <div class="statistic-box">
+                                <i class="fa fa-money fa-3x"></i>
+                                <div class="counter-number pull-right">
+                                    <i class="ti ti-money"></i><span class="count-number">965</span>
+                                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                              </span>
+                                </div>
+                                <h3> Invoice</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'sales:lead_list' %}">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div id="cardbox4">
+                            <div class="statistic-box">
+                                <i class="fa fa-user-plus fa-3x"></i>
+                                <div class="counter-number pull-right">
+                                    <span class="count-number">{{ lead_val }}</span>
+                                    <span class="slight"><i class="fa fa-play fa-rotate-270"> </i>
+                              </span>
+                                </div>
+                                <h3>Leads</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <!-- /.content -->
+
+
+        {#            <!-- bar chart -->#}
+        {#            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">#}
+        {#                <div class="panel panel-bd lobidisable">#}
+        {#                    <div class="panel-heading">#}
+        {#                        <div class="panel-title">#}
+        {#                            <h4>Weekly Earnings & Expenses</h4>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                    <div class="panel-body">#}
+        {#                        <canvas id="singelBarChart" height="323"></canvas>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        <div class="row">
+            <!-- Barchart -->
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="panel panel-bd lobidisable">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>This Year Total Sales</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="barChart" height="150"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- bar chart -->
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="panel panel-bd lobidisable">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>Weekly Sales</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="singelBarChart" height="323"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    </div>
+    <script src="{% static 'assets/plugins/chartJs/Chart.min.js' %}" type="text/javascript"></script>
+    <!-- /.content-wrapper -->
+    <script>
+        function dash() {
+            // single bar chart
+            var ctx = document.getElementById("singelBarChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{cv0|safe}},
+                    datasets: [
+                        {
+                            label: "Rupees",
+                            data: {{cv1|safe}},
+                            borderColor: "rgba(0, 150, 136, 0.8)",
+                            width: "1",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(0, 150, 136, 0.8)"
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+            //monthly calender
+            {#$('#m_calendar').monthly({#}
+            {#    mode: 'event',#}
+            {#    //jsonUrl: 'events.json',#}
+            {#    //dataType: 'json'#}
+            {#    xmlUrl: 'events.xml'#}
+            {#});#}
+
+            //bar chart
+            var ctx = document.getElementById("barChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{yc0|safe}},
+                    datasets: [
+                        {
+                            label: "Rupees",
+                            data: {{yc1|safe}},
+                            borderColor: "rgba(0, 150, 136, 0.8)",
+                            width: "1",
+                            borderWidth: "0",
+                            backgroundColor: "rgba(0, 150, 136, 0.8)"
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+            //counter
+            {#$('.count-number').counterUp({#}
+            {#    delay: 10,#}
+            {#    time: 5000#}
+            {#});#}
+        }
+
+        dash();
+    </script>
+{% endblock %}

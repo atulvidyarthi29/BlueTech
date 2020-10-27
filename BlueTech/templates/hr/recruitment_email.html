@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+Thank you very much for choosing us. This is to confirm that we have received the payment. As the final part, please take a few minutes to complete the profile.
+
+Please use this link to confirm your registration, http://{{ domain }}{% url 'users:add_user' uidb64=uid token=token %}
+{% endautoescape %}

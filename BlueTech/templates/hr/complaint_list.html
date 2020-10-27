@@ -1,0 +1,84 @@
+{% extends 'home/navbar.html' %}
+{% load widget_tweaks %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    {{ lines }}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="header-icon">
+                <i class="fa fa-dashboard"></i>
+            </div>
+            <div class="header-title">
+                <h1>Complaints</h1>
+                <small>Very detailed & featured admin.</small>
+            </div>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-bd lobidrag">
+                        <div class="panel-heading">
+                            <div class="btn-group" id="buttonexport">
+                                <a href="#">
+                                    <h4>User Details</h4>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
+                            <!-- ./Plugin content:powerpoint,txt,pdf,png,word,xl -->
+                            <div class="table-responsive">
+                                <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                    <tr class="info">
+                                        <th>Complained By</th>
+                                        <th>Complained Against</th>
+                                        <th>Description</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for comp in object_list %}
+                                        <tr>
+                                            <td>{{ comp.by.first_name }}&nbsp;{{ comp.by.last_name }} </td>
+                                            <td>{{ comp.against.first_name }}&nbsp;{{ comp.against.last_name }}</td>
+                                            <td>{{ comp.complain }}</td>
+                                            <td>{{ comp.date }}</td>
+                                            <td>
+                                                {% ifequal comp.status "Resolved" %}
+
+                                                    <button class="btn btn-success btn-sm">{{ comp.status }}</button>
+                                                {% else %}
+                                                    <button class="btn btn-danger btn-sm">{{ comp.status }}</button>
+                                                {% endifequal %}
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'users:hr:status' comp.id %}"
+                                                   class="btn btn-success btn-sm">
+                                                    <i class="fa fa-pencil-square-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <td>Nothing to show</td>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.modal -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}
