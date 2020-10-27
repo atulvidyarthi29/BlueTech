@@ -12,12 +12,16 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from datetime import timedelta
-import  datetime
+import datetime
+import django_heroku
+
+# django_heroku.settings(locals())
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'startupbluetech.pvt@gmail.com'
-EMAIL_HOST_PASSWORD = 'test@123test'
+EMAIL_HOST_PASSWORD = os.environ["PROJECT_KEY"]
 EMAIL_PORT = 587
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -34,7 +38,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,14 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'crispy_forms',
-    'HR',
-    'Sales',
-    'Users',
+    'hr',
+    'sales',
+    'users',
     'finance',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-
 ]
 
 MIDDLEWARE = [
@@ -65,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -144,9 +147,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
 STATIC_URL = '/static/'

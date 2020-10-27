@@ -95,7 +95,8 @@
                                         <!-- start Orders -->
                                         <a href="#" class="border-gray">
                                             <div class="pull-left">
-                                                <img src="{% static 'assets/dist/img/basketball-jersey.png' %}" class="img-thumbnail"
+                                                <img src="{% static 'assets/dist/img/basketball-jersey.png' %}"
+                                                     class="img-thumbnail"
                                                      alt="User Image">
                                             </div>
                                             <h4>polo shirt</h4>
@@ -106,7 +107,8 @@
                                     <li>
                                         <a href="#" class="border-gray">
                                             <div class="pull-left">
-                                                <img src="{% static 'assets/dist/img/shirt.png' %}" class="img-thumbnail"
+                                                <img src="{% static 'assets/dist/img/shirt.png' %}"
+                                                     class="img-thumbnail"
                                                      alt="User Image">
                                             </div>
                                             <h4>Kits</h4>
@@ -117,7 +119,8 @@
                                     <li>
                                         <a href="#" class="border-gray">
                                             <div class="pull-left">
-                                                <img src="{% static 'assets/dist/img/football.png' %}" class="img-thumbnail"
+                                                <img src="{% static 'assets/dist/img/football.png' %}"
+                                                     class="img-thumbnail"
                                                      alt="User Image">
                                             </div>
                                             <h4>Football</h4>
@@ -328,7 +331,8 @@
                     <!-- user -->
                     <li class="dropdown dropdown-user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{% static 'assets/dist/img/avatar5.png' %}" class="img-circle" width="45" height="45" alt="user"></a>
+                            <img src="{% static 'assets/dist/img/avatar5.png' %}" class="img-circle" width="45"
+                                 height="45" alt="user"></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="profile.html">
@@ -358,28 +362,28 @@
                     </a>
                 </li>
                 {% if department == 'CEO' %}
-{#                    <li>#}
-{#                        <a href="{% url 'users:departments' %}">#}
-{#                            <i class="fa fa-comment"></i> <span>Departments</span>#}
-{#                            <span class="pull-right-container">#}
-{#                     </span>#}
-{#                        </a>#}
-{#                    </li>#}
-                    {% include 'HR/hr_navbar.html' %}
-                    {% include 'Sales/sales_navbar.html' %}
-                    {% include 'Accounts/accounts_navbar.html' %}
+                    {#                    <li>#}
+                    {#                        <a href="{% url 'users:departments' %}">#}
+                    {#                            <i class="fa fa-comment"></i> <span>Departments</span>#}
+                    {#                            <span class="pull-right-container">#}
+                    {#                     </span>#}
+                    {#                        </a>#}
+                    {#                    </li>#}
+                    {% include 'hr/hr_navbar.html' %}
+                    {% include 'sales/sales_navbar.html' %}
+                    {% include 'accounts/accounts_navbar.html' %}
                 {% endif %}
 
-                {% if department == 'HR' %}
-                    {% include 'HR/hr_navbar.html' %}
+                {% if department == 'hr' %}
+                    {% include 'hr/hr_navbar.html' %}
                 {% endif %}
 
                 {% if department == 'SALES' %}
-                    {% include 'Sales/sales_navbar.html' %}
+                    {% include 'sales/sales_navbar.html' %}
                 {% endif %}
 
                 {% if department == 'ACCOUNTS' %}
-                    {% include 'Accounts/accounts_navbar.html' %}
+                    {% include 'accounts/accounts_navbar.html' %}
                 {% endif %}
 
                 <li class="treeview">
@@ -448,11 +452,11 @@
     {% endblock %}
     {% block income %}
     {% endblock %}
-   
+
 </div>
- <footer class="main-footer">
-        <strong>Copyright &copy; 2016-2017 <a href="#">Thememinister</a>.</strong> All rights reserved.
-    </footer>
+<footer class="main-footer">
+    <strong>Copyright &copy; 2016-2017 <a href="#">Thememinister</a>.</strong> All rights reserved.
+</footer>
 <!-- /.wrapper -->
 <!-- Start Core Plugins
    =====================================================================-->

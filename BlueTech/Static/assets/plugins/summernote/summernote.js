@@ -588,7 +588,7 @@
       return node && /^UL|^OL/.test(node.nodeName.toUpperCase());
     };
 
-    var isHr = makePredByNodeName('HR');
+    var isHr = makePredByNodeName('hr');
 
     var isCell = function (node) {
       return node && /^TD|^TH/.test(node.nodeName.toUpperCase());
@@ -4248,7 +4248,7 @@
      * insert horizontal rule
      */
     this.insertHorizontalRule = this.wrapCommand(function () {
-      var hrNode = this.createRange().insertNode(dom.create('HR'));
+      var hrNode = this.createRange().insertNode(dom.create('hr'));
       if (hrNode.nextSibling) {
         range.create(hrNode.nextSibling, 0).normalize().select();
       }

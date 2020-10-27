@@ -1,7 +1,7 @@
 import datetime
 
 from django.db import models
-from Users.models import Employee
+from users.models import Employee
 
 status = (
     ("Active", "Active"),

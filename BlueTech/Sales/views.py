@@ -5,16 +5,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from rest_framework.utils import json
 
-from Sales.forms import ProductForm, CustomerForm, PurchaseForm, LeadForm, InvoiceForm, ProductBoughtForm
-# from Sales.utils import render_to_pdf
+from sales.forms import ProductForm, CustomerForm, PurchaseForm, LeadForm, InvoiceForm, ProductBoughtForm
+# from sales.utils import render_to_pdf
 from .models import Product, Customer, Lead, Invoice
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status, generics
 from .models import *
-import  json
+import json
 import requests
+
 
 # Create your views here.
 def add_item(request):
@@ -28,7 +29,7 @@ def add_item(request):
         return HttpResponse("Error")
     else:
         product_form = ProductForm()
-    return render(request, 'Sales/items.html', {"product_form": product_form, "products": products})
+    return render(request, 'sales/items.html', {"product_form": product_form, "products": products})
 
 
 def remove_product(request, pk):
@@ -47,13 +48,13 @@ def update_product(request, pk):
         else:
             pass
             # print(product_form.errors)
-    return render(request, 'Sales/update_product.html', {"product": product_form})
+    return render(request, 'sales/update_product.html', {"product": product_form})
 
 
 def detail_product(request, pk):
     product = Product.objects.get(itemcode=pk)
     product_form = ProductForm(request.POST or None, instance=product)
-    return render(request, 'Sales/product_detail.html', {"product": product_form, "products": product})
+    return render(request, 'sales/product_detail.html', {"product": product_form, "products": product})
 
 
 def add_customer(request):
@@ -69,7 +70,7 @@ def add_customer(request):
             # return HttpResponse("Error")
     else:
         customer_form = CustomerForm()
-    return render(request, "Sales/addcustomer.html", {"customer_form": customer_form})
+    return render(request, "sales/addcustomer.html", {"customer_form": customer_form})
 
 
 def update_customer(request, pk):
@@ -85,13 +86,13 @@ def update_customer(request, pk):
             pass
             # print(customer_form.errors)
 
-    return render(request, 'Sales/update_customer.html', {"customer": customer_form})
+    return render(request, 'sales/update_customer.html', {"customer": customer_form})
 
 
 def customer_list(request):
     customers = Customer.objects.all()
 
-    return render(request, "Sales/clist.html", {"customers": customers})
+    return render(request, "sales/clist.html", {"customers": customers})
 
 
 def remove_customer(request, pk):
@@ -103,13 +104,13 @@ def remove_customer(request, pk):
 # class GeneratePdf(View):
 #     def get(self, request, *args, **kwargs):
 #         customers = Customer.objects.all()
-#         pdf = render_to_pdf('Sales/clist.html', {"customers":customers})
+#         pdf = render_to_pdf('sales/clist.html', {"customers":customers})
 #         return HttpResponse(pdf, content_type='application/pdf')
 
 def customer_detail(request, pk):
     customer = Customer.objects.get(id=pk)
     customer_form = CustomerForm(request.POST or None, instance=customer)
-    return render(request, 'Sales/customer_detail.html', {"customer_form": customer_form, "customer": customer})
+    return render(request, 'sales/customer_detail.html', {"customer_form": customer_form, "customer": customer})
 
 
 # def purchase_item(request):
@@ -133,14 +134,14 @@ def sales_dashboard(request):
     yc1 = json.dumps(yc[1])
     cv1 = json.dumps(cv[1])
     cv0 = json.dumps(cv[0])
-    return render(request, 'Sales/sales_dashboard.html',
+    return render(request, 'sales/sales_dashboard.html',
                   {'department': department, 'customer_val': customer_val, 'product_val': product_val,
                    'lead_val': lead_val, 'cv0': cv0, 'cv1': cv1, 'yc0': yc0, 'yc1': yc1})
 
 
 def lead_list(request):
     leads = Lead.objects.all()
-    return render(request, "Sales/Llist.html", {"leads": leads})
+    return render(request, "sales/Llist.html", {"leads": leads})
 
 
 def add_lead(request):
@@ -155,7 +156,7 @@ def add_lead(request):
             # return HttpResponse("Error")
     else:
         lead_form = LeadForm()
-    return render(request, "Sales/addlead.html", {"lead_form": lead_form})
+    return render(request, "sales/addlead.html", {"lead_form": lead_form})
 
 
 def update_lead(request, pk):
@@ -170,7 +171,7 @@ def update_lead(request, pk):
         else:
             pass
             # print(lead_form.errors)
-    return render(request, 'Sales/update_lead.html', {"lead_form": lead_form})
+    return render(request, 'sales/update_lead.html', {"lead_form": lead_form})
 
 
 def remove_lead(request, pk):
@@ -259,7 +260,7 @@ def add_invoice_product(request):
             "date": invoice.date,
             "invoice": invoice
         }
-        return render(request, "Sales/add_invoice_product.html", context)
+        return render(request, "sales/add_invoice_product.html", context)
 
 
 def add_invoice(request):
@@ -274,7 +275,7 @@ def add_invoice(request):
             return HttpResponse("Error")
     else:
         invoice_form = InvoiceForm()
-        return render(request, "Sales/add_invoice.html", {"invoice_form": invoice_form})
+        return render(request, "sales/add_invoice.html", {"invoice_form": invoice_form})
 
 
 def autocompleteModel(request):
@@ -335,7 +336,6 @@ def yearly_chart():
     return ycvxy
 
 
-
 # week_chart()
 
 class WeekGraph(APIView):
@@ -344,10 +344,12 @@ class WeekGraph(APIView):
         leads = week_chart()
         return JsonResponse(leads, safe=False)
 
+
 class YearGraph(APIView):
     def get(self, request):
         leads = yearly_chart()
         return JsonResponse(leads, safe=False)
+
 
 # class get_email_pass(generics.ListCreateAPIView):
 #     queryset = userlogin.objects.all()
@@ -428,18 +430,18 @@ class YearGraph(APIView):
 class ProfileUser(APIView):
     queryset = Employee.objects.all()
     serializer_class = userdataSerializer
-    def get(self,request):
-        username=self.request.user
-        user_instance=User.objects.get(username=username)
-        #print(user_instance.email)
-        list1=[]
+
+    def get(self, request):
+        username = self.request.user
+        user_instance = User.objects.get(username=username)
+        # print(user_instance.email)
+        list1 = []
         list1.append(user_instance.email)
-        a=Employee.objects.filter(user=user_instance)
+        a = Employee.objects.filter(user=user_instance)
         for i in a:
             list1.append(i.first_name)
             list1.append(i.last_name)
             list1.append(i.position)
-        #print(list1)
+        # print(list1)
 
-        return JsonResponse(list1,safe=False)
-
+        return JsonResponse(list1, safe=False)

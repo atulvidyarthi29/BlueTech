@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 from .models import Employee, EmailDepartment, License
 
 
@@ -22,7 +23,6 @@ YEARS = [x for x in range(1940, 2021)]
 class ProfileEditForm(forms.ModelForm):
     date = forms.DateField(widget=forms.SelectDateWidget(years=YEARS))
     date_of_joining = forms.DateField(widget=forms.SelectDateWidget(years=YEARS))
-    # dept = forms.ChoiceField(widget=forms.RadioSelect(attrs={'disabled': 'disabled'}))
     phone_no = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
 
     class Meta:
@@ -39,3 +39,9 @@ class UsersTemp(forms.ModelForm):
 
 class EmailForm(forms.Form):
     email = forms.EmailField(max_length=70)
+
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = License
+        fields = ['company_name', 'email', 'phone_no']

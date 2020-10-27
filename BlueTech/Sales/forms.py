@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from Sales.models import Product, Customer, Purchase, Lead, ProductBought, Invoice
+from sales.models import Product, Customer, Purchase, Lead, ProductBought, Invoice
 
 customer_type = (
     ('Vendor','Vendor'),

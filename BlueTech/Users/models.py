@@ -1,11 +1,16 @@
-from django.db import models
+import uuid
+
 from django.contrib.auth.models import User
+from django.db import models
 
 User._meta.get_field('email')._unique = True
 
 
 class License(models.Model):
-    licence = models.CharField(max_length=40)
+    company_name = models.CharField(max_length=100)
+    email = models.CharField(max_length=70)
+    phone_no = models.CharField(max_length=10)
+    licence = models.UUIDField(default=uuid.uuid4, editable=False)
     validated = models.BooleanField()
 
 
@@ -29,8 +34,8 @@ class Employee(models.Model):
         "Employee", null=True, on_delete=models.CASCADE)
     is_verified = models.BooleanField()
     is_complete = models.BooleanField()
-    cv = models.FileField(upload_to='Media/cv')
-    profile_pic = models.ImageField(upload_to='Media/profile_pics')
+    cv = models.FileField(upload_to='media/cv')
+    profile_pic = models.ImageField(upload_to='media/profile_pics')
 
     def __str__(self):
         return self.user.username

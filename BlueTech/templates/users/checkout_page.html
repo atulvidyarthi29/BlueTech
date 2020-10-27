@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body %}
+    <div style="background: #333333;">
+        <div class="container" style="padding: 10%;">
+            <h1 style="color: #DEEF6D;font-weight: bold;text-align: center;">Thank You for choosing BlueTech</h1><br>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="company_name" style="color: #DEEF6D;font-weight: bold;">Company Name</label>
+                    {% render_field payment_form.company_name class="form-control" id="company_name" placeholder="Enter email" %}
+                </div>
+                <div class="form-group">
+                    <label for="email" style="color: #DEEF6D;font-weight: bold;">Email Address</label>
+                    {% render_field payment_form.email class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" %}
+                </div>
+                <div class="form-group">
+                    <label for="phone_no" style="color: #DEEF6D;font-weight: bold;">Phone No</label>
+                    {% render_field payment_form.phone_no class="form-control" id="phone_no" placeholder="Phone No." %}
+                </div>
+                <p style="text-align: center">
+                    <button type="submit" class="btn btn-primary" style="border: 2px solid blue;"><img
+                            src="{% static 'assets/images/paytm.png' %}"
+                            style="width: 8%;">&nbsp;&nbsp;Proceed
+                        To Pay
+                    </button>
+                </p>
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+

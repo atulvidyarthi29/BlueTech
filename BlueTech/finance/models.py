@@ -1,5 +1,5 @@
 from django.db import models
-from Sales.models import Purchase, Product, Sale
+from sales.models import Purchase, Product, Sale
 import datetime
 
 

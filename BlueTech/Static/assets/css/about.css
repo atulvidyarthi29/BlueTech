@@ -105,7 +105,7 @@ body{
 
 /* About description end */
 
-/**********   Media Queries Start  *******/
+/**********   media Queries Start  *******/
 
 @media (max-width: 1024px) {
     .iframe-container iframe {
@@ -268,5 +268,5 @@ body{
 
 }
 
-/**********   Media Queries End  *******/
+/**********   media Queries End  *******/
 

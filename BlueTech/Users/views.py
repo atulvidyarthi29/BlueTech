@@ -1,58 +1,84 @@
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate
 from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.views.decorators.csrf import csrf_exempt
+
+from . import paytm_checksum
+from . import payment_config
 from .content import team_content, index_content
-from .models import User
-from .token import account_activation_token
-from .forms import UserRegistrationForm, ProductKeyForm, ProfileEditForm, EmailForm
+from .forms import UserRegistrationForm, ProductKeyForm, ProfileEditForm, PaymentForm
 from .models import License, Employee
-from django.contrib.auth.decorators import login_required
-import uuid
+from .models import User
 
 
-def boot_start(request):
-    if request.method == 'GET':
-        print('Oh No')
-        get_response = [request.GET.get('payment_id'), request.GET.get('status')]
-        print(get_response)
-        if len(get_response) == 2 and get_response[1] == 'success':
-            un = uuid.uuid4()
-            License.objects.create(licence=un, validated=False)
-            email_form = EmailForm()
-            return render(request, 'users/ceo_email_info.html', context={'email_form': email_form, 'un': str(un)})
-        else:
-            return render(request, 'home/404.html')
-    else:
-        return HttpResponse("Something went wrong!")
-
-
-def send_ceo_method(request, un):
+def buy_erp(request):
     if request.method == 'POST':
-        email_form = EmailForm(request.POST)
-        if email_form.is_valid():
-            to_email = email_form.cleaned_data['email']
-            tup = str(to_email) + ' ' + 'CEO' + ' ' + str(un)
-            current_site = get_current_site(request)
-            mail_subject = 'Join using this link!'
-            message = render_to_string('hr/recruitment_email.html', {
-                'unique_code': un,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(tup)),
-                'token': str(tup),
-            })
-            email = EmailMessage(
-                mail_subject, message, to=[to_email]
-            )
-            email.send()
+        payment_form = PaymentForm(request.POST)
+        if payment_form.is_valid():
+            payment_form = payment_form.save(commit=False)
+            payment_form.validated = False
+            payment_form.save()
+            absolute_url = request.build_absolute_uri()[0:-1]
+            CALLBACK_URL = absolute_url[0:absolute_url.rindex('/')] + '/handle_request/'
+            print(CALLBACK_URL)
+            param_dict = {
+                'MID': payment_config.MID,
+                'ORDER_ID': str(payment_form.licence),
+                'TXN_AMOUNT': payment_config.TXN_AMOUNT,
+                'CUST_ID': payment_form.email,
+                'INDUSTRY_TYPE_ID': payment_config.INDUSTRY_TYPE_ID,
+                'WEBSITE': payment_config.WEBSITE,
+                'CHANNEL_ID': payment_config.CHANNEL_ID,
+                'CALLBACK_URL': CALLBACK_URL,
+            }
+            print(param_dict)
+            param_dict['CHECKSUMHASH'] = paytm_checksum.generateSignature(param_dict, payment_config.MERCHANT_KEY)
+
+            return render(request, 'users/payment_processing.html', {'param_dict': param_dict})
+    payment_form = PaymentForm()
+    return render(request, "users/checkout_page.html", {'payment_form': payment_form})
+
+
+@csrf_exempt
+def handle_request(request):
+    form = request.POST
+    response = {}
+    for key in form.keys():
+        response[key] = form[key]
+    check = response['CHECKSUMHASH']
+    verify = paytm_checksum.verifySignature(response, payment_config.MERCHANT_KEY, check)
+    print(response)
+    if verify:
+        if response['RESPCODE'] == '01':
+            license_object = License.objects.get(licence=response['ORDERID'])
+            send_email(request, license_object)
             return HttpResponse('Thank you for the payment. Please check your email for further instructions.')
-        redirect(request.META.get('HTTP_REFERER'))
+        else:
+            return HttpResponse("Something went wrong.")
     else:
-        redirect(request.META.get('HTTP_REFERER'))
+        return HttpResponse("Checksum Verification failed")
+
+
+def send_email(request, license_object):
+    tup = str(license_object.email) + ' ' + 'CEO' + ' ' + str(license_object.licence)
+    current_site = get_current_site(request)
+    mail_subject = 'Join using this link!'
+    message = render_to_string('hr/recruitment_email.html', {
+        'unique_code': license_object.licence,
+        'domain': current_site.domain,
+        'uid': urlsafe_base64_encode(force_bytes(tup)),
+        'token': str(tup),
+    })
+    email = EmailMessage(
+        mail_subject, message, to=[license_object.email]
+    )
+    email.send()
 
 
 def home(request):
@@ -109,59 +135,6 @@ def disclaimer(request):
     except:
         validated = False
     return render(request, 'home/disclaimer.html', context={'validated': validated, })
-
-
-#
-# def register(request):
-#     if request.method == 'POST':
-#         user_form = UserRegistrationForm(request.POST)
-#         key_form = ProductKeyForm(request.POST)
-#         if key_form.is_valid() and user_form.is_valid():
-#             pd_key = key_form.cleaned_data['product_key']
-#             lic_obj = License.objects.first()
-#             if lic_obj.licence == pd_key:
-#                 lic_obj.validated = True
-#                 lic_obj.save()
-#                 user_form2 = user_form.save(commit=False)
-#                 user_form2.is_active = False
-#                 user_form2.save()
-#                 current_site = get_current_site(request)
-#                 mail_subject = 'Please, verify your Email!'
-#                 message = render_to_string('users/activate_email.html', {
-#                     'user': user_form2,
-#                     'domain': current_site.domain,
-#                     'uid': urlsafe_base64_encode(force_bytes(user_form2.pk)).decode(),
-#                     'token': account_activation_token.make_token(user_form2),
-#                 })
-#                 to_email = user_form.cleaned_data.get('email')
-#                 email = EmailMessage(
-#                     mail_subject, message, to=[to_email]
-#                 )
-#                 email.send()
-#                 return HttpResponse('Please confirm your email address to complete the registration')
-#             return render(request, 'users/register.html',
-#                           {'user_form': user_form, 'key_form': key_form, 'errors': "Unauthorized"})
-#     else:
-#         user_form = UserRegistrationForm()
-#         key_form = ProductKeyForm()
-#     return render(request, 'users/register.html', {'user_form': user_form, 'key_form': key_form})
-#
-#
-# def activate(request, uidb64, token):
-#     try:
-#         print(uidb64)
-#         uid = force_text(urlsafe_base64_decode(uidb64).decode())
-#         print(uid)
-#         user = User.objects.get(pk=uid)
-#     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-#         user = None
-#     if user is not None and account_activation_token.check_token(user, token):
-#         user.is_active = True
-#         user.save()
-#         login(request, user)
-#         return redirect('users:post_login', 'CEO')
-#     else:
-#         return HttpResponse('Activation link is invalid!')
 
 
 def add_user(request, uidb64, token):
@@ -237,8 +210,9 @@ def profile(request, dept):
             form_object.save()
             return redirect('users:dashboard')
         print(profile_edit_form.errors)
-        return render(request, 'users/profile.html', {'profile_edit_form': profile_edit_form, 'user_form': user_form,
-                                                      'errors': profile_edit_form.errors, 'deptat': dept, })
+        return render(request, 'users/profile.html',
+                      {'profile_edit_form': profile_edit_form, 'user_form': user_form,
+                       'errors': profile_edit_form.errors, 'deptat': dept, })
 
     else:
         profile_edit_form = ProfileEditForm()
@@ -271,6 +245,7 @@ def ceo_dashboard(request):
                   context={'department': department, 'user': request.user})
 
 
+@login_required
 def update_profile(request, pk):
     employee = get_object_or_404(Employee, id=pk)
     profile_update_form = ProfileEditForm(request.POST, request.FILES, instance=employee)
@@ -285,3 +260,93 @@ def update_profile(request, pk):
         'user': request.user,
     }
     return render(request, 'users/profile_update.html', context)
+
+# def boot_start(request):
+#     if request.method == 'GET':
+#         get_response = [request.GET.get('payment_id'), request.GET.get('status')]
+#         print(get_response)
+#         if len(get_response) == 2 and get_response[1] == 'success':
+#             un = uuid.uuid4()
+#             License.objects.create(licence=un, validated=False)
+#             email_form = EmailForm()
+#             return render(request, 'users/ceo_email_info.html', context={'email_form': email_form, 'un': str(un)})
+#         else:
+#             return render(request, 'home/404.html')
+#     else:
+#         return HttpResponse("Something went wrong!")
+#
+#
+# def send_ceo_method(request, un):
+#     if request.method == 'POST':
+#         email_form = EmailForm(request.POST)
+#         if email_form.is_valid():
+#             to_email = email_form.cleaned_data['email']
+#             tup = str(to_email) + ' ' + 'CEO' + ' ' + str(un)
+#             current_site = get_current_site(request)
+#             mail_subject = 'Join using this link!'
+#             message = render_to_string('hr/recruitment_email.html', {
+#                 'unique_code': un,
+#                 'domain': current_site.domain,
+#                 'uid': urlsafe_base64_encode(force_bytes(tup)),
+#                 'token': str(tup),
+#             })
+#             email = EmailMessage(
+#                 mail_subject, message, to=[to_email]
+#             )
+#             email.send()
+#             return HttpResponse('Thank you for the payment. Please check your email for further instructions.')
+#         redirect(request.META.get('HTTP_REFERER'))
+#     else:
+#         redirect(request.META.get('HTTP_REFERER'))
+
+
+# def register(request):
+#     if request.method == 'POST':
+#         user_form = UserRegistrationForm(request.POST)
+#         key_form = ProductKeyForm(request.POST)
+#         if key_form.is_valid() and user_form.is_valid():
+#             pd_key = key_form.cleaned_data['product_key']
+#             lic_obj = License.objects.first()
+#             if lic_obj.licence == pd_key:
+#                 lic_obj.validated = True
+#                 lic_obj.save()
+#                 user_form2 = user_form.save(commit=False)
+#                 user_form2.is_active = False
+#                 user_form2.save()
+#                 current_site = get_current_site(request)
+#                 mail_subject = 'Please, verify your Email!'
+#                 message = render_to_string('users/activate_email.html', {
+#                     'user': user_form2,
+#                     'domain': current_site.domain,
+#                     'uid': urlsafe_base64_encode(force_bytes(user_form2.pk)).decode(),
+#                     'token': account_activation_token.make_token(user_form2),
+#                 })
+#                 to_email = user_form.cleaned_data.get('email')
+#                 email = EmailMessage(
+#                     mail_subject, message, to=[to_email]
+#                 )
+#                 email.send()
+#                 return HttpResponse('Please confirm your email address to complete the registration')
+#             return render(request, 'users/register.html',
+#                           {'user_form': user_form, 'key_form': key_form, 'errors': "Unauthorized"})
+#     else:
+#         user_form = UserRegistrationForm()
+#         key_form = ProductKeyForm()
+#     return render(request, 'users/register.html', {'user_form': user_form, 'key_form': key_form})
+#
+#
+# def activate(request, uidb64, token):
+#     try:
+#         print(uidb64)
+#         uid = force_text(urlsafe_base64_decode(uidb64).decode())
+#         print(uid)
+#         user = User.objects.get(pk=uid)
+#     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+#         user = None
+#     if user is not None and account_activation_token.check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         login(request, user)
+#         return redirect('users:post_login', 'CEO')
+#     else:
+#         return HttpResponse('Activation link is invalid!')

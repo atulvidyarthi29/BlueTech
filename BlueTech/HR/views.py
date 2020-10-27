@@ -12,17 +12,15 @@ from django.views.generic import UpdateView, CreateView, DeleteView
 from django.urls import reverse
 
 from django.db.models import Count
-from rest_framework import generics
 
 from rest_framework.views import APIView
-from HR.forms import EmailsForm, PayrollForm
-from HR.models import Meeting, Training
-from HR.tokens import recruitment_token
-from Users.forms import UsersTemp
-from Users.models import Employee
+from hr.forms import EmailsForm, PayrollForm
+from hr.tokens import recruitment_token
+from users.forms import UsersTemp
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
+
 
 @login_required
 def depart(request, dept_name):
@@ -75,12 +73,9 @@ def depart(request, dept_name):
     department = request.user.employee.dept
     members = Employee.objects.filter(dept=dept_name)
     members_list = [len(Employee.objects.filter(dept='SALES')), len(Employee.objects.filter(dept='ACCOUNTS')),
-                    len(Employee.objects.filter(dept='HR'))]
+                    len(Employee.objects.filter(dept='hr'))]
     print(members_list)
     today = datetime.datetime.now()
-    # queryset = Training.objects.values('start_date').filter(start_date__year=today.year).order_by(
-    #     'start_date__year').annotate(
-    #     cout=Count('id'))
     date_recruit = Employee.objects.values('date').filter(date__year=today.year).order_by(
         'date__year').annotate(
         dcount=Count('id'))[:20]
@@ -98,7 +93,7 @@ def depart(request, dept_name):
         date.append(q['date'].month)
         net_amount.append(q['dcount'])
 
-    return render(request, 'HR/past_recruitment.html',
+    return render(request, 'hr/past_recruitment.html',
                   context={'department': department,
                            'user': request.user.employee, 'members': members,
                            'users_temp': users_temp,
@@ -115,22 +110,18 @@ def depart(request, dept_name):
 @login_required
 def hr_dashboard(request):
     department = request.user.employee.dept
-    return render(request, 'HR/dashboard.html',
+    return render(request, 'hr/dashboard.html',
                   context={'department': department, 'user': request.user, })
-
 
 
 @login_required
 def recruit(request):
     department = request.user.employee.dept
     members_list = [len(Employee.objects.filter(dept='SALES')), len(Employee.objects.filter(dept='ACCOUNTS')),
-                    len(Employee.objects.filter(dept='HR'))]
+                    len(Employee.objects.filter(dept='hr'))]
     print(members_list)
-    return render(request, 'HR/recruitment.html',
+    return render(request, 'hr/recruitment.html',
                   context={'department': department, 'user': request.user.employee, 'members_list': members_list})
-
-
-
 
 
 @login_required
@@ -145,19 +136,19 @@ def payroll(request):
         payroll_form = PayrollForm()
 
     salary = Salary.objects.all()
-    return render(request, 'HR/payroll.html',
+    return render(request, 'hr/payroll.html',
                   context={'department': department, 'payroll_form': payroll_form, 'payroll': salary})
 
 
 @login_required
 def job_applications(request):
     department = request.user.employee.dept
-    return render(request, 'HR/job_applications.html',
+    return render(request, 'hr/job_applications.html',
                   context={'department': department, 'user': request.user.employee, })
 
 
 class MeetingView(generic.ListView):
-    template = 'HR/meeting_list.html'
+    template = 'hr/meeting_list.html'
 
     def get_queryset(self):
         return Meeting.objects.all()
@@ -170,7 +161,7 @@ class MeetingView(generic.ListView):
 
 class MeetingDetailView(generic.DetailView):
     model = Meeting
-    template = 'HR/meeting_detail.html'
+    template = 'hr/meeting_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -214,7 +205,7 @@ class MeetingUpdateView(UpdateView):
 
 
 class TrainingView(generic.ListView):
-    template = 'HR/training_list.html'
+    template = 'hr/training_list.html'
 
     def get_queryset(self):
         return Training.objects.all()
@@ -251,7 +242,7 @@ class TrainingView(generic.ListView):
 
 class TrainingDetailView(generic.DetailView):
     model = Training
-    template = 'HR/training_detail.html'
+    template = 'hr/training_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -284,6 +275,7 @@ class TrainingUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('users:hr:train')
 
+
 class ComplaintCreateView(CreateView):
     model = Complaint
     fields = ['by', 'against', 'complain']
@@ -297,7 +289,7 @@ class ComplaintCreateView(CreateView):
 
 
 class ComplaintListView(generic.ListView):
-    template = 'HR/complaints_list.html'
+    template = 'hr/complaints_list.html'
 
     def get_queryset(self):
         return Complaint.objects.all().order_by('status', '-date')
@@ -310,7 +302,7 @@ class ComplaintListView(generic.ListView):
 
 class ComplaintDetailView(generic.DetailView):
     model = Complaint
-    template = 'HR/complaints_detail.html'
+    template = 'hr/complaints_detail.html'
 
 
 class ComplaintUpdateView(UpdateView):
@@ -332,6 +324,7 @@ class MeetingList(APIView):
             return Response(True)
         return Response(False)
 
+
 class meeting_list_post(generics.ListCreateAPIView):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
@@ -346,13 +339,13 @@ class complaint_list_post(generics.ListCreateAPIView):
     queryset = Complaint.objects.all()
     serializer_class = ComplaintSerializer
 
+
 def status(request, pk):
     a = get_object_or_404(Complaint, id=pk)
     if a.status == 'Pending':
         a.status = 'Resolved'
     a.save()
     return redirect(request.META.get('HTTP_REFERER'))
-
 
 
 class meeting_list(generics.RetrieveUpdateDestroyAPIView):
@@ -365,9 +358,11 @@ class meeting_list_post(generics.ListCreateAPIView):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
 
+
 class training_list_post(generics.ListCreateAPIView):
     queryset = Training.objects.all()
     serializer_class = TrainingSerializer
+
 
 class complaint_list_post(generics.ListCreateAPIView):
     queryset = Complaint.objects.all()

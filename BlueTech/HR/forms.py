@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from HR.models import EmailFiles, Salary
+from hr.models import EmailFiles, Salary
 
 
 class EmailsForm(ModelForm):
