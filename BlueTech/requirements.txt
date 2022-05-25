@@ -21,7 +21,7 @@ paytmchecksum==1.7.0
 Pillow==6.2.1
 psycopg2==2.8.6
 pycryptodome==3.9.8
-PyJWT==1.7.1
+PyJWT==2.4.0
 pytz==2019.3
 requests==2.24.0
 sqlparse==0.3.0
